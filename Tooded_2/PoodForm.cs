@@ -265,7 +265,6 @@ namespace Tooded_2
 
             try
             {
-                // Kontrollime laoseisu enne muutmist
                 foreach (var (toode, kogus) in _ostukorv)
                 {
                     var db = _db.Toodetabel.Find(toode.Id);
@@ -276,13 +275,24 @@ namespace Tooded_2
                     }
                 }
 
-                // Vähendame laoseisu
+                DateTime aeg = DateTime.Now;
                 foreach (var (toode, kogus) in _ostukorv)
+                {
                     _db.Toodetabel.Find(toode.Id)!.Kogus -= kogus;
+
+                    _db.Muugitabel.Add(new Muuk
+                    {
+                        Aeg = aeg,
+                        ToodeId = toode.Id,
+                        Toodenimetus = toode.Toodenimetus,
+                        Kogus = kogus,
+                        Hind = (decimal)toode.Hind,
+                        Summa = (decimal)toode.Hind * kogus
+                    });
+                }
 
                 _db.SaveChanges();
 
-                // Uuendame ka kohalikku nimekirja
                 foreach (var (toode, kogus) in _ostukorv)
                     toode.Kogus -= kogus;
             }
@@ -304,14 +314,18 @@ namespace Tooded_2
         private const string SaatjaParool = "txse crlz zdut bicm";
 
         // "Saada arve": loob PDF-i, küsib e-maili, saadab arve ja alustab uut ostu
+        // "Saada arve": küsib e-maili, loob PDF-i, saadab arve ja alustab uut ostu
         private void SaadaArveBtn_Click(object? sender, EventArgs e)
         {
             if (_etapp != 2) return;
 
+            string email = Microsoft.VisualBasic.Interaction.InputBox(
+                "Sisesta saaja e-mail", "Saada arve", "nimi@example.com").Trim();
+
             string pdfTee;
             try
             {
-                pdfTee = LooPdf();
+                pdfTee = LooPdf(email);
             }
             catch (Exception ex)
             {
@@ -319,78 +333,122 @@ namespace Tooded_2
                 return;
             }
 
-            // Küsime saaja e-maili
-            string email = Microsoft.VisualBasic.Interaction.InputBox(
-                "Sisesta saaja e-mail", "Saada arve", "nimi@example.com");
-
             if (string.IsNullOrWhiteSpace(email))
-            {
-                // E-maili ei sisestatud: PDF jääb siiski salvestatud
                 MessageBox.Show($"PDF on salvestatud:\n{pdfTee}");
-            }
-            else if (SaadaEmail(email.Trim(), pdfTee))
-            {
+            else if (SaadaEmail(email, pdfTee))
                 MessageBox.Show("Arve saadetud!");
-            }
-
-            // Avame PDF-i vaatamiseks
-            Process.Start(new ProcessStartInfo(pdfTee) { UseShellExecute = true });
 
             UusOst();
         }
 
         // Loob arve PDF-faili kausta Dokumendid\Arved ja tagastab faili tee
-        private string LooPdf()
+        private string LooPdf(string klient)
         {
+            var et = new System.Globalization.CultureInfo("et-EE");
+            string Raha(decimal x) => x.ToString("0.00", et) + " €";
+
             string kaust = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Arved");
             Directory.CreateDirectory(kaust);
 
-            string fail = Path.Combine(kaust, $"Arve_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
+            DateTime aeg = DateTime.Now;
+            string arveNr = aeg.ToString("yyyyMMddHHmmss");
+            string fail = Path.Combine(kaust, $"Arve_{arveNr}.pdf");
+
+            decimal ilmaKm = Math.Round(_kokku / (1 + TsekiKoostaja.KmMaar / 100m), 2);
+            decimal km = _kokku - ilmaKm;
 
             var dokument = new PdfDocument();
             PdfPage leht = dokument.AddPage();
             XGraphics gfx = XGraphics.FromPdfPage(leht);
 
-            var pealkiriFont = new XFont("Arial", 20, XFontStyle.Bold);
-            var tekstFont = new XFont("Arial", 12);
-            var paksFont = new XFont("Arial", 12, XFontStyle.Bold);
+            var nimiFont = new XFont("Arial", 24, XFontStyle.Bold);
+            var tekstFont = new XFont("Arial", 11);
+            var paksFont = new XFont("Arial", 11, XFontStyle.Bold);
+            var vaikeFont = new XFont("Arial", 9);
 
-            // Pealkiri ja kuupäev
-            gfx.DrawString("Arve", pealkiriFont, XBrushes.Black,
-                new XRect(0, 20, leht.Width, 40), XStringFormats.TopCenter);
-            gfx.DrawString($"Kuupäev: {DateTime.Now:dd.MM.yyyy HH:mm}", tekstFont, XBrushes.Black,
-                new XRect(40, 70, leht.Width - 80, 20), XStringFormats.TopLeft);
+            double vasak = 40;
+            double parem = leht.Width - 40;
 
+            // Ettevõtte nimi
+            gfx.DrawString(TsekiKoostaja.Ettevote, nimiFont, XBrushes.Black, new XPoint(vasak, 60));
+
+            // Arve andmed
+            double y = 110;
+            gfx.DrawString("Arve nr.:", paksFont, XBrushes.Black, new XPoint(vasak, y));
+            gfx.DrawString(arveNr, tekstFont, XBrushes.Black, new XPoint(vasak + 70, y));
+            y += 16;
+            gfx.DrawString("Kuupäev:", paksFont, XBrushes.Black, new XPoint(vasak, y));
+            gfx.DrawString($"{aeg:dd.MM.yyyy HH:mm}", tekstFont, XBrushes.Black, new XPoint(vasak + 70, y));
+            y += 16;
+            gfx.DrawString("Staatus:", paksFont, XBrushes.Black, new XPoint(vasak, y));
+            gfx.DrawString("Makstud", tekstFont, XBrushes.Black, new XPoint(vasak + 70, y));
+
+          
             // Tabeli päis
-            int y = 110;
-            gfx.DrawString("Toode", paksFont, XBrushes.Black, new XPoint(40, y));
-            gfx.DrawString("Kogus", paksFont, XBrushes.Black, new XPoint(300, y));
-            gfx.DrawString("Hind", paksFont, XBrushes.Black, new XPoint(370, y));
-            gfx.DrawString("Summa", paksFont, XBrushes.Black, new XPoint(460, y));
+            y += 34;
+            gfx.DrawString("Toode", paksFont, XBrushes.Black, new XPoint(vasak, y));
+            gfx.DrawString("Kogus", paksFont, XBrushes.Black, new XPoint(330, y));
+            gfx.DrawString("Hind", paksFont, XBrushes.Black, new XPoint(400, y));
+            gfx.DrawString("Summa", paksFont, XBrushes.Black,
+                new XRect(parem - 80, y - 11, 80, 14), XStringFormats.TopRight);
             y += 8;
-            gfx.DrawLine(XPens.Black, 40, y, leht.Width - 40, y);
+            gfx.DrawLine(XPens.Gray, vasak, y, parem, y);
             y += 20;
 
-            // Ostukorvi read
+            // Read
             foreach (var (toode, kogus) in _ostukorv)
             {
                 decimal rida = (decimal)toode.Hind * kogus;
-                gfx.DrawString(toode.Toodenimetus, tekstFont, XBrushes.Black, new XPoint(40, y));
-                gfx.DrawString(kogus.ToString(), tekstFont, XBrushes.Black, new XPoint(300, y));
-                gfx.DrawString($"{toode.Hind:0.00} €", tekstFont, XBrushes.Black, new XPoint(370, y));
-                gfx.DrawString($"{rida:0.00} €", tekstFont, XBrushes.Black, new XPoint(460, y));
-                y += 25;
+                string nimi = toode.Toodenimetus;
+                if (nimi.Length > 38) nimi = nimi.Substring(0, 35) + "...";
+
+                gfx.DrawString(nimi, tekstFont, XBrushes.Black, new XPoint(vasak, y));
+                gfx.DrawString(kogus.ToString(), tekstFont, XBrushes.Black, new XPoint(330, y));
+                gfx.DrawString(Raha((decimal)toode.Hind), tekstFont, XBrushes.Black, new XPoint(400, y));
+                gfx.DrawString(Raha(rida), tekstFont, XBrushes.Black,
+                    new XRect(parem - 90, y - 11, 90, 14), XStringFormats.TopRight);
+                y += 22;
+
+                if (y > 640)
+                {
+                    leht = dokument.AddPage();
+                    gfx = XGraphics.FromPdfPage(leht);
+                    y = 60;
+                }
             }
 
-            // Kogusumma
-            gfx.DrawLine(XPens.Black, 40, y, leht.Width - 40, y);
+            // Kokkuvõte
+            y += 4;
+            gfx.DrawLine(XPens.Gray, vasak, y, parem, y);
             y += 20;
-            gfx.DrawString($"KOKKU: {_kokku:0.00} €", paksFont, XBrushes.Black, new XPoint(370, y));
+            gfx.DrawString("Summa ilma KM-ta:", tekstFont, XBrushes.Black, new XPoint(350, y));
+            gfx.DrawString(Raha(ilmaKm), tekstFont, XBrushes.Black,
+                new XRect(parem - 90, y - 11, 90, 14), XStringFormats.TopRight);
+            y += 18;
+            gfx.DrawString($"Käibemaks {TsekiKoostaja.KmMaar:0}%:", tekstFont, XBrushes.Black, new XPoint(350, y));
+            gfx.DrawString(Raha(km), tekstFont, XBrushes.Black,
+                new XRect(parem - 90, y - 11, 90, 14), XStringFormats.TopRight);
+            y += 22;
+            gfx.DrawString("KOKKU:", paksFont, XBrushes.Black, new XPoint(350, y));
+            gfx.DrawString(Raha(_kokku), paksFont, XBrushes.Black,
+                new XRect(parem - 90, y - 11, 90, 14), XStringFormats.TopRight);
+
+            y += 40;
+            gfx.DrawString("Aitäh ostu eest!", tekstFont, XBrushes.Black, new XPoint(vasak, y));
+
+            // Jalus
+            double jy = leht.Height - 70;
+            gfx.DrawLine(XPens.Gray, vasak, jy - 12, parem, jy - 12);
+            gfx.DrawString(TsekiKoostaja.Ettevote, vaikeFont, XBrushes.Black, new XPoint(vasak, jy));
+            gfx.DrawString(TsekiKoostaja.Aadress, vaikeFont, XBrushes.Black, new XPoint(vasak, jy + 12));
+            gfx.DrawString($"Reg. nr: {TsekiKoostaja.RegNr}", vaikeFont, XBrushes.Black, new XPoint(250, jy));
+            gfx.DrawString(TsekiKoostaja.PoeNimi, vaikeFont, XBrushes.Black, new XPoint(250, jy + 12));
 
             dokument.Save(fail);
             return fail;
         }
+      
 
         // Saadab PDF-i e-mailile Gmaili SMTP kaudu; tagastab true, kui õnnestus
         private bool SaadaEmail(string saaja, string pdfTee)
@@ -450,5 +508,6 @@ namespace Tooded_2
             _db.Dispose();
             base.OnFormClosed(e);
         }
+
     }
 }
