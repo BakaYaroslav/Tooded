@@ -2,15 +2,8 @@
 {
     partial class Form2
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
@@ -46,16 +35,9 @@
             kustutaBtn = new Button();
             uuendaBtn = new Button();
             puhastaBtn = new Button();
-<<<<<<< HEAD
             poodBtn = new Button();
-            ostuInfoLabel = new Label();
             dataGridView1 = new DataGridView();
-            label1 = new Label();
-            kategooriaEntry = new TextBox();
-=======
-            dataGridView1 = new DataGridView();
-            poodBtn = new Button();
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
+            muukLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)toodePilt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -63,86 +45,50 @@
             // nimetus
             // 
             nimetus.AutoSize = true;
-<<<<<<< HEAD
-            nimetus.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            nimetus.Location = new Point(46, 35);
-            nimetus.Margin = new Padding(4, 0, 4, 0);
-            nimetus.Name = "nimetus";
-            nimetus.Size = new Size(111, 18);
-=======
             nimetus.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold);
             nimetus.Location = new Point(46, 35);
             nimetus.Margin = new Padding(4, 0, 4, 0);
             nimetus.Name = "nimetus";
             nimetus.Size = new Size(159, 20);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             nimetus.TabIndex = 0;
             nimetus.Text = "Toode nimetus: ";
             // 
             // kogus
             // 
             kogus.AutoSize = true;
-<<<<<<< HEAD
-            kogus.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            kogus.Location = new Point(46, 80);
-            kogus.Margin = new Padding(4, 0, 4, 0);
-            kogus.Name = "kogus";
-            kogus.Size = new Size(57, 18);
-=======
             kogus.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold);
             kogus.Location = new Point(46, 80);
             kogus.Margin = new Padding(4, 0, 4, 0);
             kogus.Name = "kogus";
             kogus.Size = new Size(79, 20);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             kogus.TabIndex = 1;
             kogus.Text = "Kogus: ";
             // 
             // hind
             // 
             hind.AutoSize = true;
-<<<<<<< HEAD
-            hind.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            hind.Location = new Point(46, 121);
-            hind.Margin = new Padding(4, 0, 4, 0);
-            hind.Name = "hind";
-            hind.Size = new Size(52, 18);
-=======
             hind.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold);
             hind.Location = new Point(46, 121);
             hind.Margin = new Padding(4, 0, 4, 0);
             hind.Name = "hind";
             hind.Size = new Size(65, 20);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             hind.TabIndex = 2;
             hind.Text = "Hind: ";
             // 
             // kategooria
             // 
             kategooria.AutoSize = true;
-<<<<<<< HEAD
-            kategooria.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            kategooria.Location = new Point(49, 162);
-            kategooria.Margin = new Padding(4, 0, 4, 0);
-            kategooria.Name = "kategooria";
-            kategooria.Size = new Size(94, 18);
-=======
             kategooria.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold);
             kategooria.Location = new Point(49, 162);
             kategooria.Margin = new Padding(4, 0, 4, 0);
             kategooria.Name = "kategooria";
             kategooria.Size = new Size(134, 20);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             kategooria.TabIndex = 3;
             kategooria.Text = "Kategooriad: ";
             // 
             // toodeEntry
             // 
-<<<<<<< HEAD
-            toodeEntry.Location = new Point(195, 32);
-=======
             toodeEntry.Location = new Point(196, 32);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             toodeEntry.Margin = new Padding(4, 3, 4, 3);
             toodeEntry.Name = "toodeEntry";
             toodeEntry.Size = new Size(116, 23);
@@ -166,10 +112,6 @@
             // 
             // kategooriaBox
             // 
-<<<<<<< HEAD
-            kategooriaBox.DropDownStyle = ComboBoxStyle.DropDownList;
-=======
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             kategooriaBox.FormattingEnabled = true;
             kategooriaBox.Location = new Point(195, 157);
             kategooriaBox.Margin = new Padding(4, 3, 4, 3);
@@ -185,46 +127,14 @@
             // 
             // lisaKategooriaBtn
             // 
-<<<<<<< HEAD
-            lisaKategooriaBtn.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lisaKategooriaBtn.Location = new Point(140, 219);
-=======
             lisaKategooriaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             lisaKategooriaBtn.Location = new Point(140, 233);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             lisaKategooriaBtn.Margin = new Padding(4, 3, 4, 3);
             lisaKategooriaBtn.Name = "lisaKategooriaBtn";
             lisaKategooriaBtn.Size = new Size(172, 27);
             lisaKategooriaBtn.TabIndex = 8;
             lisaKategooriaBtn.Text = "Lisa kategooriad";
             lisaKategooriaBtn.UseVisualStyleBackColor = true;
-<<<<<<< HEAD
-            lisaKategooriaBtn.Click += btnLisaKategooria_Click;
-            // 
-            // kustutaKategooriaBtn
-            // 
-            kustutaKategooriaBtn.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            kustutaKategooriaBtn.Location = new Point(318, 219);
-            kustutaKategooriaBtn.Margin = new Padding(4, 3, 4, 3);
-            kustutaKategooriaBtn.Name = "kustutaKategooriaBtn";
-            kustutaKategooriaBtn.Size = new Size(172, 27);
-            kustutaKategooriaBtn.TabIndex = 9;
-            kustutaKategooriaBtn.Text = "Kustuta kategooriad";
-            kustutaKategooriaBtn.UseVisualStyleBackColor = true;
-            kustutaKategooriaBtn.Click += btnKustutaKategooria_Click;
-            // 
-            // otsiFailBtn
-            // 
-            otsiFailBtn.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            otsiFailBtn.Location = new Point(524, 233);
-            otsiFailBtn.Margin = new Padding(4, 3, 4, 3);
-            otsiFailBtn.Name = "otsiFailBtn";
-            otsiFailBtn.Size = new Size(88, 27);
-            otsiFailBtn.TabIndex = 10;
-            otsiFailBtn.Text = "Otsi pilt";
-            otsiFailBtn.UseVisualStyleBackColor = true;
-            otsiFailBtn.Click += btnValiPilt_Click;
-=======
             // 
             // kustutaKategooriaBtn
             // 
@@ -247,28 +157,19 @@
             otsiFailBtn.TabIndex = 10;
             otsiFailBtn.Text = "Otsi pilt";
             otsiFailBtn.UseVisualStyleBackColor = true;
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             // 
             // toodePilt
             // 
             toodePilt.Location = new Point(524, 32);
             toodePilt.Margin = new Padding(4, 3, 4, 3);
             toodePilt.Name = "toodePilt";
-<<<<<<< HEAD
-            toodePilt.Size = new Size(336, 194);
-=======
             toodePilt.Size = new Size(382, 184);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             toodePilt.TabIndex = 11;
             toodePilt.TabStop = false;
             // 
             // lisaBtn
             // 
-<<<<<<< HEAD
-            lisaBtn.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-=======
             lisaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             lisaBtn.Location = new Point(140, 265);
             lisaBtn.Margin = new Padding(4, 3, 4, 3);
             lisaBtn.Name = "lisaBtn";
@@ -276,19 +177,11 @@
             lisaBtn.TabIndex = 15;
             lisaBtn.Text = "Lisa";
             lisaBtn.UseVisualStyleBackColor = true;
-<<<<<<< HEAD
-            lisaBtn.Click += btnLisa_Click;
-            // 
-            // kustutaBtn
-            // 
-            kustutaBtn.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-=======
             lisaBtn.Click += Lisabtn_Click;
             // 
             // kustutaBtn
             // 
             kustutaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             kustutaBtn.Location = new Point(293, 265);
             kustutaBtn.Margin = new Padding(4, 3, 4, 3);
             kustutaBtn.Name = "kustutaBtn";
@@ -296,19 +189,11 @@
             kustutaBtn.TabIndex = 16;
             kustutaBtn.Text = "Kustuta";
             kustutaBtn.UseVisualStyleBackColor = true;
-<<<<<<< HEAD
-            kustutaBtn.Click += btnKustuta_Click;
-            // 
-            // uuendaBtn
-            // 
-            uuendaBtn.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-=======
             kustutaBtn.Click += KustutaBtn_Click;
             // 
             // uuendaBtn
             // 
             uuendaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             uuendaBtn.Location = new Point(209, 265);
             uuendaBtn.Margin = new Padding(4, 3, 4, 3);
             uuendaBtn.Name = "uuendaBtn";
@@ -316,43 +201,6 @@
             uuendaBtn.TabIndex = 17;
             uuendaBtn.Text = "Uuenda";
             uuendaBtn.UseVisualStyleBackColor = true;
-<<<<<<< HEAD
-            uuendaBtn.Click += btnUuenda_Click;
-            // 
-            // puhastaBtn
-            // 
-            puhastaBtn.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            puhastaBtn.Location = new Point(387, 265);
-            puhastaBtn.Margin = new Padding(4, 3, 4, 3);
-            puhastaBtn.Name = "puhastaBtn";
-            puhastaBtn.Size = new Size(88, 27);
-            puhastaBtn.TabIndex = 18;
-            puhastaBtn.Text = "Puhasta";
-            puhastaBtn.UseVisualStyleBackColor = true;
-            // 
-            // poodBtn
-            // 
-            poodBtn.Font = new Font("Modern No. 20", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            poodBtn.Location = new Point(620, 233);
-            poodBtn.Margin = new Padding(4, 3, 4, 3);
-            poodBtn.Name = "poodBtn";
-            poodBtn.Size = new Size(88, 27);
-            poodBtn.TabIndex = 20;
-            poodBtn.Text = "Pood";
-            poodBtn.UseVisualStyleBackColor = true;
-            poodBtn.Click += poodBtn_Click;
-            // 
-            // ostuInfoLabel
-            // 
-            ostuInfoLabel.AutoEllipsis = true;
-            ostuInfoLabel.Font = new Font("Modern No. 20", 10F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            ostuInfoLabel.Location = new Point(714, 232);
-            ostuInfoLabel.Margin = new Padding(4, 0, 4, 0);
-            ostuInfoLabel.Name = "ostuInfoLabel";
-            ostuInfoLabel.Size = new Size(212, 64);
-            ostuInfoLabel.TabIndex = 21;
-            ostuInfoLabel.Text = "Ostetud: 0 tk\r\n—\r\nKokku: 0.00 €";
-=======
             uuendaBtn.Click += UuendaBtn_Click;
             // 
             // puhastaBtn
@@ -365,36 +213,6 @@
             puhastaBtn.TabIndex = 18;
             puhastaBtn.Text = "Puhasta";
             puhastaBtn.UseVisualStyleBackColor = true;
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(140, 300);
-            dataGridView1.Margin = new Padding(4, 3, 4, 3);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(751, 215);
-            dataGridView1.TabIndex = 22;
-<<<<<<< HEAD
-            dataGridView1.CellClick += dataGridViewTooted_CellClick;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Modern No. 20", 12F, FontStyle.Italic);
-            label1.Location = new Point(49, 198);
-            label1.Name = "label1";
-            label1.Size = new Size(112, 18);
-            label1.TabIndex = 23;
-            label1.Text = "Uus kategooria: ";
-            // 
-            // kategooriaEntry
-            // 
-            kategooriaEntry.Location = new Point(195, 193);
-            kategooriaEntry.Name = "kategooriaEntry";
-            kategooriaEntry.Size = new Size(100, 23);
-            kategooriaEntry.TabIndex = 24;
-=======
             // 
             // poodBtn
             // 
@@ -406,21 +224,33 @@
             poodBtn.TabIndex = 20;
             poodBtn.Text = "Pood";
             poodBtn.UseVisualStyleBackColor = true;
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(140, 300);
+            dataGridView1.Margin = new Padding(4, 3, 4, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(490, 328);
+            dataGridView1.TabIndex = 22;
+            // 
+            // muukLabel
+            // 
+            muukLabel.AutoSize = true;
+            muukLabel.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
+            muukLabel.Location = new Point(140, 640);
+            muukLabel.Name = "muukLabel";
+            muukLabel.Size = new Size(200, 21);
+            muukLabel.TabIndex = 23;
+            muukLabel.Text = "Müüdud: 0 tk";
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(933, 519);
-<<<<<<< HEAD
-            Controls.Add(kategooriaEntry);
-            Controls.Add(label1);
+            ClientSize = new Size(933, 680);
+            Controls.Add(muukLabel);
             Controls.Add(dataGridView1);
-            Controls.Add(ostuInfoLabel);
-=======
-            Controls.Add(dataGridView1);
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
             Controls.Add(poodBtn);
             Controls.Add(puhastaBtn);
             Controls.Add(uuendaBtn);
@@ -440,15 +270,12 @@
             Controls.Add(nimetus);
             Margin = new Padding(4, 3, 4, 3);
             Name = "Form2";
-            Text = "Form1";
+            Text = "Tooded";
             ((System.ComponentModel.ISupportInitialize)toodePilt).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
-
         }
-
-
 
         #endregion
 
@@ -469,15 +296,8 @@
         private System.Windows.Forms.Button kustutaBtn;
         private System.Windows.Forms.Button uuendaBtn;
         private System.Windows.Forms.Button puhastaBtn;
-<<<<<<< HEAD
         private System.Windows.Forms.Button poodBtn;
-        private System.Windows.Forms.Label ostuInfoLabel;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private Label label1;
-        private TextBox kategooriaEntry;
-=======
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private Button poodBtn;
->>>>>>> dd91bfb (lisan pood ja kastuaja süsteem)
+        private System.Windows.Forms.Label muukLabel;
     }
 }

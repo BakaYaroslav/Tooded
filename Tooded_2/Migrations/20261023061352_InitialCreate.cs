@@ -11,13 +11,27 @@ namespace Tooded_2.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Kasutajatabel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Kasutajanimi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParoolHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Roll = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kasutajatabel", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Kategooriatabel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nimetus = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    kirjeldus = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    nimetus = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,8 +47,8 @@ namespace Tooded_2.Migrations
                     Toodenimetus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Kogus = table.Column<int>(type: "int", nullable: false),
                     Hind = table.Column<float>(type: "real", nullable: false),
-                    Pilt = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KategooriaId = table.Column<int>(type: "int", nullable: false)
+                    KategooriaId = table.Column<int>(type: "int", nullable: false),
+                    Pilt = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,6 +70,9 @@ namespace Tooded_2.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Kasutajatabel");
+
             migrationBuilder.DropTable(
                 name: "Toodetabel");
 

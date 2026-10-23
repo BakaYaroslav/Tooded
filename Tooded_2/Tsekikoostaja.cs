@@ -7,11 +7,13 @@ namespace Tooded_2
     /// <summary>Koostab ostutšeki HTML-kujul (e-kirja sisuks).</summary>
     public static class TsekiKoostaja
     {
-        // ---- Poe andmed tšeki päises (muuda enda omadeks) ----
+        // ---- Poe andmed (muuda enda omadeks) ----
         public const string PoeNimi = "Shoping 67";
         public const string Ettevote = "Shoping 67 OÜ";
         public const string RegNr = "12345678";
         public const string Aadress = "Tallinn";
+        public const string Telefon = "+372 5000 0000";
+        public const string Epost = "info@shoping67.ee";
 
         // Käibemaks Eestis (alates 01.07.2025 on 24%)
         public const decimal KmMaar = 24m;
@@ -26,70 +28,93 @@ namespace Tooded_2
             decimal summa = ostud.Sum(o => o.Summa);
             decimal ilmaKm = Math.Round(summa / (1 + KmMaar / 100m), 2);
             decimal km = summa - ilmaKm;
+            int tykke = ostud.Sum(o => o.Kogus);
 
             var sb = new StringBuilder();
-            sb.Append($@"
-<div style=""background:#f2f2f2;padding:20px 0;font-family:Arial,Helvetica,sans-serif;"">
-<table cellpadding=""0"" cellspacing=""0"" align=""center""
-       style=""width:400px;background:#ffffff;border:1px solid #ddd;padding:20px;font-size:13px;color:#222;"">
-  <tr><td colspan=""2"" style=""text-align:center;padding:10px 20px 4px;"">
-    <div style=""font-size:30px;font-weight:900;letter-spacing:2px;color:#2e7d32;"">{H(PoeNimi)}</div>
-  </td></tr>
-  <tr><td colspan=""2"" style=""text-align:center;font-size:11px;color:#555;padding:0 20px 14px;"">
-    {H(Ettevote)} Reg. nr {H(RegNr)} {H(Aadress)}
-  </td></tr>
-  <tr><td colspan=""2"" style=""padding:0 20px 12px;"">Tšeki nr {H(tsekiNr)}</td></tr>");
 
-            // ---- Tooted ----
+            // Päis: ettevõtte nimi
+            sb.Append($@"
+<div style=""background:#f4f4f4;padding:24px 0;font-family:Georgia,'Times New Roman',serif;"">
+<table cellpadding=""0"" cellspacing=""0"" align=""center""
+       style=""width:600px;max-width:100%;background:#ffffff;border:1px solid #dddddd;color:#222222;font-size:14px;"">
+  <tr><td style=""height:6px;background:#2e7d32;font-size:0;line-height:0;"">&nbsp;</td></tr>
+  <tr><td style=""padding:32px 40px 8px;"">
+    <div style=""font-size:30px;font-weight:bold;color:#111111;"">{H(Ettevote)}</div>
+  </td></tr>
+
+  <tr><td style=""padding:20px 40px 8px;"">
+    <table cellpadding=""0"" cellspacing=""0"" style=""font-size:14px;"">
+      <tr><td style=""padding:2px 14px 2px 0;font-weight:bold;"">Arve nr.:</td><td>{H(tsekiNr)}</td></tr>
+      <tr><td style=""padding:2px 14px 2px 0;font-weight:bold;"">Kuupäev:</td><td>{aeg:dd.MM.yyyy HH:mm}</td></tr>
+      <tr><td style=""padding:2px 14px 2px 0;font-weight:bold;"">Staatus:</td><td style=""color:#2e7d32;font-weight:bold;"">Makstud</td></tr>
+    </table>
+  </td></tr>
+
+  <tr><td style=""padding:16px 40px 8px;"">
+    <table cellpadding=""0"" cellspacing=""0"" style=""font-size:14px;"">
+      <tr><td style=""padding:2px 14px 2px 0;font-weight:bold;"">Maksja:</td><td>{H(klient)}</td></tr>
+    </table>
+  </td></tr>
+
+  <tr><td style=""padding:24px 40px 0;"">
+    <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""font-size:14px;"">
+      <tr style=""font-weight:bold;"">
+        <td style=""padding:0 0 8px;border-bottom:2px solid #555555;"">Toode</td>
+        <td style=""padding:0 0 8px;border-bottom:2px solid #555555;text-align:center;"">Kogus</td>
+        <td style=""padding:0 0 8px;border-bottom:2px solid #555555;text-align:right;"">Hind</td>
+        <td style=""padding:0 0 8px;border-bottom:2px solid #555555;text-align:right;"">Summa</td>
+      </tr>");
+
+            // Tooted
             foreach (var o in ostud)
             {
-                string detail = o.Kogus > 1
-                    ? $"<span style=\"color:#555;\">{o.Hind.ToString("0.00", Et)} × {o.Kogus}</span>&nbsp;&nbsp;"
-                    : "";
-
                 sb.Append($@"
-  <tr>
-    <td style=""padding:4px 0 4px 20px;"">{H(o.Nimetus)}</td>
-    <td style=""padding:4px 20px 4px 0;text-align:right;white-space:nowrap;"">{detail}<b>{Raha(o.Summa)}</b></td>
-  </tr>");
+      <tr>
+        <td style=""padding:10px 0;border-bottom:1px solid #eeeeee;"">{H(o.Nimetus)}</td>
+        <td style=""padding:10px 0;border-bottom:1px solid #eeeeee;text-align:center;"">{o.Kogus}</td>
+        <td style=""padding:10px 0;border-bottom:1px solid #eeeeee;text-align:right;white-space:nowrap;"">{Raha(o.Hind)}</td>
+        <td style=""padding:10px 0;border-bottom:1px solid #eeeeee;text-align:right;white-space:nowrap;"">{Raha(o.Summa)}</td>
+      </tr>");
             }
 
-            // ---- Käibemaksu tabel ----
+            // Kokkuvõte ja jalus
             sb.Append($@"
-  <tr><td colspan=""2"" style=""padding:12px 20px;""><hr style=""border:0;border-top:1px solid #333;margin:0;""></td></tr>
-  <tr><td colspan=""2"" style=""padding:0 20px;"">
-    <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""font-size:12px;"">
-      <tr style=""color:#555;"">
-        <td>KM %</td><td style=""text-align:center;"">ilma KM-ta</td>
-        <td style=""text-align:center;"">KM</td><td style=""text-align:right;"">koos KM-ga</td>
+    </table>
+  </td></tr>
+
+  <tr><td style=""padding:16px 40px 0;"">
+    <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""font-size:14px;"">
+      <tr>
+        <td style=""padding:3px 0;text-align:right;color:#555555;"">Summa ilma KM-ta:</td>
+        <td style=""padding:3px 0 3px 20px;text-align:right;width:110px;white-space:nowrap;"">{Raha(ilmaKm)}</td>
       </tr>
       <tr>
-        <td style=""padding-top:6px;"">{KmMaar:0} %</td>
-        <td style=""text-align:center;padding-top:6px;"">{Raha(ilmaKm)}</td>
-        <td style=""text-align:center;padding-top:6px;"">{Raha(km)}</td>
-        <td style=""text-align:right;padding-top:6px;""><b>{Raha(summa)}</b></td>
+        <td style=""padding:3px 0;text-align:right;color:#555555;"">Käibemaks {KmMaar:0}%:</td>
+        <td style=""padding:3px 0 3px 20px;text-align:right;white-space:nowrap;"">{Raha(km)}</td>
+      </tr>
+      <tr>
+        <td style=""padding:10px 0 3px;text-align:right;font-size:16px;font-weight:bold;"">KOKKU:</td>
+        <td style=""padding:10px 0 3px 20px;text-align:right;font-size:16px;font-weight:bold;white-space:nowrap;"">{Raha(summa)}</td>
+      </tr>
+      <tr>
+        <td style=""padding:3px 0;text-align:right;color:#555555;font-size:12px;"">Tooteid kokku:</td>
+        <td style=""padding:3px 0 3px 20px;text-align:right;font-size:12px;color:#555555;"">{tykke} tk</td>
       </tr>
     </table>
   </td></tr>
-  <tr><td colspan=""2"" style=""padding:12px 20px;""><hr style=""border:0;border-top:1px solid #333;margin:0;""></td></tr>
 
-  <tr><td style=""padding:2px 0 2px 20px;text-align:right;"">KM:</td>
-      <td style=""padding:2px 20px 2px 0;text-align:right;""><b>{Raha(km)}</b></td></tr>
-  <tr><td style=""padding:2px 0 2px 20px;text-align:right;"">ilma KM-ta:</td>
-      <td style=""padding:2px 20px 2px 0;text-align:right;""><b>{Raha(ilmaKm)}</b></td></tr>
-  <tr><td style=""padding:10px 0 2px 20px;text-align:right;font-size:15px;""><b>Summa:</b></td>
-      <td style=""padding:10px 20px 2px 0;text-align:right;font-size:15px;""><b>{Raha(summa)}</b></td></tr>
-  <tr><td style=""padding:2px 0 2px 20px;text-align:right;"">Makstud:</td>
-      <td style=""padding:2px 20px 2px 0;text-align:right;""><b>{Raha(summa)}</b></td></tr>
-  <tr><td style=""padding:2px 0 2px 20px;text-align:right;"">Tooteid kokku:</td>
-      <td style=""padding:2px 20px 2px 0;text-align:right;""><b>{ostud.Sum(o => o.Kogus)} tk</b></td></tr>
+  <tr><td style=""padding:28px 40px 24px;font-style:italic;color:#444444;"">Aitäh ostu eest!</td></tr>
 
-  <tr><td colspan=""2"" style=""padding:16px 20px 4px;""><hr style=""border:0;border-top:1px dashed #999;margin:0;""></td></tr>
-  <tr><td colspan=""2"" style=""text-align:center;padding:8px 20px;"">Aitäh ostu eest!</td></tr>
-  <tr>
-    <td style=""padding:8px 0 0 20px;font-size:11px;color:#555;"">Klient: {H(klient)}</td>
-    <td style=""padding:8px 20px 0 0;font-size:11px;color:#555;text-align:right;"">{aeg:dd.MM.yyyy HH:mm:ss}</td>
-  </tr>
+  <tr><td style=""padding:0 40px 28px;"">
+    <table width=""100%"" cellpadding=""0"" cellspacing=""0""
+           style=""border-top:1px solid #999999;font-size:11px;color:#444444;"">
+      <tr style=""vertical-align:top;"">
+        <td style=""padding-top:10px;width:34%;"">{H(Ettevote)}<br>{H(Aadress)}</td>
+        <td style=""padding-top:10px;width:36%;"">Telefon: {H(Telefon)}<br>E-post: {H(Epost)}<br>Reg. nr: {H(RegNr)}</td>
+        <td style=""padding-top:10px;"">{H(PoeNimi)}</td>
+      </tr>
+    </table>
+  </td></tr>
 </table>
 </div>");
 

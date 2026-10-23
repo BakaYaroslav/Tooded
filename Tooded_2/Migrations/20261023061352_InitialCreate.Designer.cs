@@ -11,8 +11,8 @@ using Tooded_2;
 namespace Tooded_2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261016065240_PiltBackToToode")]
-    partial class PiltBackToToode
+    [Migration("20261023061352_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Tooded_2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Tooded_2.Kategooria", b =>
+            modelBuilder.Entity("Tooded_2.Kasutaja", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,8 +32,30 @@ namespace Tooded_2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("kirjeldus")
+                    b.Property<string>("Kasutajanimi")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParoolHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Roll")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kasutajatabel", (string)null);
+                });
+
+            modelBuilder.Entity("Tooded_2.Kategooria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("nimetus")
                         .HasColumnType("nvarchar(max)");
