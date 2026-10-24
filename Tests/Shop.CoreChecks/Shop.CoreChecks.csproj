@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Tooded_2/Shop/ShopProduct.cs" Link="ShopProduct.cs" />
+    <Compile Include="../../Tooded_2/Shop/DemoShopStore.cs" Link="DemoShopStore.cs" />
+    <Compile Include="../../Tooded_2/Shop/ShopCatalog.cs" Link="ShopCatalog.cs" />
+    <None Include="../../Tooded_2/Catalog/products.json" Link="Catalog/products.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../Tooded_2/Images/Catalog/*.jpg" Link="Images/Catalog/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

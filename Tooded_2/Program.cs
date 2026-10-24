@@ -3,9 +3,15 @@ namespace Tooded_2
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
+
+            if (args.Contains("--demo", StringComparer.OrdinalIgnoreCase))
+            {
+                Application.Run(new PoodForm(new Shop.DemoShopStore(Shop.ShopCatalog.Load())));
+                return;
+            }
 
             // Kui andmebaasis pole admini, loome vaikimisi admini
             using (var db = new AppDbContext())
