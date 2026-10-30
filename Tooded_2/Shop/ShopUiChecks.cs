@@ -57,6 +57,25 @@ internal static class ShopUiChecks
         using (var login = new LoginForm()) { login.Show(); Application.DoEvents(); login.Close(); }
         using (var registration = new RegistreeriForm()) { registration.Show(); Application.DoEvents(); registration.Close(); }
         Require(cart.Count == 1, "Closing dialogs changed the basket");
+        var config = new ShopConfiguration { Products = products.ToDictionary(p => p.Id, p => p.Details) };
+        var oldPhone = products.Single(p => p.Details.SourceKey == "dummyjson:123");
+        var badOffer = new Promotion { Title = new("ET", "RU", "EN"), Category = "accessories", ProductKeys = oldPhone.Details.SourceKey, Percent = 15 };
+        var rows = products.Select(p => new Toode { Id = p.Id, Toodenimetus = p.Name }).ToArray();
+        using (var editor = new PromotionEditorForm(badOffer, rows, config))
+        {
+            editor.Show(); Application.DoEvents();
+            var list = Descendants(editor).OfType<CheckedListBox>().Single(c => c.AccessibleName == "promotion-products");
+            Require(!list.Items.Cast<object>().Any(p => p.ToString()!.Contains("iPhone")), "Accessories target list contains a phone");
+            Require(list.CheckedItems.Count == 0, "Incompatible selection was retained");
+            var category = Descendants(editor).OfType<ComboBox>().Single(c => c.AccessibleName == "promotion-category");
+            category.SelectedIndex = 1; Application.DoEvents();
+            int index = Enumerable.Range(0, list.Items.Count).Single(i => list.Items[i].ToString() == oldPhone.DisplayName);
+            list.SetItemChecked(index, true); Application.DoEvents();
+            typeof(PromotionEditorForm).GetMethod("Save", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.Invoke(editor, null);
+            Require(editor.Value.Category == "phones" && editor.Value.ProductKeys == oldPhone.Details.SourceKey,
+                "Corrected promotion did not save its selected phone");
+            editor.Close();
+        }
         form.Close(); T.SetLanguage("et");
         Console.WriteLine("PASS Windows form rendering, GPU filter, language preservation and EF migration model");
     }

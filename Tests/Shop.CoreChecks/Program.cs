@@ -266,6 +266,21 @@ Check("Saved catalog repair archives invented models and mismatched source rows 
     CatalogRepair.Reconcile(config, names, TechCatalog.Reference()); Equal(3, config.Products.Count);
 });
 
+
+Check("Promotion targeting rejects a phone in accessories and excludes hidden and retired products", () =>
+{
+    var catalog = TechCatalog.Reference();
+    var phone = catalog.Single(p => p.Details.SourceKey == "dummyjson:123");
+    var promotion = new Promotion { Title = new("ET", "RU", "EN"), Category = "accessories", ProductKeys = phone.Details.SourceKey, Percent = 15 };
+    Reject(() => PromotionTargets.Validate(promotion, catalog));
+    var corrected = promotion with { Category = "phones" };
+    PromotionTargets.Validate(corrected, catalog);
+    Equal(934.99m, PromotionEngine.Apply(phone with { Price = 1099.99m }, new[] { corrected }, DateTimeOffset.UtcNow).Price);
+    Reject(() => PromotionTargets.Validate(corrected with { ProductKeys = "ref:apple-iphone-13-pro" }, catalog));
+    Equal(false, PromotionTargets.Eligible(catalog.Select(p => p.Id == phone.Id ? p with { Details = p.Details with { Visible = false } } : p), "phones").Any(p => p.Id == phone.Id));
+    Equal(true, PromotionTargets.Eligible(catalog, "accessories").All(p => p.Details.Category == "accessories"));
+});
+
 Console.WriteLine($"{passed} checks passed.");
 
 sealed class CatalogHandler : System.Net.Http.HttpMessageHandler
