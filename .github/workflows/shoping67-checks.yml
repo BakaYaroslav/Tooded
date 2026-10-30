@@ -1,0 +1,44 @@
+name: shoping67 checks
+on:
+  push:
+    branches: [master, codex/shop-cart-demo]
+  pull_request:
+permissions:
+  contents: write
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet restore Tooded_2.slnx
+      - run: dotnet build Tooded_2.slnx --no-restore
+      - name: Bundle actual product photographs
+        continue-on-error: true
+        run: dotnet run --project Tooded_2 --no-build -- --bundle-catalog-images
+      - name: Save verified product photographs with the project
+        if: github.event_name == 'push' && github.ref == 'refs/heads/codex/shop-cart-demo'
+        shell: pwsh
+        run: |
+          git add -- Tooded_2/Images/Products
+          git diff --cached --quiet
+          if ($LASTEXITCODE -ne 0) {
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'Bundle real product photographs for offline use [skip ci]'
+            git push origin HEAD:codex/shop-cart-demo
+            if ($LASTEXITCODE -ne 0) { throw 'Could not save bundled product photographs' }
+          }
+      - run: dotnet run --project Tests/Shop.CoreChecks
+      - run: dotnet run --project Tests/Shop.StorageChecks
+      - run: dotnet run --project Tooded_2 --no-build -- --ui-check
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shoping67-ui
+          path: |
+            ui-checks/*.png
+            ui-checks/*.pdf
+          if-no-files-found: ignore

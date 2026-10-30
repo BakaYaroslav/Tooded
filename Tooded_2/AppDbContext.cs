@@ -8,6 +8,7 @@ namespace Tooded_2
         public DbSet<Kategooria> Kategooriatabel { get; set; }
         public DbSet<Kasutaja> Kasutajatabel { get; set; }
         public DbSet<Muuk> Muugitabel { get; set; }
+        public DbSet<ShopSetting> ShopSettings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

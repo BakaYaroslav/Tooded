@@ -1,4 +1,5 @@
-﻿namespace Tooded_2
+using Tooded_2.Shop;
+namespace Tooded_2
 {
     partial class Form2
     {
@@ -51,7 +52,7 @@
             nimetus.Name = "nimetus";
             nimetus.Size = new Size(159, 20);
             nimetus.TabIndex = 0;
-            nimetus.Text = "Toode nimetus: ";
+            nimetus.Text = T.Legacy("Toode nimetus: ");
             // 
             // kogus
             // 
@@ -62,7 +63,7 @@
             kogus.Name = "kogus";
             kogus.Size = new Size(79, 20);
             kogus.TabIndex = 1;
-            kogus.Text = "Kogus: ";
+            kogus.Text = T.Legacy("Kogus: ");
             // 
             // hind
             // 
@@ -73,7 +74,7 @@
             hind.Name = "hind";
             hind.Size = new Size(65, 20);
             hind.TabIndex = 2;
-            hind.Text = "Hind: ";
+            hind.Text = T.Legacy("Hind: ");
             // 
             // kategooria
             // 
@@ -84,7 +85,7 @@
             kategooria.Name = "kategooria";
             kategooria.Size = new Size(134, 20);
             kategooria.TabIndex = 3;
-            kategooria.Text = "Kategooriad: ";
+            kategooria.Text = T.Legacy("Kategooriad: ");
             // 
             // toodeEntry
             // 
@@ -133,7 +134,7 @@
             lisaKategooriaBtn.Name = "lisaKategooriaBtn";
             lisaKategooriaBtn.Size = new Size(172, 27);
             lisaKategooriaBtn.TabIndex = 8;
-            lisaKategooriaBtn.Text = "Lisa kategooriad";
+            lisaKategooriaBtn.Text = T.Legacy("Lisa kategooriad");
             lisaKategooriaBtn.UseVisualStyleBackColor = true;
             // 
             // kustutaKategooriaBtn
@@ -144,7 +145,7 @@
             kustutaKategooriaBtn.Name = "kustutaKategooriaBtn";
             kustutaKategooriaBtn.Size = new Size(198, 27);
             kustutaKategooriaBtn.TabIndex = 9;
-            kustutaKategooriaBtn.Text = "Kustuta kategooriad";
+            kustutaKategooriaBtn.Text = T.Legacy("Kustuta kategooriad");
             kustutaKategooriaBtn.UseVisualStyleBackColor = true;
             // 
             // otsiFailBtn
@@ -155,7 +156,7 @@
             otsiFailBtn.Name = "otsiFailBtn";
             otsiFailBtn.Size = new Size(106, 27);
             otsiFailBtn.TabIndex = 10;
-            otsiFailBtn.Text = "Otsi pilt";
+            otsiFailBtn.Text = T.Legacy("Otsi pilt");
             otsiFailBtn.UseVisualStyleBackColor = true;
             // 
             // toodePilt
@@ -175,7 +176,7 @@
             lisaBtn.Name = "lisaBtn";
             lisaBtn.Size = new Size(62, 27);
             lisaBtn.TabIndex = 15;
-            lisaBtn.Text = "Lisa";
+            lisaBtn.Text = T.Legacy("Lisa");
             lisaBtn.UseVisualStyleBackColor = true;
             lisaBtn.Click += Lisabtn_Click;
             // 
@@ -187,7 +188,7 @@
             kustutaBtn.Name = "kustutaBtn";
             kustutaBtn.Size = new Size(88, 27);
             kustutaBtn.TabIndex = 16;
-            kustutaBtn.Text = "Kustuta";
+            kustutaBtn.Text = T.Legacy("Kustuta");
             kustutaBtn.UseVisualStyleBackColor = true;
             kustutaBtn.Click += KustutaBtn_Click;
             // 
@@ -199,7 +200,7 @@
             uuendaBtn.Name = "uuendaBtn";
             uuendaBtn.Size = new Size(77, 27);
             uuendaBtn.TabIndex = 17;
-            uuendaBtn.Text = "Uuenda";
+            uuendaBtn.Text = T.Legacy("Uuenda");
             uuendaBtn.UseVisualStyleBackColor = true;
             uuendaBtn.Click += UuendaBtn_Click;
             // 
@@ -211,7 +212,7 @@
             puhastaBtn.Name = "puhastaBtn";
             puhastaBtn.Size = new Size(129, 27);
             puhastaBtn.TabIndex = 18;
-            puhastaBtn.Text = "Puhasta";
+            puhastaBtn.Text = T.Legacy("Puhasta");
             puhastaBtn.UseVisualStyleBackColor = true;
             // 
             // poodBtn
@@ -222,7 +223,7 @@
             poodBtn.Name = "poodBtn";
             poodBtn.Size = new Size(253, 61);
             poodBtn.TabIndex = 20;
-            poodBtn.Text = "Pood";
+            poodBtn.Text = T.Legacy("Pood");
             poodBtn.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -242,7 +243,7 @@
             muukLabel.Name = "muukLabel";
             muukLabel.Size = new Size(200, 21);
             muukLabel.TabIndex = 23;
-            muukLabel.Text = "Müüdud: 0 tk";
+            muukLabel.Text = T.Legacy("Müüdud: 0 tk");
             // 
             // Form2
             // 
@@ -270,7 +271,7 @@
             Controls.Add(nimetus);
             Margin = new Padding(4, 3, 4, 3);
             Name = "Form2";
-            Text = "Tooded";
+            Text = "shoping67 · Admin";
             ((System.ComponentModel.ISupportInitialize)toodePilt).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

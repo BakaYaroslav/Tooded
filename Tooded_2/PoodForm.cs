@@ -1,513 +1,233 @@
-using Microsoft.EntityFrameworkCore;
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Pdf;
-using System.Diagnostics;
-using System.Net;
-using System.Net.Mail;
+using Tooded_2.Shop;
 
-namespace Tooded_2
+namespace Tooded_2;
+
+public partial class PoodForm : Form
 {
-    public partial class PoodForm : Form
+    private readonly IShopStore store;
+    private readonly ShoppingCart cart = new();
+    private IReadOnlyList<ShopProduct> products = Array.Empty<ShopProduct>();
+    private IReadOnlyList<Promotion> promotions = Array.Empty<Promotion>();
+    private readonly Dictionary<string, HashSet<string>> facets = new();
+    private readonly System.Windows.Forms.Timer clock = new() { Interval = 30000 };
+    private string activeSignature = "";
+    private string category = "", query = "";
+    private string? selectedOffer;
+    private bool home = true, inStock, loading;
+    private int sortOrder;
+    private decimal minimum, maximum = 1000000;
+    private FlowLayoutPanel resultsPanel = null!, sidebar = null!;
+    private TableLayoutPanel body = null!;
+    private Label status = null!, heading = null!;
+    private Button basket = null!;
+
+    public PoodForm() : this(new DatabaseShopStore()) { }
+    public PoodForm(IShopStore store)
     {
-        private readonly AppDbContext _db = new AppDbContext();
-        private readonly string _imagesDir = Path.Combine(AppContext.BaseDirectory, "Images");
-
-        private readonly List<Toode> _tooted;                              // kõik tooted andmebaasist
-        private readonly Dictionary<int, int> _kogused = new();            // toote Id -> valitud kogus
-
-        private List<(Toode Toode, int Kogus)> _ostukorv = new();          // fikseeritud ostukorv
-        private decimal _kokku;                                            // ostukorvi kogusumma
-        private int _etapp;                                                // 0 = valik, 1 = ostetud, 2 = makstud
-
-        public PoodForm()
+        this.store = store;
+        Font = new Font("Segoe UI", 10); AutoScaleMode = AutoScaleMode.Dpi;
+        Text = "shoping67"; Size = new Size(1360, 900); MinimumSize = new Size(1060, 700);
+        StartPosition = FormStartPosition.CenterScreen; BackColor = Color.FromArgb(244, 246, 248);
+        Build(); Shown += (_, _) => Reload();
+        clock.Tick += (_, _) =>
         {
-            InitializeComponent();
-
-            // Laeme tooted koos kategooriatega
-            _tooted = _db.Toodetabel.AsNoTracking().Include(t => t.Kategooria).ToList();
-
-            // Täidame kategooriate rippmenüü
-            kategooriaBox.Items.Add("Kõik");
-            foreach (var nimi in _tooted.Select(t => t.Kategooria?.nimetus)
-                                        .Where(n => n != null).Distinct())
-            {
-                kategooriaBox.Items.Add(nimi!);
-            }
-            kategooriaBox.SelectedIndex = 0;   // see kutsub ka Kuva()
-        }
-
-        // ---------- toodete kuvamine ----------
-
-        // Joonistab kaardid uuesti vastavalt otsingule ja kategooriale
-        private void Kuva()
-        {
-            flowPanel.SuspendLayout();
-
-            // Vabastame vanad kaardid ja nende pildid
-            foreach (Control c in flowPanel.Controls.Cast<Control>().ToList())
-            {
-                foreach (var pb in c.Controls.OfType<PictureBox>())
-                    pb.Image?.Dispose();
-                c.Dispose();
-            }
-
-            string otsing = otsingEntry.Text.Trim();
-            string kat = kategooriaBox.SelectedItem as string ?? "Kõik";
-
-            // Filtreerime nime ja kategooria järgi
-            var nahtav = _tooted.Where(t =>
-                (kat == "Kõik" || t.Kategooria?.nimetus == kat) &&
-                (otsing == "" || t.Toodenimetus.Contains(otsing, StringComparison.OrdinalIgnoreCase)));
-
-            foreach (var t in nahtav)
-                flowPanel.Controls.Add(LooKaart(t));
-
-            flowPanel.ResumeLayout();
-            UuendaKokku();
-        }
-
-        // Loob ühe toote kaardi (pilt, nimi, hind, laoseis, kogus)
-        private Panel LooKaart(Toode t)
-        {
-            bool laos = t.Kogus > 0;
-            _kogused.TryGetValue(t.Id, out int algKogus);
-
-            var kaart = new Panel
-            {
-                Size = new Size(190, 285),
-                Margin = new Padding(8),
-                BorderStyle = BorderStyle.FixedSingle,
-                Cursor = laos ? Cursors.Hand : Cursors.Default,
-                Tag = laos   // jätame meelde, kas toode on laos
-            };
-
-            var pb = new PictureBox
-            {
-                Location = new Point(14, 10),
-                Size = new Size(160, 120),
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Image = LaePilt(t.Pilt)
-            };
-
-            var nimi = new Label
-            {
-                Text = t.Toodenimetus,
-                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
-                Location = new Point(10, 138),
-                Size = new Size(168, 24),
-                AutoEllipsis = true
-            };
-
-            var hind = new Label
-            {
-                Text = $"{t.Hind:0.00} €",
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                ForeColor = Color.SeaGreen,
-                Location = new Point(10, 164),
-                Size = new Size(168, 26)
-            };
-
-            var info = new Label
-            {
-                Text = laos
-                    ? $"{t.Kategooria?.nimetus}  •  Laos: {t.Kogus}"
-                    : $"{t.Kategooria?.nimetus}  •  Otsas",
-                ForeColor = laos ? Color.Gray : Color.IndianRed,
-                Location = new Point(10, 194),
-                Size = new Size(168, 36)
-            };
-
-            var kogusLabel = new Label
-            {
-                Text = "Kogus:",
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                Location = new Point(10, 243),
-                AutoSize = true
-            };
-
-            // Koguse valik: 0 kuni laoseis
-            var kogusNum = new NumericUpDown
-            {
-                Name = "kogusNum",
-                Font = new Font("Segoe UI", 10F),
-                Location = new Point(75, 239),
-                Size = new Size(70, 25),
-                Minimum = 0,
-                Maximum = laos ? t.Kogus : 0,
-                Value = Math.Min(algKogus, laos ? t.Kogus : 0),
-                Enabled = laos
-            };
-
-            // Linnuke, mis ilmub valitud kaardile
-            var linnuke = new Label
-            {
-                Name = "linnuke",
-                Text = "✔",
-                Font = new Font("Segoe UI", 14F, FontStyle.Bold),
-                ForeColor = Color.SeaGreen,
-                Location = new Point(158, 2),
-                AutoSize = true,
-                Visible = false
-            };
-
-            kaart.Controls.AddRange(new Control[] { linnuke, pb, nimi, hind, info, kogusLabel, kogusNum });
-
-            // Koguse muutmisel jätame kogused meelde ja värvime kaardi
-            kogusNum.ValueChanged += (s, e) =>
-            {
-                int v = (int)kogusNum.Value;
-                if (v > 0) _kogused[t.Id] = v; else _kogused.Remove(t.Id);
-
-                VarviKaart(kaart, v > 0);
-                UuendaKokku();
-            };
-
-            // Klõps kaardil: kui kogus on 0, paneb 1; muidu nullib
-            if (laos)
-            {
-                void Klops(object? s, EventArgs e) =>
-                    kogusNum.Value = kogusNum.Value > 0 ? 0 : 1;
-
-                kaart.Click += Klops;
-                foreach (Control c in kaart.Controls)
-                    if (c != kogusNum) c.Click += Klops;
-            }
-
-            VarviKaart(kaart, kogusNum.Value > 0);
-            return kaart;
-        }
-
-        // Värvib kaardi: roheline = valitud, hall = otsas, valge = tavaline
-        private static void VarviKaart(Panel kaart, bool valitud)
-        {
-            bool laos = (bool)kaart.Tag!;
-
-            if (valitud) kaart.BackColor = Color.FromArgb(210, 240, 210);
-            else kaart.BackColor = laos ? Color.White : Color.Gainsboro;
-
-            kaart.Controls["linnuke"]!.Visible = valitud;
-        }
-
-        // Arvutab valitud toodete kogusumma
-        private decimal ArvutaSumma(IEnumerable<(Toode Toode, int Kogus)> read) =>
-            read.Sum(r => (decimal)r.Toode.Hind * r.Kogus);
-
-        // Valitud tooted koos kogustega
-        private List<(Toode Toode, int Kogus)> ValitudRead() =>
-            _tooted.Where(t => _kogused.ContainsKey(t.Id))
-                   .Select(t => (t, _kogused[t.Id]))
-                   .ToList();
-
-        // Uuendab alumist teksti
-        private void UuendaKokku()
-        {
-            if (_etapp > 0)
-            {
-                kokkuLabel.Text = $"Ostukorv: {_ostukorv.Sum(r => r.Kogus)} tk   |   Kokku: {_kokku:0.00} €";
-                return;
-            }
-
-            var v = ValitudRead();
-            kokkuLabel.Text = $"Valitud: {v.Sum(r => r.Kogus)} tk   |   Kokku: {ArvutaSumma(v):0.00} €";
-        }
-
-        // ---------- pildid ----------
-
-        // Laeb pildi ilma faili lukustamata
-        private Image? LaePilt(string? failiNimi)
-        {
-            if (string.IsNullOrEmpty(failiNimi)) return null;
-
-            string full = Path.Combine(_imagesDir, failiNimi);
-            if (!File.Exists(full)) return null;
-
-            using var fs = new FileStream(full, FileMode.Open, FileAccess.Read);
-            using var tmp = Image.FromStream(fs);
-            return new Bitmap(tmp);
-        }
-
-        // ---------- otsing ja filter ----------
-
-        private void OtsingEntry_TextChanged(object? sender, EventArgs e) => Kuva();
-
-        private void KategooriaBox_SelectedIndexChanged(object? sender, EventArgs e) => Kuva();
-
-        // ---------- ostuprotsess ----------
-
-        // "Ostan": fikseerib ostukorvi ja lukustab valiku
-        private void OstanBtn_Click(object? sender, EventArgs e)
-        {
-            var valitud = ValitudRead();
-            if (valitud.Count == 0)
-            {
-                MessageBox.Show("Vali vähemalt üks toode!");
-                return;
-            }
-
-            _ostukorv = valitud;
-            _kokku = ArvutaSumma(valitud);
-            _etapp = 1;
-
-            flowPanel.Enabled = false;     // valikut enam muuta ei saa
-            ostanBtn.Enabled = false;
-            makstaBtn.Enabled = true;
-            UuendaKokku();
-        }
-
-        // "Maksta": kinnitab makse ja vähendab laoseisu andmebaasis
-        private void MakstaBtn_Click(object? sender, EventArgs e)
-        {
-            if (_etapp != 1) return;
-
-            if (MessageBox.Show($"Kogusumma on {_kokku:0.00} €. Kas maksad?", "Makse",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                return;
-
-            try
-            {
-                foreach (var (toode, kogus) in _ostukorv)
-                {
-                    var db = _db.Toodetabel.Find(toode.Id);
-                    if (db == null || db.Kogus < kogus)
-                    {
-                        MessageBox.Show($"Toodet '{toode.Toodenimetus}' ei ole piisavalt laos!");
-                        return;
-                    }
-                }
-
-                DateTime aeg = DateTime.Now;
-                foreach (var (toode, kogus) in _ostukorv)
-                {
-                    _db.Toodetabel.Find(toode.Id)!.Kogus -= kogus;
-
-                    _db.Muugitabel.Add(new Muuk
-                    {
-                        Aeg = aeg,
-                        ToodeId = toode.Id,
-                        Toodenimetus = toode.Toodenimetus,
-                        Kogus = kogus,
-                        Hind = (decimal)toode.Hind,
-                        Summa = (decimal)toode.Hind * kogus
-                    });
-                }
-
-                _db.SaveChanges();
-
-                foreach (var (toode, kogus) in _ostukorv)
-                    toode.Kogus -= kogus;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Viga: " + (ex.InnerException?.Message ?? ex.Message));
-                return;
-            }
-
-            _etapp = 2;
-            makstaBtn.Enabled = false;
-            saadaArveBtn.Enabled = true;
-            MessageBox.Show("Makse õnnestus!");
-        }
-
-        // "Saada arve": loob arve faili, avab selle ja alustab uut ostu
-        // Gmaili andmed (parool = Google'i "rakenduse parool", mitte tavaline parool!)
-        private const string SaatjaEmail = "jaroslavbaka25@gmail.com";
-        private const string SaatjaParool = "txse crlz zdut bicm";
-
-        // "Saada arve": loob PDF-i, küsib e-maili, saadab arve ja alustab uut ostu
-        // "Saada arve": küsib e-maili, loob PDF-i, saadab arve ja alustab uut ostu
-        private void SaadaArveBtn_Click(object? sender, EventArgs e)
-        {
-            if (_etapp != 2) return;
-
-            string email = Microsoft.VisualBasic.Interaction.InputBox(
-                "Sisesta saaja e-mail", "Saada arve", "nimi@example.com").Trim();
-
-            string pdfTee;
-            try
-            {
-                pdfTee = LooPdf(email);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Viga PDF-i loomisel: " + ex.Message);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(email))
-                MessageBox.Show($"PDF on salvestatud:\n{pdfTee}");
-            else if (SaadaEmail(email, pdfTee))
-                MessageBox.Show("Arve saadetud!");
-
-            UusOst();
-        }
-
-        // Loob arve PDF-faili kausta Dokumendid\Arved ja tagastab faili tee
-        private string LooPdf(string klient)
-        {
-            var et = new System.Globalization.CultureInfo("et-EE");
-            string Raha(decimal x) => x.ToString("0.00", et) + " €";
-
-            string kaust = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Arved");
-            Directory.CreateDirectory(kaust);
-
-            DateTime aeg = DateTime.Now;
-            string arveNr = aeg.ToString("yyyyMMddHHmmss");
-            string fail = Path.Combine(kaust, $"Arve_{arveNr}.pdf");
-
-            decimal ilmaKm = Math.Round(_kokku / (1 + TsekiKoostaja.KmMaar / 100m), 2);
-            decimal km = _kokku - ilmaKm;
-
-            var dokument = new PdfDocument();
-            PdfPage leht = dokument.AddPage();
-            XGraphics gfx = XGraphics.FromPdfPage(leht);
-
-            var nimiFont = new XFont("Arial", 24, XFontStyle.Bold);
-            var tekstFont = new XFont("Arial", 11);
-            var paksFont = new XFont("Arial", 11, XFontStyle.Bold);
-            var vaikeFont = new XFont("Arial", 9);
-
-            double vasak = 40;
-            double parem = leht.Width - 40;
-
-            // Ettevõtte nimi
-            gfx.DrawString(TsekiKoostaja.Ettevote, nimiFont, XBrushes.Black, new XPoint(vasak, 60));
-
-            // Arve andmed
-            double y = 110;
-            gfx.DrawString("Arve nr.:", paksFont, XBrushes.Black, new XPoint(vasak, y));
-            gfx.DrawString(arveNr, tekstFont, XBrushes.Black, new XPoint(vasak + 70, y));
-            y += 16;
-            gfx.DrawString("Kuupäev:", paksFont, XBrushes.Black, new XPoint(vasak, y));
-            gfx.DrawString($"{aeg:dd.MM.yyyy HH:mm}", tekstFont, XBrushes.Black, new XPoint(vasak + 70, y));
-            y += 16;
-            gfx.DrawString("Staatus:", paksFont, XBrushes.Black, new XPoint(vasak, y));
-            gfx.DrawString("Makstud", tekstFont, XBrushes.Black, new XPoint(vasak + 70, y));
-
-          
-            // Tabeli päis
-            y += 34;
-            gfx.DrawString("Toode", paksFont, XBrushes.Black, new XPoint(vasak, y));
-            gfx.DrawString("Kogus", paksFont, XBrushes.Black, new XPoint(330, y));
-            gfx.DrawString("Hind", paksFont, XBrushes.Black, new XPoint(400, y));
-            gfx.DrawString("Summa", paksFont, XBrushes.Black,
-                new XRect(parem - 80, y - 11, 80, 14), XStringFormats.TopRight);
-            y += 8;
-            gfx.DrawLine(XPens.Gray, vasak, y, parem, y);
-            y += 20;
-
-            // Read
-            foreach (var (toode, kogus) in _ostukorv)
-            {
-                decimal rida = (decimal)toode.Hind * kogus;
-                string nimi = toode.Toodenimetus;
-                if (nimi.Length > 38) nimi = nimi.Substring(0, 35) + "...";
-
-                gfx.DrawString(nimi, tekstFont, XBrushes.Black, new XPoint(vasak, y));
-                gfx.DrawString(kogus.ToString(), tekstFont, XBrushes.Black, new XPoint(330, y));
-                gfx.DrawString(Raha((decimal)toode.Hind), tekstFont, XBrushes.Black, new XPoint(400, y));
-                gfx.DrawString(Raha(rida), tekstFont, XBrushes.Black,
-                    new XRect(parem - 90, y - 11, 90, 14), XStringFormats.TopRight);
-                y += 22;
-
-                if (y > 640)
-                {
-                    leht = dokument.AddPage();
-                    gfx = XGraphics.FromPdfPage(leht);
-                    y = 60;
-                }
-            }
-
-            // Kokkuvõte
-            y += 4;
-            gfx.DrawLine(XPens.Gray, vasak, y, parem, y);
-            y += 20;
-            gfx.DrawString("Summa ilma KM-ta:", tekstFont, XBrushes.Black, new XPoint(350, y));
-            gfx.DrawString(Raha(ilmaKm), tekstFont, XBrushes.Black,
-                new XRect(parem - 90, y - 11, 90, 14), XStringFormats.TopRight);
-            y += 18;
-            gfx.DrawString($"Käibemaks {TsekiKoostaja.KmMaar:0}%:", tekstFont, XBrushes.Black, new XPoint(350, y));
-            gfx.DrawString(Raha(km), tekstFont, XBrushes.Black,
-                new XRect(parem - 90, y - 11, 90, 14), XStringFormats.TopRight);
-            y += 22;
-            gfx.DrawString("KOKKU:", paksFont, XBrushes.Black, new XPoint(350, y));
-            gfx.DrawString(Raha(_kokku), paksFont, XBrushes.Black,
-                new XRect(parem - 90, y - 11, 90, 14), XStringFormats.TopRight);
-
-            y += 40;
-            gfx.DrawString("Aitäh ostu eest!", tekstFont, XBrushes.Black, new XPoint(vasak, y));
-
-            // Jalus
-            double jy = leht.Height - 70;
-            gfx.DrawLine(XPens.Gray, vasak, jy - 12, parem, jy - 12);
-            gfx.DrawString(TsekiKoostaja.Ettevote, vaikeFont, XBrushes.Black, new XPoint(vasak, jy));
-            gfx.DrawString(TsekiKoostaja.Aadress, vaikeFont, XBrushes.Black, new XPoint(vasak, jy + 12));
-            gfx.DrawString($"Reg. nr: {TsekiKoostaja.RegNr}", vaikeFont, XBrushes.Black, new XPoint(250, jy));
-            gfx.DrawString(TsekiKoostaja.PoeNimi, vaikeFont, XBrushes.Black, new XPoint(250, jy + 12));
-
-            dokument.Save(fail);
-            return fail;
-        }
-      
-
-        // Saadab PDF-i e-mailile Gmaili SMTP kaudu; tagastab true, kui õnnestus
-        private bool SaadaEmail(string saaja, string pdfTee)
-        {
-            try
-            {
-                using var kiri = new MailMessage();
-                kiri.From = new MailAddress(SaatjaEmail);
-                kiri.To.Add(saaja);
-                kiri.Subject = "Arve";
-                kiri.Body = "Aitäh ostu eest! Arve on manuses.";
-                kiri.Attachments.Add(new Attachment(pdfTee));
-
-                using var smtp = new SmtpClient("smtp.gmail.com", 587)
-                {
-                    Credentials = new NetworkCredential(SaatjaEmail, SaatjaParool),
-                    EnableSsl = true
-                };
-
-                smtp.Send(kiri);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("E-maili saatmine ebaõnnestus: " + ex.Message +
-                                $"\n\nPDF on siiski salvestatud:\n{pdfTee}");
-                return false;
-            }
-        }
-
-        // Lähtestab poe uue ostu jaoks
-        private void UusOst()
-        {
-            _etapp = 0;
-            _ostukorv.Clear();
-            _kogused.Clear();
-            _kokku = 0;
-
-            flowPanel.Enabled = true;
-            ostanBtn.Enabled = true;
-            makstaBtn.Enabled = false;
-            saadaArveBtn.Enabled = false;
-
-            Kuva();
-        }
-
-        // "Sulge": sulgeb poe akna
-        private void SulgeBtn_Click(object? sender, EventArgs e) => Close();
-
-        // Akna sulgemisel vabastame pildid ja andmebaasi ühenduse
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            foreach (var pb in flowPanel.Controls.Cast<Control>()
-                                        .SelectMany(c => c.Controls.OfType<PictureBox>()))
-                pb.Image?.Dispose();
-
-            _db.Dispose();
-            base.OnFormClosed(e);
-        }
-
+            var signature = string.Join(",", promotions.Where(p => p.Active(DateTimeOffset.UtcNow)).Select(p => p.Id));
+            if (signature == activeSignature || loading) return;
+            activeSignature = signature;
+            products = products.Select(p => PromotionEngine.Apply(p, promotions, DateTimeOffset.UtcNow)).ToArray();
+            Render();
+        };
+        clock.Start();
     }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing) { clock.Dispose(); store.Dispose(); }
+        base.Dispose(disposing);
+    }
+
+    private void Build()
+    {
+        SuspendLayout(); ShopStyle.Clear(this);
+        var root = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 4, Margin = Padding.Empty };
+        root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 82)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 54));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
+        var header = new TableLayoutPanel { Dock = DockStyle.Fill, BackColor = ShopStyle.Navy, ColumnCount = 3, Padding = new Padding(18, 10, 18, 10), Margin = Padding.Empty };
+        header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 218)); header.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 225));
+        var logo = new Shop67Logo { Dock = DockStyle.Fill, Cursor = Cursors.Hand }; logo.Click += (_, _) => Navigate("", true); header.Controls.Add(logo, 0, 0);
+        var search = new TextBox { Text = query, Dock = DockStyle.Fill, PlaceholderText = T.L("Otsi toodet, mudelit või omadust…", "Название, модель или характеристика…", "Search products, models or specifications…"), Margin = new Padding(8, 16, 18, 4), AccessibleName = T.L("Otsing", "Поиск", "Search") };
+        search.TextChanged += (_, _) => { query = search.Text; home = false; Render(); }; header.Controls.Add(search, 1, 0);
+        basket = Shop67Ui.Button("", OpenCart, true); basket.Dock = DockStyle.Fill; header.Controls.Add(basket, 2, 0);
+        root.Controls.Add(header, 0, 0);
+        var nav = new FlowLayoutPanel { Dock = DockStyle.Fill, BackColor = Color.White, Padding = new Padding(20, 5, 10, 0), WrapContents = false };
+        var homeButton = Shop67Ui.Button(T.L("Avaleht ja pakkumised", "Главная и акции", "Home and offers"), () => Navigate("", true)); homeButton.Width = 200; nav.Controls.Add(homeButton);
+        foreach (string key in CatalogRules.Categories)
+        { var button = Shop67Ui.Button(T.Category(key), () => Navigate(key, false)); button.Width = key == "phones" ? 135 : 240; nav.Controls.Add(button); }
+        var refresh = Shop67Ui.Button(T.L("Uuenda", "Обновить", "Refresh"), Reload); refresh.Width = 120; nav.Controls.Add(refresh);
+        root.Controls.Add(nav, 0, 1);
+        body = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1, Padding = new Padding(20, 16, 12, 0) };
+        body.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 245)); body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        sidebar = ShopStyle.Stack(); sidebar.Padding = new Padding(0, 0, 18, 0); body.Controls.Add(sidebar, 0, 0);
+        var content = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 2 };
+        content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100)); content.RowStyles.Add(new RowStyle(SizeType.Absolute, 48)); content.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+        var titlebar = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1 };
+        titlebar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100)); titlebar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 240));
+        heading = Shop67Ui.Label("", 18, true); titlebar.Controls.Add(heading, 0, 0);
+        var sort = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Dock = DockStyle.Top };
+        sort.Items.AddRange(new object[] { T.L("Soovitatud", "Рекомендуемые", "Recommended"), T.L("Hind: odavamad enne", "Цена по возрастанию", "Price: low to high"), T.L("Hind: kallimad enne", "Цена по убыванию", "Price: high to low"), T.L("Nimi: A–Z", "Название: А–Я", "Name: A–Z") });
+        sort.SelectedIndex = sortOrder; sort.SelectedIndexChanged += (_, _) => { sortOrder = sort.SelectedIndex; RenderProducts(); }; titlebar.Controls.Add(sort, 1, 0);
+        content.Controls.Add(titlebar, 0, 0);
+        resultsPanel = ShopStyle.Stack(); resultsPanel.Padding = new Padding(0, 0, 10, 0); resultsPanel.SizeChanged += (_, _) => ResizeCards(); content.Controls.Add(resultsPanel, 0, 1);
+        body.Controls.Add(content, 1, 0); root.Controls.Add(body, 0, 2);
+        status = Shop67Ui.Label("", 9); status.AutoSize = false; status.Dock = DockStyle.Fill; status.Padding = new Padding(20, 8, 0, 0); root.Controls.Add(status, 0, 3);
+        Controls.Add(root); Render(); UpdateCart(); ResumeLayout(true);
+    }
+
+    private void Navigate(string key, bool landing)
+    { category = key; home = landing; selectedOffer = null; facets.Clear(); Render(); }
+
+    private async void Reload()
+    {
+        if (loading || IsDisposed) return;
+        loading = true; status.Text = T.L("Laadin veebikataloogi…", "Загружаю интернет-каталог…", "Loading online catalog…");
+        try
+        {
+            var loaded = await Task.Run(store.GetProducts);
+            if (IsDisposed) return;
+            products = loaded; promotions = store.GetPromotions();
+            activeSignature = string.Join(",", promotions.Where(p => p.Active(DateTimeOffset.UtcNow)).Select(p => p.Id));
+        }
+        catch (Exception ex)
+        {
+            if (!IsDisposed) MessageBox.Show(this, T.L("Kataloogi ei saanud laadida. ", "Не удалось загрузить каталог. ", "Unable to load catalog. ") + ex.Message, "shoping67");
+        }
+        finally { loading = false; if (!IsDisposed) Render(); }
+    }
+
+    private void Render()
+    {
+        if (resultsPanel == null) return;
+        sidebar.Visible = !home; body.ColumnStyles[0].Width = home ? 0 : 245;
+        BuildSidebar(); RenderProducts();
+        if (!loading) status.Text = T.Legacy(T.Canonical(store.CatalogStatus)) + " · " + T.L("Õppepood · Tegelikud tootemudelid, näitlik hind ja laoseis.", "Учебный магазин · Реальные модели, демонстрационные цены и остатки.", "Teaching shop · Real models, illustrative prices and inventory.");
+    }
+
+    private void BuildSidebar()
+    {
+        ShopStyle.Clear(sidebar);
+        if (home) return;
+        sidebar.Controls.Add(Shop67Ui.Label(T.L("Filtrid", "Фильтры", "Filters"), 15, true));
+        var all = Shop67Ui.Button(T.Category(""), () => Navigate("", false)); all.Width = 210; sidebar.Controls.Add(all);
+        foreach (string key in CatalogRules.Categories)
+        { var button = Shop67Ui.Button(T.Category(key), () => Navigate(key, false)); button.Width = 210; sidebar.Controls.Add(button); }
+        sidebar.Controls.Add(Shop67Ui.Label(T.L("Hind (€): alates / kuni", "Цена (€): от / до", "Price (€): from / to"), 10, true));
+        var prices = new FlowLayoutPanel { Width = 215, Height = 42, WrapContents = false };
+        var min = new NumericUpDown { DecimalPlaces = 2, Maximum = 1000000, Value = minimum, Width = 98 };
+        var max = new NumericUpDown { DecimalPlaces = 2, Maximum = 1000000, Value = maximum, Width = 98 };
+        min.ValueChanged += (_, _) => { minimum = min.Value; RenderProducts(); }; max.ValueChanged += (_, _) => { maximum = max.Value; RenderProducts(); };
+        prices.Controls.Add(min); prices.Controls.Add(max); sidebar.Controls.Add(prices);
+        var available = new CheckBox { Text = T.L("Ainult laos", "Только в наличии", "In stock only"), Checked = inStock, Width = 210, Height = 32 };
+        available.CheckedChanged += (_, _) => { inStock = available.Checked; RenderProducts(); }; sidebar.Controls.Add(available);
+        var population = products.Where(p => p.Details.Visible && CatalogRules.IsTechnical(p) && (category.Length == 0 || p.Details.Category == category)).ToArray();
+        foreach (string facet in CatalogRules.Facets(category))
+        {
+            var values = population.Select(p => CatalogRules.FacetValue(p, facet)).Where(v => !string.IsNullOrWhiteSpace(v)).Distinct().OrderBy(v => v).ToArray();
+            if (values.Length == 0) continue;
+            sidebar.Controls.Add(Shop67Ui.Label(T.Spec(facet), 11, true));
+            var list = new CheckedListBox { Width = 210, Height = Math.Min(170, values.Length * 24 + 8), CheckOnClick = true, BorderStyle = BorderStyle.None, BackColor = BackColor, IntegralHeight = false };
+            foreach (var value in values) list.Items.Add(new FacetItem(value), facets.TryGetValue(facet, out var chosen) && chosen.Contains(value));
+            list.ItemCheck += (_, e) =>
+            {
+                if (!facets.TryGetValue(facet, out var chosen)) facets[facet] = chosen = new(StringComparer.OrdinalIgnoreCase);
+                string value = ((FacetItem)list.Items[e.Index]).Value;
+                if (e.NewValue == CheckState.Checked) chosen.Add(value); else chosen.Remove(value);
+                if (IsHandleCreated) BeginInvoke(new Action(RenderProducts));
+            };
+            sidebar.Controls.Add(list);
+        }
+        var reset = Shop67Ui.Button(T.L("Puhasta filtrid", "Сбросить фильтры", "Clear filters"), () =>
+        { facets.Clear(); query = ""; minimum = 0; maximum = 1000000; inStock = false; selectedOffer = null; Build(); });
+        reset.Width = 210; sidebar.Controls.Add(reset);
+    }
+
+    private void RenderProducts()
+    {
+        if (resultsPanel == null || IsDisposed) return;
+        resultsPanel.SuspendLayout(); ShopStyle.Clear(resultsPanel);
+        if (home)
+        {
+            heading.Text = T.L("Värsked pakkumised", "Предложения и акции", "Latest offers");
+            foreach (var offer in promotions.Where(p => p.Active(DateTimeOffset.UtcNow)).OrderBy(p => p.Position)) AddOffer(offer);
+            if (!promotions.Any(p => p.Active(DateTimeOffset.UtcNow))) resultsPanel.Controls.Add(Shop67Ui.Label(T.L("Aktiivseid kampaaniaid praegu pole. Vaata kataloogi.", "Сейчас нет действующих акций. Посмотрите каталог.", "No promotions are active. Explore the catalog."), 12));
+            resultsPanel.Controls.Add(Shop67Ui.Label(T.L("Avasta kolm kategooriat", "Выбери свою категорию", "Explore our three categories"), 20, true));
+            foreach (string key in CatalogRules.Categories)
+            { var button = Shop67Ui.Button(T.Category(key) + "  →", () => Navigate(key, false)); button.Width = 400; resultsPanel.Controls.Add(button); }
+            resultsPanel.Controls.Add(Shop67Ui.Label(T.L("Valik kataloogist", "Товары из каталога", "From the catalog"), 20, true));
+        }
+        var filter = new CatalogFilter { Category = category, Query = query, Minimum = minimum, Maximum = maximum, InStock = inStock, Facets = facets };
+        IEnumerable<ShopProduct> found = products.Where(filter.Matches);
+        if (selectedOffer != null)
+        {
+            var offer = promotions.FirstOrDefault(p => p.Id == selectedOffer && p.Active(DateTimeOffset.UtcNow));
+            found = offer == null ? Enumerable.Empty<ShopProduct>() : found.Where(offer.Matches);
+        }
+        found = sortOrder switch { 1 => found.OrderBy(p => p.Price), 2 => found.OrderByDescending(p => p.Price), 3 => found.OrderBy(p => p.DisplayName), _ => found.OrderBy(p => p.Id) };
+        var visible = (home ? found.Take(6) : found).ToArray();
+        if (!home) heading.Text = T.Category(category) + " · " + visible.Length;
+        foreach (var product in visible)
+        {
+            var card = new ProductListItem(product, () => OpenProduct(product), () => AddToCart(product, 1)); card.Tag = product; card.UpdateAvailability(cart.Quantity(product.Id)); resultsPanel.Controls.Add(card);
+        }
+        if (visible.Length == 0) resultsPanel.Controls.Add(Shop67Ui.Label(loading ? T.L("Laadimine…", "Загрузка…", "Loading…") : T.L("Sobivaid tooteid ei leitud. Muuda filtreid.", "Подходящих товаров нет. Измените фильтры.", "No matching products. Adjust your filters."), 13));
+        ResizeCards(); resultsPanel.ResumeLayout(true); UpdateCart();
+    }
+
+    private void AddOffer(Promotion offer)
+    {
+        var panel = new TableLayoutPanel { Height = 230, ColumnCount = 2, RowCount = 1, Padding = new Padding(22), Margin = new Padding(0, 0, 0, 16), BackColor = Color.FromArgb(255, 235, 195) };
+        panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100)); panel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 180));
+        var text = ShopStyle.Stack(); text.AutoScroll = false;
+        text.Controls.Add(Shop67Ui.Label(offer.Title.Value + (offer.Percent > 0 ? $"  −{offer.Percent:0.##}%" : ""), 22, true));
+        var description = Shop67Ui.Label(offer.Description.Value, 11); description.MaximumSize = new Size(650, 0); text.Controls.Add(description);
+        text.Controls.Add(Shop67Ui.Label(T.L("Kehtib kuni ", "Действует до ", "Ends ") + offer.Ends.ToLocalTime().ToString("dd.MM.yyyy HH:mm"), 9));
+        var open = Shop67Ui.Button(T.L("Vaata pakkumist →", "Посмотреть предложение →", "Explore offer →"), () =>
+        { home = false; category = offer.Category; selectedOffer = offer.Id; facets.Clear(); Render(); }, true);
+        open.Width = 245; text.Controls.Add(open); panel.Controls.Add(text, 0, 0);
+        if (!string.IsNullOrWhiteSpace(offer.Image)) panel.Controls.Add(ShopImages.Picture(offer.Image), 1, 0);
+        else panel.Controls.Add(new Shop67Logo { ForeColor = ShopStyle.Navy, Dock = DockStyle.Fill }, 1, 0);
+        resultsPanel.Controls.Add(panel);
+    }
+
+    private void ResizeCards()
+    {
+        if (resultsPanel == null) return;
+        foreach (Control control in resultsPanel.Controls)
+        { control.Width = Math.Max(600, resultsPanel.ClientSize.Width - 32); if (control is Label label) label.MaximumSize = new Size(control.Width, 0); }
+    }
+    private bool AddToCart(ShopProduct product, int quantity)
+    {
+        try { cart.Add(product, quantity); UpdateCart(); return true; }
+        catch (InvalidOperationException ex) { MessageBox.Show(this, ex.Message, T.Legacy("Ostukorv")); return false; }
+    }
+    private void UpdateCart()
+    {
+        if (basket == null) return;
+        basket.Text = T.Legacy("Ostukorv") + $" · {cart.Count} | " + T.Money(cart.Total);
+        foreach (var card in resultsPanel.Controls.OfType<ProductListItem>()) if (card.Tag is ShopProduct p) card.UpdateAvailability(cart.Quantity(p.Id));
+    }
+    private void OpenProduct(ShopProduct product)
+    {
+        using var detail = new ProductDetailsForm(product, cart, AddToCart);
+        if (detail.ShowDialog(this) == DialogResult.OK) OpenCart(); UpdateCart();
+    }
+    private void OpenCart()
+    {
+        if (loading) return;
+        using var form = new CartForm(cart, store); form.ShowDialog(this); UpdateCart();
+        if (form.Order is not { } order) return;
+        Reload(); using var confirmation = new OrderConfirmationForm(order, form.PaymentFlow); confirmation.ShowDialog(this);
+    }
+    private sealed record FacetItem(string Value) { public override string ToString() => T.Value(Value); }
 }
