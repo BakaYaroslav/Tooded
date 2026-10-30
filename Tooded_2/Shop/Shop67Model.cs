@@ -11,6 +11,7 @@ public sealed record ProductDetails
 {
     public string SourceKey { get; init; } = "";
     public string SourceUrl { get; init; } = "";
+    public string PhotoUrl { get; init; } = "";
     public string Category { get; init; } = "";
     public string Kind { get; init; } = "";
     public string Brand { get; init; } = "";
@@ -65,7 +66,7 @@ public sealed record CatalogFilter
     public decimal Maximum { get; init; } = 1000000;
     public bool InStock { get; init; }
     public Dictionary<string, HashSet<string>> Facets { get; init; } = new();
-    public bool Matches(ShopProduct p) => p.Details.Visible && CatalogRules.Categories.Contains(p.Details.Category)
+    public bool Matches(ShopProduct p) => p.Details.Visible && CatalogRules.IsTechnical(p)
         && (Category.Length == 0 || p.Details.Category == Category) && (!InStock || p.Stock > 0)
         && p.Price >= Minimum && p.Price <= Maximum
         && (Query.Length == 0 || string.Join(" ", p.Name, p.DisplayName, p.Details.Brand,
@@ -85,7 +86,21 @@ public static class CatalogRules
     };
     public static string FacetValue(ShopProduct p, string key) => key switch
     { "brand" => p.Details.Brand, "kind" => p.Details.Kind, _ => p.Details.Specs.GetValueOrDefault(key, "") };
-    public static bool IsTechnical(ShopProduct p) => Categories.Contains(p.Details.Category);
+    public static bool IsTechnical(ShopProduct p)
+    {
+        if (p.Details.Brand.Equals("shoping67", StringComparison.OrdinalIgnoreCase)
+            || p.Name.Contains("shoping67", StringComparison.OrdinalIgnoreCase)) return false;
+        string title = p.Name + " " + p.Details.Name.En;
+        if (new[] { "backpack", "foldsack", "jewel", "t-shirt", "shirt", "dress", "jeans" }
+            .Any(word => title.Contains(word, StringComparison.OrdinalIgnoreCase))) return false;
+        return p.Details.Category switch
+        {
+            "phones" => p.Details.Kind == "phone",
+            "computers" => p.Details.Kind is "laptop" or "desktop",
+            "accessories" => p.Details.Kind is "mouse" or "keyboard" or "headphones",
+            _ => false
+        };
+    }
 }
 
 public sealed class ShopConfiguration

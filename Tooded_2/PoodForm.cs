@@ -112,7 +112,7 @@ public partial class PoodForm : Form
         if (resultsPanel == null) return;
         sidebar.Visible = !home; body.ColumnStyles[0].Width = home ? 0 : 245;
         BuildSidebar(); RenderProducts();
-        if (!loading) status.Text = T.Legacy(T.Canonical(store.CatalogStatus)) + " · " + T.L("Õppepood · Demohinnad ja demomakse. Konfiguratsiooninäited on märgistatud.", "Учебный магазин · Демоцены и учебная оплата. Примеры конфигураций отмечены.", "Teaching shop · Demo prices and payment. Reference configurations are labelled.");
+        if (!loading) status.Text = T.Legacy(T.Canonical(store.CatalogStatus)) + " · " + T.L("Õppepood · Tegelikud tootemudelid, näitlik hind ja laoseis.", "Учебный магазин · Реальные модели, демонстрационные цены и остатки.", "Teaching shop · Real models, illustrative prices and inventory.");
     }
 
     private void BuildSidebar()

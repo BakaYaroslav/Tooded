@@ -30,15 +30,15 @@ Filters use OR between selected values of one characteristic and AND across char
 
 Product details show translated text, specifications, current/old price, zoomable photo, quantity, Add to basket and Buy now. The basket survives language changes. Changing a price or an expiring promotion requires removing an outdated basket line and adding it again; stale discounted prices are rejected during checkout. The greatest matching discount applies; discounts do not stack or compound on refresh. In database mode completed demo orders reduce stock and appear in the existing sales report.
 
-## Product sources and honest demo data
+## Product sources and photographs
 
-At shop opening the application requests the public DummyJSON smartphone/laptop endpoints and this repository's versioned `Tooded_2/Catalog/tech-products.json`. Network failures use cached and bundled data. Product images are requested separately and cached as PNG, including conversion of WebP; unavailable images show a placeholder.
+The catalog contains real model names from Apple, ASUS, Dell, Google, Huawei, Lenovo, Logitech, Oppo, Realme, Samsung, Vivo and Beats. shoping67 is the shop name, never a hardware manufacturer. The invented shop-branded PCs/laptops and old reference configurations have been retired. The real ASUS ROG Strix G16 G614JI-AS94 provides the documented RTX 4070 Laptop GPU filter example.
 
-DummyJSON is a **teaching API, not a supplier feed**. Its price numbers and stock are used only as illustrative shop values, not current offers or exchange rates. The source does not publish verified GPU/CPU/RAM specifications, so those fields are left empty. ET/RU use a translated import description; the original source description is available in EN. An administrator can write all three descriptions.
+At opening, the application updates its approved model list from the versioned catalog and the DummyJSON phone, laptop and selected headphone feeds. Every incoming entry must match the approved source ID, model name, brand, category and device type. Unknown IDs, cancelled/out-of-category accessories and mismatched items are rejected. Stored cache records pass the same validation. Prices/stock remain illustrative teaching-shop values, not a live supplier feed or currency conversion.
 
-The bundled catalog contains 14 clearly labelled **reference configurations** with three-language descriptions and useful filter examples, including a desktop RTX 4070. They are sample configurations/prices, not claimed live retailer offers. Reference PCs without a verified photograph use an image placeholder. Administrators can supply a matching photograph and edit the specifications. The remote reference catalog is the same openly reviewable JSON file in this repository; it is not represented as an independent supplier.
+Every catalog model has a matching photograph bundled under `Tooded_2/Images/Products`. The catalog records its photo URL and product/source URL. The Windows build workflow downloads and decodes the photographs, tests every PNG and saves the verified image files with the project. Storefront photos then load locally even without internet. Missing source specifications remain unknown; no GPU/RAM is inferred from an unrelated model.
 
-Stable source keys prevent duplicate import. Existing admin edits, deleted imported products and sold stock are not reset by reimport. New source keys can be imported into a nonempty database. Existing unrelated legacy products remain in the administrator list; assign them a supported category, type and visibility in the new editor to show them in this storefront.
+On the first SQL-backed shop opening after updating, catalog reconciliation archives the old invented products and incorrectly categorized records, repairs approved image paths and imports the real models. It preserves database rows, users and sales history. Reconciliation is idempotent and does not reset stock or prices of valid existing models. An incorrect imported source identity is released for a correct reimport. No database deletion is needed.
 
 ## Administration
 

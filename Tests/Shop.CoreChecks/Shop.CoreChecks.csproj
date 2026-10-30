@@ -13,6 +13,8 @@
     <Compile Include="../../Tooded_2/Shop/Shop67Model.cs" Link="Shop67Model.cs" />
     <Compile Include="../../Tooded_2/Shop/T.cs" Link="T.cs" />
     <Compile Include="../../Tooded_2/Shop/TechCatalog.cs" Link="TechCatalog.cs" />
+    <Compile Include="../../Tooded_2/Shop/CatalogRepair.cs" Link="CatalogRepair.cs" />
+    <None Include="../../Tooded_2/Images/Products/*.png" Link="Images/Products/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../Tooded_2/Catalog/tech-products.json" Link="Catalog/tech-products.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../Tooded_2/Catalog/products.json" Link="Catalog/products.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../Tooded_2/Images/Catalog/*.jpg" Link="Images/Catalog/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />

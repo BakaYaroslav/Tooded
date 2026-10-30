@@ -1,334 +1,761 @@
 [
   {
     "Id": 1,
-    "Name": "Apple iPhone 13 Pro",
-    "Price": 799,
-    "Stock": 8,
+    "Name": "Apple MacBook Pro 14 Inch Space Grey",
+    "Price": 1999.99,
+    "Stock": 24,
+    "Image": "Products/dummyjson-78.png",
     "Details": {
-      "SourceKey": "ref:apple-iphone-13-pro",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "phones",
-      "Kind": "phone",
+      "SourceKey": "dummyjson:78",
+      "SourceUrl": "https://dummyjson.com/products/78",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp",
+      "Category": "computers",
+      "Kind": "laptop",
       "Brand": "Apple",
       "Name": {
-        "Et": "Apple iPhone 13 Pro",
-        "Ru": "Apple iPhone 13 Pro",
-        "En": "Apple iPhone 13 Pro"
+        "Et": "Apple MacBook Pro 14 Inch Space Grey",
+        "Ru": "Apple MacBook Pro 14 Inch Space Grey",
+        "En": "Apple MacBook Pro 14 Inch Space Grey"
       },
       "Description": {
-        "Et": "Apple iPhone 13 Pro. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "Apple iPhone 13 Pro. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "Apple iPhone 13 Pro. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Apple MacBook Pro 14 Inch Space Grey. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Apple MacBook Pro 14 Inch Space Grey. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Apple MacBook Pro 14 Inch Space Grey. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
-      "Specs": {
-        "ram": "6 GB",
-        "storage": "128 GB",
-        "screen": "6.1″",
-        "os": "iOS",
-        "5g": "yes"
-      },
+      "Specs": {},
       "Visible": true,
-      "ReferenceConfiguration": true
-    },
-    "Image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"
+      "ReferenceConfiguration": false
+    }
   },
   {
     "Id": 2,
-    "Name": "Samsung Galaxy S24",
-    "Price": 699,
-    "Stock": 12,
+    "Name": "Asus Zenbook Pro Dual Screen Laptop",
+    "Price": 1799.99,
+    "Stock": 45,
+    "Image": "Products/dummyjson-79.png",
     "Details": {
-      "SourceKey": "ref:samsung-galaxy-s24",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "phones",
-      "Kind": "phone",
-      "Brand": "Samsung",
+      "SourceKey": "dummyjson:79",
+      "SourceUrl": "https://dummyjson.com/products/79",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/laptops/asus-zenbook-pro-dual-screen-laptop/thumbnail.webp",
+      "Category": "computers",
+      "Kind": "laptop",
+      "Brand": "Asus",
       "Name": {
-        "Et": "Samsung Galaxy S24",
-        "Ru": "Samsung Galaxy S24",
-        "En": "Samsung Galaxy S24"
+        "Et": "Asus Zenbook Pro Dual Screen Laptop",
+        "Ru": "Asus Zenbook Pro Dual Screen Laptop",
+        "En": "Asus Zenbook Pro Dual Screen Laptop"
       },
       "Description": {
-        "Et": "Samsung Galaxy S24. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "Samsung Galaxy S24. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "Samsung Galaxy S24. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Asus Zenbook Pro Dual Screen Laptop. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Asus Zenbook Pro Dual Screen Laptop. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Asus Zenbook Pro Dual Screen Laptop. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
-      "Specs": {
-        "ram": "8 GB",
-        "storage": "256 GB",
-        "screen": "6.2″",
-        "os": "Android",
-        "5g": "yes"
-      },
+      "Specs": {},
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 3,
-    "Name": "Google Pixel 8",
-    "Price": 549,
-    "Stock": 5,
+    "Name": "Huawei Matebook X Pro",
+    "Price": 1399.99,
+    "Stock": 75,
+    "Image": "Products/dummyjson-80.png",
     "Details": {
-      "SourceKey": "ref:google-pixel-8",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "phones",
-      "Kind": "phone",
-      "Brand": "Google",
+      "SourceKey": "dummyjson:80",
+      "SourceUrl": "https://dummyjson.com/products/80",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/thumbnail.webp",
+      "Category": "computers",
+      "Kind": "laptop",
+      "Brand": "Huawei",
       "Name": {
-        "Et": "Google Pixel 8",
-        "Ru": "Google Pixel 8",
-        "En": "Google Pixel 8"
+        "Et": "Huawei Matebook X Pro",
+        "Ru": "Huawei Matebook X Pro",
+        "En": "Huawei Matebook X Pro"
       },
       "Description": {
-        "Et": "Google Pixel 8. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "Google Pixel 8. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "Google Pixel 8. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Huawei Matebook X Pro. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Huawei Matebook X Pro. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Huawei Matebook X Pro. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
-      "Specs": {
-        "ram": "8 GB",
-        "storage": "128 GB",
-        "screen": "6.2″",
-        "os": "Android",
-        "5g": "yes"
-      },
+      "Specs": {},
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 4,
-    "Name": "shoping67 Laptop · RTX 4070",
-    "Price": 1499,
-    "Stock": 6,
+    "Name": "Lenovo Yoga 920",
+    "Price": 1099.99,
+    "Stock": 40,
+    "Image": "Products/dummyjson-81.png",
     "Details": {
-      "SourceKey": "ref:laptop-4070",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "SourceKey": "dummyjson:81",
+      "SourceUrl": "https://dummyjson.com/products/81",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/laptops/lenovo-yoga-920/thumbnail.webp",
       "Category": "computers",
       "Kind": "laptop",
-      "Brand": "shoping67",
+      "Brand": "Lenovo",
       "Name": {
-        "Et": "shoping67 Laptop · RTX 4070",
-        "Ru": "shoping67 Laptop · RTX 4070",
-        "En": "shoping67 Laptop · RTX 4070"
+        "Et": "Lenovo Yoga 920",
+        "Ru": "Lenovo Yoga 920",
+        "En": "Lenovo Yoga 920"
       },
       "Description": {
-        "Et": "shoping67 Laptop · RTX 4070. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "shoping67 Laptop · RTX 4070. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "shoping67 Laptop · RTX 4070. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Lenovo Yoga 920. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Lenovo Yoga 920. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Lenovo Yoga 920. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
-      "Specs": {
-        "gpu": "RTX 4070 Laptop GPU",
-        "cpu": "Intel Core i7-13620H",
-        "ram": "32 GB",
-        "storage": "1 TB SSD",
-        "screen": "15.6″",
-        "os": "Windows 11"
-      },
+      "Specs": {},
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 5,
-    "Name": "shoping67 Laptop · RTX 4060",
-    "Price": 1199,
-    "Stock": 10,
+    "Name": "New DELL XPS 13 9300 Laptop",
+    "Price": 1499.99,
+    "Stock": 74,
+    "Image": "Products/dummyjson-82.png",
     "Details": {
-      "SourceKey": "ref:laptop-4060",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "SourceKey": "dummyjson:82",
+      "SourceUrl": "https://dummyjson.com/products/82",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/laptops/new-dell-xps-13-9300-laptop/thumbnail.webp",
       "Category": "computers",
       "Kind": "laptop",
-      "Brand": "shoping67",
+      "Brand": "Dell",
       "Name": {
-        "Et": "shoping67 Laptop · RTX 4060",
-        "Ru": "shoping67 Laptop · RTX 4060",
-        "En": "shoping67 Laptop · RTX 4060"
+        "Et": "New DELL XPS 13 9300 Laptop",
+        "Ru": "New DELL XPS 13 9300 Laptop",
+        "En": "New DELL XPS 13 9300 Laptop"
       },
       "Description": {
-        "Et": "shoping67 Laptop · RTX 4060. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "shoping67 Laptop · RTX 4060. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "shoping67 Laptop · RTX 4060. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "New DELL XPS 13 9300 Laptop. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "New DELL XPS 13 9300 Laptop. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "New DELL XPS 13 9300 Laptop. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
-      "Specs": {
-        "gpu": "RTX 4060 Laptop GPU",
-        "cpu": "Intel Core i7-13620H",
-        "ram": "16 GB",
-        "storage": "512 GB SSD",
-        "screen": "15.6″",
-        "os": "Windows 11"
-      },
+      "Specs": {},
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 6,
-    "Name": "shoping67 Study Laptop",
-    "Price": 599,
-    "Stock": 9,
+    "Name": "Apple Airpods",
+    "Price": 129.99,
+    "Stock": 67,
+    "Image": "Products/dummyjson-100.png",
     "Details": {
-      "SourceKey": "ref:laptop-study",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "computers",
-      "Kind": "laptop",
-      "Brand": "shoping67",
+      "SourceKey": "dummyjson:100",
+      "SourceUrl": "https://dummyjson.com/products/100",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods/thumbnail.webp",
+      "Category": "accessories",
+      "Kind": "headphones",
+      "Brand": "Apple",
       "Name": {
-        "Et": "shoping67 Study Laptop",
-        "Ru": "shoping67 Study Laptop",
-        "En": "shoping67 Study Laptop"
+        "Et": "Apple Airpods",
+        "Ru": "Apple Airpods",
+        "En": "Apple Airpods"
       },
       "Description": {
-        "Et": "shoping67 Study Laptop. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "shoping67 Study Laptop. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "shoping67 Study Laptop. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Apple Airpods. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Apple Airpods. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Apple Airpods. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
       "Specs": {
-        "gpu": "Intel Iris Xe",
-        "cpu": "Intel Core i5-1235U",
-        "ram": "16 GB",
-        "storage": "512 GB SSD",
-        "screen": "14″",
-        "os": "Windows 11"
+        "connection": "wireless",
+        "microphone": "yes"
       },
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 7,
-    "Name": "shoping67 PC · RTX 4070",
-    "Price": 1399,
-    "Stock": 7,
+    "Name": "Apple AirPods Max Silver",
+    "Price": 549.99,
+    "Stock": 59,
+    "Image": "Products/dummyjson-101.png",
     "Details": {
-      "SourceKey": "ref:pc-4070",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "computers",
-      "Kind": "desktop",
-      "Brand": "shoping67",
+      "SourceKey": "dummyjson:101",
+      "SourceUrl": "https://dummyjson.com/products/101",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods-max-silver/thumbnail.webp",
+      "Category": "accessories",
+      "Kind": "headphones",
+      "Brand": "Apple",
       "Name": {
-        "Et": "shoping67 PC · RTX 4070",
-        "Ru": "shoping67 PC · RTX 4070",
-        "En": "shoping67 PC · RTX 4070"
+        "Et": "Apple AirPods Max Silver",
+        "Ru": "Apple AirPods Max Silver",
+        "En": "Apple AirPods Max Silver"
       },
       "Description": {
-        "Et": "shoping67 PC · RTX 4070. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "shoping67 PC · RTX 4070. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "shoping67 PC · RTX 4070. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Apple AirPods Max Silver. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Apple AirPods Max Silver. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Apple AirPods Max Silver. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
       "Specs": {
-        "gpu": "RTX 4070",
-        "cpu": "AMD Ryzen 5 7600",
-        "ram": "32 GB",
-        "storage": "1 TB SSD",
-        "os": "Windows 11"
+        "connection": "wireless",
+        "microphone": "yes"
       },
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 8,
-    "Name": "shoping67 PC · RTX 4070 SUPER",
-    "Price": 1649,
-    "Stock": 4,
+    "Name": "Beats Flex Wireless Earphones",
+    "Price": 49.99,
+    "Stock": 50,
+    "Image": "Products/dummyjson-107.png",
     "Details": {
-      "SourceKey": "ref:pc-4070-super",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "computers",
-      "Kind": "desktop",
-      "Brand": "shoping67",
+      "SourceKey": "dummyjson:107",
+      "SourceUrl": "https://dummyjson.com/products/107",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/mobile-accessories/beats-flex-wireless-earphones/thumbnail.webp",
+      "Category": "accessories",
+      "Kind": "headphones",
+      "Brand": "Beats",
       "Name": {
-        "Et": "shoping67 PC · RTX 4070 SUPER",
-        "Ru": "shoping67 PC · RTX 4070 SUPER",
-        "En": "shoping67 PC · RTX 4070 SUPER"
+        "Et": "Beats Flex Wireless Earphones",
+        "Ru": "Beats Flex Wireless Earphones",
+        "En": "Beats Flex Wireless Earphones"
       },
       "Description": {
-        "Et": "shoping67 PC · RTX 4070 SUPER. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "shoping67 PC · RTX 4070 SUPER. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "shoping67 PC · RTX 4070 SUPER. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Beats Flex Wireless Earphones. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Beats Flex Wireless Earphones. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Beats Flex Wireless Earphones. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
       "Specs": {
-        "gpu": "RTX 4070 SUPER",
-        "cpu": "AMD Ryzen 7 7700",
-        "ram": "32 GB",
-        "storage": "2 TB SSD",
-        "os": "Windows 11"
+        "connection": "wireless",
+        "microphone": "yes"
       },
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 9,
-    "Name": "shoping67 PC · RTX 4060",
-    "Price": 899,
-    "Stock": 0,
+    "Name": "iPhone 5s",
+    "Price": 199.99,
+    "Stock": 25,
+    "Image": "Products/dummyjson-121.png",
     "Details": {
-      "SourceKey": "ref:pc-4060",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "computers",
-      "Kind": "desktop",
-      "Brand": "shoping67",
+      "SourceKey": "dummyjson:121",
+      "SourceUrl": "https://dummyjson.com/products/121",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Apple",
       "Name": {
-        "Et": "shoping67 PC · RTX 4060",
-        "Ru": "shoping67 PC · RTX 4060",
-        "En": "shoping67 PC · RTX 4060"
+        "Et": "iPhone 5s",
+        "Ru": "iPhone 5s",
+        "En": "iPhone 5s"
       },
       "Description": {
-        "Et": "shoping67 PC · RTX 4060. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "shoping67 PC · RTX 4060. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "shoping67 PC · RTX 4060. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "iPhone 5s. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "iPhone 5s. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "iPhone 5s. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
-      "Specs": {
-        "gpu": "RTX 4060",
-        "cpu": "Intel Core i5-13400F",
-        "ram": "16 GB",
-        "storage": "512 GB SSD",
-        "os": "Windows 11"
-      },
+      "Specs": {},
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 10,
-    "Name": "Logitech G502 HERO",
-    "Price": 49.99,
-    "Stock": 24,
+    "Name": "iPhone 6",
+    "Price": 299.99,
+    "Stock": 60,
+    "Image": "Products/dummyjson-122.png",
     "Details": {
-      "SourceKey": "ref:logitech-g502-hero",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "accessories",
-      "Kind": "mouse",
-      "Brand": "Logitech",
+      "SourceKey": "dummyjson:122",
+      "SourceUrl": "https://dummyjson.com/products/122",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Apple",
       "Name": {
-        "Et": "Logitech G502 HERO",
-        "Ru": "Logitech G502 HERO",
-        "En": "Logitech G502 HERO"
+        "Et": "iPhone 6",
+        "Ru": "iPhone 6",
+        "En": "iPhone 6"
       },
       "Description": {
-        "Et": "Logitech G502 HERO. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "Logitech G502 HERO. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "Logitech G502 HERO. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "iPhone 6. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "iPhone 6. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "iPhone 6. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
       },
-      "Specs": {
-        "connection": "wired",
-        "sensor": "HERO 25K",
-        "buttons": "11"
-      },
+      "Specs": {},
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
     "Id": 11,
+    "Name": "iPhone 13 Pro",
+    "Price": 1099.99,
+    "Stock": 56,
+    "Image": "Products/dummyjson-123.png",
+    "Details": {
+      "SourceKey": "dummyjson:123",
+      "SourceUrl": "https://dummyjson.com/products/123",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Apple",
+      "Name": {
+        "Et": "iPhone 13 Pro",
+        "Ru": "iPhone 13 Pro",
+        "En": "iPhone 13 Pro"
+      },
+      "Description": {
+        "Et": "iPhone 13 Pro. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "iPhone 13 Pro. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "iPhone 13 Pro. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 12,
+    "Name": "iPhone X",
+    "Price": 899.99,
+    "Stock": 37,
+    "Image": "Products/dummyjson-124.png",
+    "Details": {
+      "SourceKey": "dummyjson:124",
+      "SourceUrl": "https://dummyjson.com/products/124",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/iphone-x/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Apple",
+      "Name": {
+        "Et": "iPhone X",
+        "Ru": "iPhone X",
+        "En": "iPhone X"
+      },
+      "Description": {
+        "Et": "iPhone X. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "iPhone X. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "iPhone X. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 13,
+    "Name": "Oppo A57",
+    "Price": 249.99,
+    "Stock": 19,
+    "Image": "Products/dummyjson-125.png",
+    "Details": {
+      "SourceKey": "dummyjson:125",
+      "SourceUrl": "https://dummyjson.com/products/125",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Oppo",
+      "Name": {
+        "Et": "Oppo A57",
+        "Ru": "Oppo A57",
+        "En": "Oppo A57"
+      },
+      "Description": {
+        "Et": "Oppo A57. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Oppo A57. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Oppo A57. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 14,
+    "Name": "Oppo F19 Pro Plus",
+    "Price": 399.99,
+    "Stock": 78,
+    "Image": "Products/dummyjson-126.png",
+    "Details": {
+      "SourceKey": "dummyjson:126",
+      "SourceUrl": "https://dummyjson.com/products/126",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/oppo-f19-pro-plus/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Oppo",
+      "Name": {
+        "Et": "Oppo F19 Pro Plus",
+        "Ru": "Oppo F19 Pro Plus",
+        "En": "Oppo F19 Pro Plus"
+      },
+      "Description": {
+        "Et": "Oppo F19 Pro Plus. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Oppo F19 Pro Plus. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Oppo F19 Pro Plus. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 15,
+    "Name": "Oppo K1",
+    "Price": 299.99,
+    "Stock": 55,
+    "Image": "Products/dummyjson-127.png",
+    "Details": {
+      "SourceKey": "dummyjson:127",
+      "SourceUrl": "https://dummyjson.com/products/127",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/oppo-k1/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Oppo",
+      "Name": {
+        "Et": "Oppo K1",
+        "Ru": "Oppo K1",
+        "En": "Oppo K1"
+      },
+      "Description": {
+        "Et": "Oppo K1. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Oppo K1. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Oppo K1. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 16,
+    "Name": "Realme C35",
+    "Price": 149.99,
+    "Stock": 48,
+    "Image": "Products/dummyjson-128.png",
+    "Details": {
+      "SourceKey": "dummyjson:128",
+      "SourceUrl": "https://dummyjson.com/products/128",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/realme-c35/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Realme",
+      "Name": {
+        "Et": "Realme C35",
+        "Ru": "Realme C35",
+        "En": "Realme C35"
+      },
+      "Description": {
+        "Et": "Realme C35. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Realme C35. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Realme C35. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 17,
+    "Name": "Realme X",
+    "Price": 299.99,
+    "Stock": 12,
+    "Image": "Products/dummyjson-129.png",
+    "Details": {
+      "SourceKey": "dummyjson:129",
+      "SourceUrl": "https://dummyjson.com/products/129",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/realme-x/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Realme",
+      "Name": {
+        "Et": "Realme X",
+        "Ru": "Realme X",
+        "En": "Realme X"
+      },
+      "Description": {
+        "Et": "Realme X. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Realme X. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Realme X. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 18,
+    "Name": "Realme XT",
+    "Price": 349.99,
+    "Stock": 80,
+    "Image": "Products/dummyjson-130.png",
+    "Details": {
+      "SourceKey": "dummyjson:130",
+      "SourceUrl": "https://dummyjson.com/products/130",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/realme-xt/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Realme",
+      "Name": {
+        "Et": "Realme XT",
+        "Ru": "Realme XT",
+        "En": "Realme XT"
+      },
+      "Description": {
+        "Et": "Realme XT. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Realme XT. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Realme XT. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 19,
+    "Name": "Samsung Galaxy S7",
+    "Price": 299.99,
+    "Stock": 67,
+    "Image": "Products/dummyjson-131.png",
+    "Details": {
+      "SourceKey": "dummyjson:131",
+      "SourceUrl": "https://dummyjson.com/products/131",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s7/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Samsung",
+      "Name": {
+        "Et": "Samsung Galaxy S7",
+        "Ru": "Samsung Galaxy S7",
+        "En": "Samsung Galaxy S7"
+      },
+      "Description": {
+        "Et": "Samsung Galaxy S7. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Samsung Galaxy S7. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Samsung Galaxy S7. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 20,
+    "Name": "Samsung Galaxy S8",
+    "Price": 499.99,
+    "Stock": 0,
+    "Image": "Products/dummyjson-132.png",
+    "Details": {
+      "SourceKey": "dummyjson:132",
+      "SourceUrl": "https://dummyjson.com/products/132",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s8/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Samsung",
+      "Name": {
+        "Et": "Samsung Galaxy S8",
+        "Ru": "Samsung Galaxy S8",
+        "En": "Samsung Galaxy S8"
+      },
+      "Description": {
+        "Et": "Samsung Galaxy S8. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Samsung Galaxy S8. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Samsung Galaxy S8. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 21,
+    "Name": "Samsung Galaxy S10",
+    "Price": 699.99,
+    "Stock": 19,
+    "Image": "Products/dummyjson-133.png",
+    "Details": {
+      "SourceKey": "dummyjson:133",
+      "SourceUrl": "https://dummyjson.com/products/133",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s10/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Samsung",
+      "Name": {
+        "Et": "Samsung Galaxy S10",
+        "Ru": "Samsung Galaxy S10",
+        "En": "Samsung Galaxy S10"
+      },
+      "Description": {
+        "Et": "Samsung Galaxy S10. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Samsung Galaxy S10. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Samsung Galaxy S10. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 22,
+    "Name": "Vivo S1",
+    "Price": 249.99,
+    "Stock": 50,
+    "Image": "Products/dummyjson-134.png",
+    "Details": {
+      "SourceKey": "dummyjson:134",
+      "SourceUrl": "https://dummyjson.com/products/134",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/vivo-s1/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Vivo",
+      "Name": {
+        "Et": "Vivo S1",
+        "Ru": "Vivo S1",
+        "En": "Vivo S1"
+      },
+      "Description": {
+        "Et": "Vivo S1. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Vivo S1. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Vivo S1. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 23,
+    "Name": "Vivo V9",
+    "Price": 299.99,
+    "Stock": 82,
+    "Image": "Products/dummyjson-135.png",
+    "Details": {
+      "SourceKey": "dummyjson:135",
+      "SourceUrl": "https://dummyjson.com/products/135",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/vivo-v9/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Vivo",
+      "Name": {
+        "Et": "Vivo V9",
+        "Ru": "Vivo V9",
+        "En": "Vivo V9"
+      },
+      "Description": {
+        "Et": "Vivo V9. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Vivo V9. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Vivo V9. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 24,
+    "Name": "Vivo X21",
+    "Price": 499.99,
+    "Stock": 7,
+    "Image": "Products/dummyjson-136.png",
+    "Details": {
+      "SourceKey": "dummyjson:136",
+      "SourceUrl": "https://dummyjson.com/products/136",
+      "PhotoUrl": "https://cdn.dummyjson.com/product-images/smartphones/vivo-x21/thumbnail.webp",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Vivo",
+      "Name": {
+        "Et": "Vivo X21",
+        "Ru": "Vivo X21",
+        "En": "Vivo X21"
+      },
+      "Description": {
+        "Et": "Vivo X21. Tegelik tootemudel. Õppepoe hind ja laoseis on näitlikud; puuduvaid tehnilisi andmeid ei oletata.",
+        "Ru": "Vivo X21. Реальная модель товара. Цена и наличие в учебном магазине демонстрационные; отсутствующие характеристики не выдумываются.",
+        "En": "Vivo X21. A real product model. Teaching shop price and inventory are illustrative; missing specifications are not guessed."
+      },
+      "Specs": {},
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 25,
+    "Name": "ASUS ROG Strix G16 G614JI-AS94",
+    "Price": 1799.99,
+    "Stock": 6,
+    "Image": "Products/asus-rog-strix-g16-g614ji-as94.png",
+    "Details": {
+      "SourceKey": "model:asus-rog-strix-g16-g614ji-as94",
+      "SourceUrl": "https://www.amazon.com/dp/B0BV7XQ9V9",
+      "PhotoUrl": "https://m.media-amazon.com/images/I/41EWnXeuMzL._AC_SL1000_.jpg",
+      "Category": "computers",
+      "Kind": "laptop",
+      "Brand": "ASUS",
+      "Name": {
+        "Et": "ASUS ROG Strix G16 G614JI-AS94",
+        "Ru": "ASUS ROG Strix G16 G614JI-AS94",
+        "En": "ASUS ROG Strix G16 G614JI-AS94"
+      },
+      "Description": {
+        "Et": "ASUS ROG Strix G16 G614JI-AS94. Tegelik tootemudel. Hind ja laoseis on õppeotstarbelised.",
+        "Ru": "ASUS ROG Strix G16 G614JI-AS94. Реальная модель товара. Цена и наличие приведены для учебного магазина.",
+        "En": "ASUS ROG Strix G16 G614JI-AS94. A real product model. Price and inventory are for the teaching shop."
+      },
+      "Specs": {
+        "gpu": "RTX 4070 Laptop GPU",
+        "cpu": "Intel Core i9-13980HX",
+        "ram": "16 GB",
+        "storage": "1 TB SSD",
+        "screen": "16″",
+        "os": "Windows 11 Home"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 26,
+    "Name": "Apple iMac Pro 27″",
+    "Price": 2399,
+    "Stock": 4,
+    "Image": "Products/apple-imac-pro-27.png",
+    "Details": {
+      "SourceKey": "model:apple-imac-pro-27",
+      "SourceUrl": "https://github.com/MyEMS/myems/blob/7aadb11871f8e3cdf985f81274dc1357b1163cd0/myems-web/src/data/e-commerce/products.js",
+      "PhotoUrl": "https://raw.githubusercontent.com/MyEMS/myems/7aadb11871f8e3cdf985f81274dc1357b1163cd0/myems-web/src/assets/img/products/2.jpg",
+      "Category": "computers",
+      "Kind": "desktop",
+      "Brand": "Apple",
+      "Name": {
+        "Et": "Apple iMac Pro 27″",
+        "Ru": "Apple iMac Pro 27″",
+        "En": "Apple iMac Pro 27″"
+      },
+      "Description": {
+        "Et": "Apple iMac Pro 27″. Tegelik tootemudel. Hind ja laoseis on õppeotstarbelised.",
+        "Ru": "Apple iMac Pro 27″. Реальная модель товара. Цена и наличие приведены для учебного магазина.",
+        "En": "Apple iMac Pro 27″. A real product model. Price and inventory are for the teaching shop."
+      },
+      "Specs": {
+        "screen": "27″",
+        "os": "macOS"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": false
+    }
+  },
+  {
+    "Id": 27,
     "Name": "Logitech G305 LIGHTSPEED",
     "Price": 39.99,
     "Stock": 18,
+    "Image": "Products/logitech-g305.png",
     "Details": {
-      "SourceKey": "ref:logitech-g305",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "SourceKey": "model:logitech-g305",
+      "SourceUrl": "https://www.logitechg.com/en-us/products/gaming-mice/g305-lightspeed-wireless-gaming-mouse.html",
+      "PhotoUrl": "https://raw.githubusercontent.com/MyEMS/myems/7aadb11871f8e3cdf985f81274dc1357b1163cd0/myems-web/src/assets/img/products/6.jpg",
       "Category": "accessories",
       "Kind": "mouse",
       "Brand": "Logitech",
@@ -338,9 +765,9 @@
         "En": "Logitech G305 LIGHTSPEED"
       },
       "Description": {
-        "Et": "Logitech G305 LIGHTSPEED. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "Logitech G305 LIGHTSPEED. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "Logitech G305 LIGHTSPEED. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Logitech G305 LIGHTSPEED. Tegelik tootemudel. Hind ja laoseis on õppeotstarbelised.",
+        "Ru": "Logitech G305 LIGHTSPEED. Реальная модель товара. Цена и наличие приведены для учебного магазина.",
+        "En": "Logitech G305 LIGHTSPEED. A real product model. Price and inventory are for the teaching shop."
       },
       "Specs": {
         "connection": "wireless",
@@ -348,17 +775,19 @@
         "buttons": "6"
       },
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
-    "Id": 12,
+    "Id": 28,
     "Name": "Logitech G413 SE",
     "Price": 69.99,
     "Stock": 15,
+    "Image": "Products/logitech-g413-se.png",
     "Details": {
-      "SourceKey": "ref:logitech-g413-se",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "SourceKey": "model:logitech-g413-se",
+      "SourceUrl": "https://www.logitechg.com/en-us/products/gaming-keyboards/g413-se-gaming-keyboard.html",
+      "PhotoUrl": "https://resource.logitech.com/content/dam/gaming/en/products/g413-se/g413-se-gallery-1-new.png",
       "Category": "accessories",
       "Kind": "keyboard",
       "Brand": "Logitech",
@@ -368,9 +797,9 @@
         "En": "Logitech G413 SE"
       },
       "Description": {
-        "Et": "Logitech G413 SE. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "Logitech G413 SE. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "Logitech G413 SE. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Logitech G413 SE. Tegelik tootemudel. Hind ja laoseis on õppeotstarbelised.",
+        "Ru": "Logitech G413 SE. Реальная модель товара. Цена и наличие приведены для учебного магазина.",
+        "En": "Logitech G413 SE. A real product model. Price and inventory are for the teaching shop."
       },
       "Specs": {
         "connection": "wired",
@@ -378,67 +807,75 @@
         "switches": "Tactile"
       },
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
-    "Id": 13,
-    "Name": "HyperX Cloud II",
-    "Price": 79.99,
-    "Stock": 13,
+    "Id": 29,
+    "Name": "Google Pixel 8",
+    "Price": 549,
+    "Stock": 5,
+    "Image": "Products/google-pixel-8.png",
     "Details": {
-      "SourceKey": "ref:hyperx-cloud-ii",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "accessories",
-      "Kind": "headphones",
-      "Brand": "HyperX",
+      "SourceKey": "model:google-pixel-8",
+      "SourceUrl": "https://www.gsmarena.com/google_pixel_8-12546.php",
+      "PhotoUrl": "https://fdn2.gsmarena.com/vv/bigpic/google-pixel-8.jpg",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Google",
       "Name": {
-        "Et": "HyperX Cloud II",
-        "Ru": "HyperX Cloud II",
-        "En": "HyperX Cloud II"
+        "Et": "Google Pixel 8",
+        "Ru": "Google Pixel 8",
+        "En": "Google Pixel 8"
       },
       "Description": {
-        "Et": "HyperX Cloud II. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "HyperX Cloud II. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "HyperX Cloud II. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Google Pixel 8. Tegelik tootemudel. Hind ja laoseis on õppeotstarbelised.",
+        "Ru": "Google Pixel 8. Реальная модель товара. Цена и наличие приведены для учебного магазина.",
+        "En": "Google Pixel 8. A real product model. Price and inventory are for the teaching shop."
       },
       "Specs": {
-        "connection": "wired",
-        "microphone": "yes",
-        "drivers": "53 mm"
+        "ram": "8 GB",
+        "storage": "128 GB",
+        "screen": "6.2″",
+        "os": "Android",
+        "5g": "yes"
       },
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   },
   {
-    "Id": 14,
-    "Name": "Logitech G435 LIGHTSPEED",
-    "Price": 59.99,
-    "Stock": 11,
+    "Id": 30,
+    "Name": "Samsung Galaxy S24",
+    "Price": 699,
+    "Stock": 12,
+    "Image": "Products/samsung-galaxy-s24.png",
     "Details": {
-      "SourceKey": "ref:logitech-g435",
-      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
-      "Category": "accessories",
-      "Kind": "headphones",
-      "Brand": "Logitech",
+      "SourceKey": "model:samsung-galaxy-s24",
+      "SourceUrl": "https://www.gsmarena.com/samsung_galaxy_s24-12773.php",
+      "PhotoUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-s24.jpg",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Samsung",
       "Name": {
-        "Et": "Logitech G435 LIGHTSPEED",
-        "Ru": "Logitech G435 LIGHTSPEED",
-        "En": "Logitech G435 LIGHTSPEED"
+        "Et": "Samsung Galaxy S24",
+        "Ru": "Samsung Galaxy S24",
+        "En": "Samsung Galaxy S24"
       },
       "Description": {
-        "Et": "Logitech G435 LIGHTSPEED. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
-        "Ru": "Logitech G435 LIGHTSPEED. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
-        "En": "Logitech G435 LIGHTSPEED. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+        "Et": "Samsung Galaxy S24. Tegelik tootemudel. Hind ja laoseis on õppeotstarbelised.",
+        "Ru": "Samsung Galaxy S24. Реальная модель товара. Цена и наличие приведены для учебного магазина.",
+        "En": "Samsung Galaxy S24. A real product model. Price and inventory are for the teaching shop."
       },
       "Specs": {
-        "connection": "wireless",
-        "microphone": "yes",
-        "drivers": "40 mm"
+        "ram": "8 GB",
+        "storage": "256 GB",
+        "screen": "6.2″",
+        "os": "Android",
+        "5g": "yes"
       },
       "Visible": true,
-      "ReferenceConfiguration": true
+      "ReferenceConfiguration": false
     }
   }
 ]

@@ -8,7 +8,7 @@ internal static class ShopImages
 {
     private static readonly HttpClient client = new() { Timeout = TimeSpan.FromSeconds(10), MaxResponseContentBufferSize = 5 * 1024 * 1024 };
     private static readonly SemaphoreSlim slots = new(4);
-    private static async Task<Image?> Remote(string address)
+    internal static async Task<Image?> Download(string address)
     {
         if (!Uri.TryCreate(address, UriKind.Absolute, out var uri) || uri.Scheme != "https") return null;
         string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "shoping67", "Images");
@@ -78,7 +78,7 @@ internal static class ShopImages
         {
             if (started || string.IsNullOrWhiteSpace(file) || !file.StartsWith("https://", StringComparison.OrdinalIgnoreCase)) return;
             started = true;
-            var downloaded = await Remote(file);
+            var downloaded = await Download(file);
             if (picture.IsDisposed) { downloaded?.Dispose(); return; }
             picture.Image?.Dispose(); picture.Image = downloaded; picture.Invalidate();
         };

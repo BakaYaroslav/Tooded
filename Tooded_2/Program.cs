@@ -10,6 +10,12 @@ namespace Tooded_2
             ApplicationConfiguration.Initialize();
             Shop.T.SetLanguage(Shop.T.Language);
 
+            if (args.Contains("--bundle-catalog-images", StringComparer.OrdinalIgnoreCase))
+            {
+                Shop.CatalogPhotos.Bundle().GetAwaiter().GetResult();
+                return;
+            }
+
             if (args.Contains("--ui-check", StringComparer.OrdinalIgnoreCase))
             {
                 Shop.ShopUiChecks.Run();
