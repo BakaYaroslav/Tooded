@@ -16,3 +16,10 @@ jobs:
       - run: dotnet restore Tooded_2.slnx
       - run: dotnet build Tooded_2.slnx --no-restore
       - run: dotnet run --project Tests/Shop.CoreChecks
+      - run: dotnet run --project Tooded_2 --no-build -- --ui-check
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shoping67-ui
+          path: ui-checks/*.png
+          if-no-files-found: ignore

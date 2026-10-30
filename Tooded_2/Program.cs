@@ -10,6 +10,12 @@ namespace Tooded_2
             ApplicationConfiguration.Initialize();
             Shop.T.SetLanguage(Shop.T.Language);
 
+            if (args.Contains("--ui-check", StringComparer.OrdinalIgnoreCase))
+            {
+                Shop.ShopUiChecks.Run();
+                return;
+            }
+
             if (args.Contains("--demo", StringComparer.OrdinalIgnoreCase))
             {
                 Application.Run(new PoodForm(new Shop.OnlineDemoShopStore()));
