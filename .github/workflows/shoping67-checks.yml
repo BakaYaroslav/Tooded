@@ -32,6 +32,7 @@ jobs:
             if ($LASTEXITCODE -ne 0) { throw 'Could not save bundled product photographs' }
           }
       - run: dotnet run --project Tests/Shop.CoreChecks
+      - run: dotnet run --project Tests/Shop.StorageChecks
       - run: dotnet run --project Tooded_2 --no-build -- --ui-check
       - uses: actions/upload-artifact@v4
         if: always()

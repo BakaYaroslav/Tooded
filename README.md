@@ -44,7 +44,7 @@ On the first SQL-backed shop opening after updating, catalog reconciliation arch
 
 Sign in as administrator and click **Promotions and specifications** (ET: `Kampaaniad ja omadused`, RU: `Акции и характеристики`).
 
-- Products tab: select a row and Edit, or double-click. Edit Estonian names/descriptions, category, device type, brand, ordinary price, stock, visibility, image URL/file, and specification values. Empty values mean unknown. An incompatible device type/category cannot be saved.
+- Products tab: select a row and Edit, or double-click. **Kustuta toode** deletes the selected product from SQL Server after confirmation. Sales history remains; a saved source identity prevents automatic reimport. Product metadata is removed in the same transaction. Explicit promotions drop the deleted target and are disabled when their last selected product is deleted, so a targeted discount never silently becomes category-wide. Edit Estonian names/descriptions, category, device type, brand, ordinary price, stock, visibility, image URL/file, and specification values. Empty values mean unknown. An incompatible device type/category cannot be saved.
 - Promotions tab: Add, Edit or Delete. Set the Estonian title/description, optional HTTPS banner URL, discount 0–90%, start/end in the PC's local timezone, category, optional product selection, publication and display order. Enable **Entire selected category** to target all its visible products, or disable it and select individual products. The list shows only visible products in that category. Hidden/retired items and incompatible category selections cannot be saved; the editor shows the target count. Existing invalid offers must be corrected by choosing the category and current products again. 0% is a featured collection.
 - Reopen/refresh the storefront after saving. Product metadata and promotions are stored in SQL Server `ShopSettings`, independently of the internet cache. User language preference and downloaded files are stored under `%LOCALAPPDATA%\shoping67`.
 
@@ -60,8 +60,11 @@ The current interface is Estonian only. Language selectors have been removed fro
 dotnet restore Tooded_2.slnx
 dotnet build Tooded_2.slnx --no-restore
 dotnet run --project Tests/Shop.CoreChecks
+dotnet run --project Tests/Shop.StorageChecks
 ```
 
 `.github/workflows/shoping67-checks.yml` runs the same Windows build and core checks. Checks cover basket and atomic stock rules, exact GPU matching, combined filters, date boundaries, targeted/overlapping discounts, no compounding, expired-price rejection, settings roundtrip, missing API specs and Estonian-only behavior and ignored legacy language preferences. These checks use local fixtures or fake HTTP responses, not external availability.
 
 Windows manual checks: open demo, check the Estonian-only storefront and editors, filter ASUS RTX 4070 Laptop GPU + 16 GB, check no-result/reset flows, open/zoom a product, buy at the displayed discount. In normal mode, edit and reopen a promotion, schedule expiry, hide a product before checkout, reopen the application to check persistence, and check repeat import does not reset stock or duplicate products.
+
+The storage checks exercise the production delete service on an isolated SQLite relational database: actual row deletion, unchanged sales history, saved import suppression and promotion cleanup, repeated deletion and rollback when writing metadata fails. They never connect to the user’s LocalDB.
