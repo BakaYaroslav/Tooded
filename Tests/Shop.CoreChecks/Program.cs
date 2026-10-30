@@ -316,6 +316,61 @@ Check("Deleting a legacy row without catalog metadata is supported and leaves un
     ProductRemoval.Apply(config, 1); Equal(1, config.Products.Count); Equal(53, config.ImportedKeys[product.Details.SourceKey]);
 });
 
+
+Check("One-click demo payment validates email, commits stock once and sends one confirmation", () =>
+{
+    var product = Product(stock: 3); using var store = new DemoShopStore(new[] { product });
+    var cart = new ShoppingCart(); cart.Add(product, 2); int sent = 0; DemoOrder? emailed = null;
+    var flow = new CheckoutFlow(store, order => { sent++; emailed = order; return Task.CompletedTask; });
+    var result = flow.PayAsync(cart, " buyer@example.com ").GetAwaiter().GetResult();
+    Equal(true, result.EmailSent); Equal("buyer@example.com", result.Order.CustomerEmail);
+    Equal(result.Order.Number, emailed!.Number); Equal(1, sent); Equal(0, cart.Count); Equal(1, store.GetProducts()[0].Stock);
+    flow.RetryEmailAsync().GetAwaiter().GetResult(); Equal(1, sent);
+    Reject(() => flow.PayAsync(cart, "buyer@example.com").GetAwaiter().GetResult()); Equal(1, store.GetProducts()[0].Stock);
+});
+Check("Mail failure does not undo or repeat payment and retry reuses the same order", () =>
+{
+    var product = Product(stock: 3); using var store = new DemoShopStore(new[] { product });
+    var cart = new ShoppingCart(); cart.Add(product, 1); int attempts = 0;
+    var flow = new CheckoutFlow(store, _ => ++attempts == 1 ? Task.FromException(new System.Net.Mail.SmtpException("Simulated mail failure")) : Task.CompletedTask);
+    var first = flow.PayAsync(cart, "buyer@example.com").GetAwaiter().GetResult();
+    Equal(false, first.EmailSent); Equal(0, cart.Count); Equal(2, store.GetProducts()[0].Stock);
+    var second = flow.RetryEmailAsync().GetAwaiter().GetResult();
+    Equal(true, second.EmailSent); Equal(first.Order.Number, second.Order.Number); Equal(2, attempts); Equal(2, store.GetProducts()[0].Stock);
+});
+Check("Invalid email and failed stock validation preserve the basket and send no email", () =>
+{
+    var product = Product(stock: 1); using var store = new DemoShopStore(new[] { product with { Stock = 0 } });
+    var cart = new ShoppingCart(); cart.Add(product, 1); int sent = 0;
+    var flow = new CheckoutFlow(store, _ => { sent++; return Task.CompletedTask; });
+    Reject(() => flow.PayAsync(cart, "invalid").GetAwaiter().GetResult());
+    Reject(() => flow.PayAsync(cart, "buyer@example.com").GetAwaiter().GetResult());
+    Equal(1, cart.Count); Equal(0, sent); Equal(true, flow.Result == null);
+    foreach (var invalid in new[] { "", "x@y", "Name <buyer@example.com>", "buyer@example.com\r\nBcc: someone@example.com" }) Equal(false, OrderEmail.ValidAddress(invalid));
+});
+Check("Repeated pay clicks while a mail is pending cannot create a second order", () =>
+{
+    var product = Product(stock: 3); using var store = new DemoShopStore(new[] { product });
+    var cart = new ShoppingCart(); cart.Add(product, 1);
+    var entered = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+    var release = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+    int sent = 0;
+    var flow = new CheckoutFlow(store, _ => { sent++; entered.TrySetResult(true); return release.Task; });
+    var first = flow.PayAsync(cart, "buyer@example.com"); entered.Task.WaitAsync(TimeSpan.FromSeconds(10)).GetAwaiter().GetResult();
+    Reject(() => flow.PayAsync(cart, "buyer@example.com").GetAwaiter().GetResult());
+    release.SetResult(true); first.GetAwaiter().GetResult(); Equal(1, sent); Equal(2, store.GetProducts()[0].Stock);
+});
+Check("Order email gives a two-week calendar delivery date, order reference and escaped item names", () =>
+{
+    var product = Product() with { Name = "<script>alert(1)</script>" };
+    var order = new DemoOrder("DEMO-TEST", new DateTimeOffset(2026, 10, 30, 12, 0, 0, TimeSpan.Zero), new[] { new CartLine(product, 1) }) { CustomerEmail = "buyer@example.com" };
+    Equal(new DateOnly(2026, 11, 13), order.ExpectedDelivery);
+    string html = OrderEmail.Html(order);
+    Equal(true, html.Contains("13.11.2026")); Equal(true, html.Contains("on vastu võetud ja töös"));
+    Equal(true, html.Contains("DEMO-TEST")); Equal(false, html.Contains("<script>")); Equal(true, html.Contains("&lt;script&gt;"));
+    Equal(true, order.Receipt.Contains("13.11.2026"));
+});
+
 Console.WriteLine($"{passed} checks passed.");
 
 sealed class CatalogHandler : System.Net.Http.HttpMessageHandler

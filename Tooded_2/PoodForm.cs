@@ -227,7 +227,7 @@ public partial class PoodForm : Form
         if (loading) return;
         using var form = new CartForm(cart, store); form.ShowDialog(this); UpdateCart();
         if (form.Order is not { } order) return;
-        Reload(); using var confirmation = new OrderConfirmationForm(order); confirmation.ShowDialog(this);
+        Reload(); using var confirmation = new OrderConfirmationForm(order, form.PaymentFlow); confirmation.ShowDialog(this);
     }
     private sealed record FacetItem(string Value) { public override string ToString() => T.Value(Value); }
 }

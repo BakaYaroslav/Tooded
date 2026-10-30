@@ -23,6 +23,8 @@ namespace Tooded_2
                 using var editor = new ShopAdminForm(); editor.ShowDialog(this); LaeTooted(); LaeKategooriad(); LaeMuuk();
             });
             shopManagement.Width = 310; toolbar.Controls.Add(shopManagement);
+            var mailSettings = Shop67Ui.Button("E-posti seaded", () => { using var settings = new MailSettingsForm(); settings.ShowDialog(this); });
+            mailSettings.Width = 180; toolbar.Controls.Add(mailSettings);
             Controls.Add(toolbar);
             Shop67Ui.Translate(this);
 

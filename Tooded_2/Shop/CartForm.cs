@@ -3,40 +3,71 @@ namespace Tooded_2.Shop;
 internal sealed class CartForm : Form
 {
     private readonly ShoppingCart cart;
-    private readonly IShopStore store;
     private readonly FlowLayoutPanel rows = ShopStyle.Stack();
     private readonly Label total = ShopStyle.Label("", 16, true);
-    private readonly Button checkout = ShopStyle.Button(T.Legacy("Vormista tellimus"), true);
+    private readonly Button checkout = ShopStyle.Button("Maksa", true);
+    private readonly TextBox email = new() { Width = 530, PlaceholderText = "sinu@epost.ee", AccessibleName = "order-email" };
+    private readonly Label progress = ShopStyle.Label("", 10);
+    private FlowLayoutPanel buttons = null!;
+    public CheckoutFlow PaymentFlow { get; }
+
     private readonly Button clear = ShopStyle.Button(T.Legacy("Tühjenda korv"));
     public DemoOrder? Order { get; private set; }
 
-    public CartForm(ShoppingCart cart, IShopStore store)
+    public CartForm(ShoppingCart cart, IShopStore store, Func<DemoOrder, Task>? sendEmail = null)
     {
-        this.cart = cart; this.store = store;
-        Text = T.Legacy("Ostukorv"); Size = new Size(920, 690); MinimumSize = new Size(850, 550);
+        this.cart = cart;
+        PaymentFlow = new CheckoutFlow(store, sendEmail ?? (order => EpostiSaatja.SaadaAsync(order.CustomerEmail, OrderEmail.Subject(order), OrderEmail.Html(order))));
+        Text = T.Legacy("Ostukorv"); Size = new Size(920, 760); MinimumSize = new Size(850, 640);
         Font = new Font("Segoe UI", 10); BackColor = Color.White; AutoScaleMode = AutoScaleMode.Dpi;
         StartPosition = FormStartPosition.CenterParent;
         var root = new TableLayoutPanel { Dock = DockStyle.Fill, RowCount = 3, ColumnCount = 1, Padding = new Padding(20) };
         root.RowStyles.Add(new RowStyle(SizeType.Absolute, 58));
         root.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 112));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 220));
         root.Controls.Add(ShopStyle.Label(T.Legacy("Sinu ostukorv"), 23, true), 0, 0);
         rows.Padding = new Padding(0); root.Controls.Add(rows, 0, 1);
         var bottom = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.TopDown, WrapContents = false };
         bottom.Controls.Add(total);
-        var buttons = new FlowLayoutPanel { AutoSize = true, WrapContents = false };
-        checkout.Width = 220;
+        var emailRow = new FlowLayoutPanel { Width = 820, Height = 45, WrapContents = false };
+        emailRow.Controls.Add(ShopStyle.Label("Sinu e-post", 11, true)); emailRow.Controls.Add(email);
+        bottom.Controls.Add(emailRow);
+        var notice = ShopStyle.Label("Näidismakse — raha ei võeta. Tellimuse kinnitus saadetakse e-postile.", 10);
+        notice.MaximumSize = new Size(800, 0); bottom.Controls.Add(notice);
+        buttons = new FlowLayoutPanel { AutoSize = true, WrapContents = false };
+        checkout.Width = 220; checkout.AccessibleName = "pay-order";
         var back = ShopStyle.Button(T.Legacy("Jätka ostlemist")); back.Click += (_, _) => Close();
         clear.Click += (_, _) => { cart.Clear(); Render(); };
-        checkout.Click += (_, _) =>
-        {
-            using var payment = new DemoCheckoutForm(cart.Lines, store);
-            if (payment.ShowDialog(this) != DialogResult.OK) return;
-            Order = payment.Order; cart.Clear(); DialogResult = DialogResult.OK; Close();
-        };
-        buttons.Controls.AddRange(new Control[] { checkout, back, clear }); bottom.Controls.Add(buttons);
+        checkout.Click += async (_, _) => await Pay();
+        buttons.Controls.AddRange(new Control[] { checkout, back, clear }); bottom.Controls.Add(buttons); bottom.Controls.Add(progress);
         root.Controls.Add(bottom, 0, 2); Controls.Add(root);
         rows.SizeChanged += (_, _) => ResizeRows(); Render();
+    }
+
+    protected override void OnFormClosing(FormClosingEventArgs e)
+    {
+        if (PaymentFlow.InProgress) { e.Cancel = true; return; }
+        base.OnFormClosing(e);
+    }
+
+    private async Task Pay()
+    {
+        if (PaymentFlow.InProgress) return;
+        if (!OrderEmail.ValidAddress(email.Text))
+        { MessageBox.Show(this, "Sisesta korrektne e-posti aadress.", "shoping67"); email.Focus(); return; }
+        rows.Enabled = buttons.Enabled = email.Enabled = false; UseWaitCursor = true;
+        progress.Text = "Tellimuse kinnitamine ja e-kirja saatmine…";
+        try
+        {
+            var result = await PaymentFlow.PayAsync(cart, email.Text);
+            Order = result.Order; DialogResult = DialogResult.OK; Close();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(this, ex is InvalidOperationException ? ex.Message : "Tellimust ei saanud kinnitada. Kontrolli ühendust ja proovi uuesti. Ostukorv on alles.", "shoping67", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            progress.Text = "Tellimust ei kinnitatud. Ostukorv on alles.";
+        }
+        finally { if (!IsDisposed) { UseWaitCursor = false; rows.Enabled = buttons.Enabled = email.Enabled = true; UpdateTotal(); } }
     }
 
     private void ResizeRows()
