@@ -23,6 +23,12 @@ public sealed class DatabaseShopStore : IShopStore
                 configuration.Promotions = TechCatalog.InitialPromotions();
                 configuration.Initialized = true;
             }
+            var storedRows = db.Toodetabel.ToList();
+            CatalogRepair.Reconcile(configuration, storedRows.ToDictionary(p => p.Id, p => p.Toodenimetus), catalog.Products);
+            var approved = catalog.Products.ToDictionary(p => p.Details.SourceKey);
+            foreach (var row in storedRows)
+                if (configuration.Products.TryGetValue(row.Id, out var detail) && detail.Visible
+                    && approved.TryGetValue(detail.SourceKey, out var model)) row.Pilt = model.Image;
             var categories = db.Kategooriatabel.ToList();
             foreach (var product in catalog.Products)
             {

@@ -147,27 +147,28 @@ Check("No internet and no cache uses bundled demo products or rejects database i
 });
 
 
-Check("Tech catalog contains exactly three supported categories and explicit reference configurations", () =>
+Check("Tech catalog contains only real brands in the three supported categories", () =>
 {
-    var products = TechCatalog.Reference(); Equal(14, products.Count);
+    var products = TechCatalog.Reference(); Equal(30, products.Count);
     Equal(3, products.Select(p => p.Details.Category).Distinct().Count());
-    Equal(true, products.All(p => p.Details.ReferenceConfiguration));
+    Equal(true, products.All(p => !p.Details.ReferenceConfiguration && p.Details.Brand != "shoping67"));
     Equal(products.Count, products.Select(p => p.Details.SourceKey).Distinct().Count());
 });
-Check("RTX filters match exact desktop GPU and distinguish SUPER and laptop versions", () =>
+Check("RTX filters select the documented ASUS laptop SKU", () =>
 {
-    var filter = new CatalogFilter { Category = "computers", Facets = new() { ["gpu"] = new(StringComparer.OrdinalIgnoreCase) { "RTX 4070" } } };
+    var filter = new CatalogFilter { Category = "computers", Facets = new() { ["gpu"] = new(StringComparer.OrdinalIgnoreCase) { "RTX 4070 Laptop GPU" } } };
     var products = TechCatalog.Reference().Where(filter.Matches).ToArray();
-    Equal(1, products.Length); Equal("desktop", products[0].Details.Kind);
-    Equal("RTX 4070", products[0].Details.Specs["gpu"]);
+    Equal(1, products.Length); Equal("laptop", products[0].Details.Kind);
+    Equal("RTX 4070 Laptop GPU", products[0].Details.Specs["gpu"]);
+    Equal("ASUS ROG Strix G16 G614JI-AS94", products[0].Name);
 });
 Check("Facet values use OR within a facet and AND across facets, with price and stock", () =>
 {
-    var filter = new CatalogFilter { Category = "computers", Maximum = 1500, InStock = true,
-        Facets = new() { ["gpu"] = new() { "RTX 4070", "RTX 4060" }, ["ram"] = new() { "32 GB" } } };
+    var filter = new CatalogFilter { Category = "computers", Maximum = 2000, InStock = true,
+        Facets = new() { ["gpu"] = new() { "RTX 4070 Laptop GPU", "RTX 4060 Laptop GPU" }, ["ram"] = new() { "16 GB" } } };
     Equal(1, TechCatalog.Reference().Count(filter.Matches));
     Equal(0, TechCatalog.Reference().Count((filter with { Query = "nonexistent GPU" }).Matches));
-    Equal(true, new CatalogFilter { Query = "RTX 4070" }.Matches(TechCatalog.Reference().First(p => p.Details.Specs.GetValueOrDefault("gpu") == "RTX 4070")));
+    Equal(true, new CatalogFilter { Query = "RTX 4070" }.Matches(TechCatalog.Reference().First(p => p.Details.Specs.GetValueOrDefault("gpu") == "RTX 4070 Laptop GPU")));
 });
 Check("Promotions honor start/end boundaries, category and products without stacking", () =>
 {
@@ -206,9 +207,9 @@ Check("Configuration roundtrip preserves admin translations, visibility, source 
 });
 Check("Unknown API specifications remain unknown instead of inventing a GPU or memory size", () =>
 {
-    var products = TechCatalog.ParseDummyJson("""{"products":[{"id":12,"title":"A laptop","category":"laptops","price":700,"stock":3,"brand":"Brand","description":"Source description"}]}""", "computers");
+    var products = TechCatalog.ParseDummyJson("""{"products":[{"id":78,"title":"Apple MacBook Pro 14 Inch Space Grey","category":"laptops","price":700,"stock":3,"brand":"Apple","description":"Source description"}]}""", "computers");
     Equal(1, products.Count); Equal(0, products[0].Details.Specs.Count);
-    Equal(false, products[0].Details.ReferenceConfiguration); Equal("dummyjson:12", products[0].Details.SourceKey);
+    Equal(false, products[0].Details.ReferenceConfiguration); Equal("dummyjson:78", products[0].Details.SourceKey);
 });
 Check("ET/RU/EN switch changes product and interface text while preserving cart and filters", () =>
 {
@@ -225,6 +226,44 @@ Check("Invalid promotion dates, discounts and missing translations cannot be pub
     Reject(() => (value with { Percent = 95 }).Validate());
     Reject(() => (value with { Ends = value.Starts }).Validate());
     Reject(() => (value with { Title = new("ET", "", "EN") }).Validate());
+});
+
+
+Check("All real catalog models have a bundled PNG photograph and a traceable source", () =>
+{
+    foreach (var product in TechCatalog.Reference())
+    {
+        Equal(true, Uri.TryCreate(product.Details.PhotoUrl, UriKind.Absolute, out _));
+        Equal(true, Uri.TryCreate(product.Details.SourceUrl, UriKind.Absolute, out _));
+        var bytes = File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Images", product.Image!));
+        Equal(true, bytes.Length > 1024 && bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4e && bytes[3] == 0x47);
+    }
+});
+Check("A reused source ID cannot turn a backpack into a phone", () =>
+{
+    var rows = TechCatalog.ParseDummyJson("""{"products":[{"id":121,"title":"Fjallraven Foldsack Backpack","brand":"Apple","category":"smartphones","price":109.95,"stock":20}]}""", "phones");
+    Equal(0, rows.Count);
+    var bad = new ShopProduct { Name = "Fjallraven Foldsack Backpack", Details = new ProductDetails { Category = "phones", Kind = "phone", Brand = "Apple" } };
+    Equal(false, new CatalogFilter { Category = "phones" }.Matches(bad));
+});
+Check("Saved catalog repair archives invented models and mismatched source rows without deleting history", () =>
+{
+    var real = TechCatalog.Reference().First(p => p.Details.SourceKey == "dummyjson:121");
+    var config = new ShopConfiguration
+    {
+        Products = new()
+        {
+            [1] = real.Details with { Name = new("Backpack", "Backpack", "Backpack") },
+            [2] = real.Details with { SourceKey = "ref:pc-4070", Brand = "shoping67", ReferenceConfiguration = true },
+            [3] = real.Details with { SourceKey = "local:3" }
+        },
+        ImportedKeys = new() { [real.Details.SourceKey] = 1, ["ref:pc-4070"] = 2 }
+    };
+    var names = new Dictionary<int, string> { [1] = "Fjallraven Foldsack Backpack", [2] = "shoping67 PC", [3] = real.Name };
+    CatalogRepair.Reconcile(config, names, TechCatalog.Reference());
+    Equal(3, config.Products.Count); Equal(false, config.Products[1].Visible); Equal(false, config.Products[2].Visible);
+    Equal(true, config.Products[3].Visible); Equal(false, config.ImportedKeys.ContainsKey(real.Details.SourceKey));
+    CatalogRepair.Reconcile(config, names, TechCatalog.Reference()); Equal(3, config.Products.Count);
 });
 
 Console.WriteLine($"{passed} checks passed.");

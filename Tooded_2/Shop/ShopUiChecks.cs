@@ -31,15 +31,16 @@ internal static class ShopUiChecks
             Require(sql.Contains("ShopSettings"), "Migration script does not contain ShopSettings");
         }
         Directory.CreateDirectory("ui-checks");
-        var products = TechCatalog.Reference().Select(p => p with { Image = null }).ToArray();
+        var products = TechCatalog.Reference().ToArray();
         using var store = new DemoShopStore(products, TechCatalog.InitialPromotions());
         using var form = new PoodForm(store); form.Show();
         PumpUntil(() => Descendants(form).OfType<ProductListItem>().Count() == 6);
+        Require(Descendants(form).OfType<PictureBox>().All(p => p.Image != null), "A catalog product is missing its local photograph");
         using (var bitmap = new Bitmap(form.Width, form.Height))
         { form.DrawToBitmap(bitmap, form.ClientRectangle); bitmap.Save("ui-checks/home-et.png"); }
         Descendants(form).OfType<Button>().Single(b => b.Text == T.Category("computers")).PerformClick();
-        var gpu = Descendants(form).OfType<CheckedListBox>().Single(list => list.Items.Cast<object>().Any(i => i.ToString() == "RTX 4070"));
-        gpu.SetItemChecked(Enumerable.Range(0, gpu.Items.Count).Single(i => gpu.Items[i].ToString() == "RTX 4070"), true);
+        var gpu = Descendants(form).OfType<CheckedListBox>().Single(list => list.Items.Cast<object>().Any(i => i.ToString() == "RTX 4070 Laptop GPU"));
+        gpu.SetItemChecked(Enumerable.Range(0, gpu.Items.Count).Single(i => gpu.Items[i].ToString() == "RTX 4070 Laptop GPU"), true);
         PumpUntil(() => Descendants(form).OfType<ProductListItem>().Count() == 1);
         var picker = Descendants(form).OfType<ComboBox>().Single(c => c.AccessibleName == "ET / RU / EN"); picker.SelectedIndex = 1;
         Application.DoEvents();
@@ -47,7 +48,7 @@ internal static class ShopUiChecks
         Require(Descendants(form).OfType<Label>().Any(l => l.Text.Contains("Видеокарта")), "Russian filter label missing");
         using (var bitmap = new Bitmap(form.Width, form.Height))
         { form.DrawToBitmap(bitmap, form.ClientRectangle); bitmap.Save("ui-checks/rtx4070-ru.png"); }
-        var cart = new ShoppingCart(); var selected = store.GetProducts().First(p => p.Details.SourceKey == "ref:pc-4070"); cart.Add(selected, 1);
+        var cart = new ShoppingCart(); var selected = store.GetProducts().First(p => p.Details.SourceKey == "model:asus-rog-strix-g16-g614ji-as94"); cart.Add(selected, 1);
         using (var details = new ProductDetailsForm(selected, cart, (_, _) => true)) { details.Show(); Application.DoEvents(); details.Close(); }
         using (var basket = new CartForm(cart, store)) { basket.Show(); Application.DoEvents(); basket.Close(); }
         using (var checkout = new DemoCheckoutForm(cart.Lines, store)) { checkout.Show(); Application.DoEvents(); checkout.Close(); }
