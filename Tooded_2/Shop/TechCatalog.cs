@@ -5,7 +5,7 @@ namespace Tooded_2.Shop;
 
 public static class TechCatalog
 {
-    public const string ReferenceEndpoint = "https://raw.githubusercontent.com/BakaYaroslav/Tooded/refs/heads/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json";
+    public const string ReferenceEndpoint = "https://raw.githubusercontent.com/BakaYaroslav/Tooded/refs/heads/master/Tooded_2/Catalog/tech-products.json";
     private static readonly HttpClient client = new() { Timeout = TimeSpan.FromSeconds(12), MaxResponseContentBufferSize = 5 * 1024 * 1024 };
     private static readonly JsonSerializerOptions json = new() { PropertyNameCaseInsensitive = true };
     private static readonly string cache = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "shoping67", "catalog.json");
