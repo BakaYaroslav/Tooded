@@ -4,12 +4,43 @@ namespace Tooded_2.Shop;
 
 public sealed class DatabaseShopStore : IShopStore
 {
-    private readonly IReadOnlyList<ShopProduct> descriptions = ShopCatalog.Load();
+    private IReadOnlyList<ShopProduct> descriptions = ShopCatalog.Load().Concat(new OnlineCatalog().ReadCache()).ToArray();
+    public string CatalogStatus { get; private set; } = "Poe kataloog · Demotellimused vähendavad laoseisu ja kajastuvad müügis.";
     public bool IsDemoCatalog => false;
 
     public IReadOnlyList<ShopProduct> GetProducts()
     {
         using var db = new AppDbContext();
+        if (!db.Toodetabel.Any())
+        {
+            var download = new OnlineCatalog().LoadAsync(allowBundledFallback: false).GetAwaiter().GetResult();
+            // Check again inside the transaction if another shop opened during the download.
+            using var transaction = db.Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
+            if (!db.Toodetabel.Any())
+            {
+                var categories = db.Kategooriatabel.ToList();
+                foreach (var product in download.Products)
+                {
+                    var category = categories.FirstOrDefault(c => string.Equals(
+                        c.nimetus, product.Category, StringComparison.OrdinalIgnoreCase));
+                    if (category == null)
+                    {
+                        category = new Kategooria { nimetus = product.Category };
+                        db.Kategooriatabel.Add(category);
+                        categories.Add(category);
+                    }
+                    db.Toodetabel.Add(new Toode
+                    {
+                        Toodenimetus = product.Name, Hind = (float)product.Price,
+                        Kogus = product.Stock, Pilt = product.Image, Kategooria = category
+                    });
+                }
+                db.SaveChanges();
+            }
+            transaction.Commit();
+            descriptions = download.Products.Concat(ShopCatalog.Load()).ToArray();
+            CatalogStatus = download.Status + " Tooted salvestatud andmebaasi.";
+        }
         return db.Toodetabel.AsNoTracking().Include(t => t.Kategooria).OrderBy(t => t.Id)
             .ToList().Select(Map).ToArray();
     }

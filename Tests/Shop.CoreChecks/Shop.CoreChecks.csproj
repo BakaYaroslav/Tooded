@@ -9,6 +9,7 @@
     <Compile Include="../../Tooded_2/Shop/ShopProduct.cs" Link="ShopProduct.cs" />
     <Compile Include="../../Tooded_2/Shop/DemoShopStore.cs" Link="DemoShopStore.cs" />
     <Compile Include="../../Tooded_2/Shop/ShopCatalog.cs" Link="ShopCatalog.cs" />
+    <Compile Include="../../Tooded_2/Shop/OnlineCatalog.cs" Link="OnlineCatalog.cs" />
     <None Include="../../Tooded_2/Catalog/products.json" Link="Catalog/products.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../Tooded_2/Images/Catalog/*.jpg" Link="Images/Catalog/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
