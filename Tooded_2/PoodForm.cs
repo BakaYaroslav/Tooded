@@ -53,14 +53,13 @@ public partial class PoodForm : Form
         root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         root.RowStyles.Add(new RowStyle(SizeType.Absolute, 82)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 54));
         root.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
-        var header = new TableLayoutPanel { Dock = DockStyle.Fill, BackColor = ShopStyle.Navy, ColumnCount = 4, Padding = new Padding(18, 10, 18, 10), Margin = Padding.Empty };
+        var header = new TableLayoutPanel { Dock = DockStyle.Fill, BackColor = ShopStyle.Navy, ColumnCount = 3, Padding = new Padding(18, 10, 18, 10), Margin = Padding.Empty };
         header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 218)); header.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-        header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100)); header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 225));
+        header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 225));
         var logo = new Shop67Logo { Dock = DockStyle.Fill, Cursor = Cursors.Hand }; logo.Click += (_, _) => Navigate("", true); header.Controls.Add(logo, 0, 0);
         var search = new TextBox { Text = query, Dock = DockStyle.Fill, PlaceholderText = T.L("Otsi toodet, mudelit või omadust…", "Название, модель или характеристика…", "Search products, models or specifications…"), Margin = new Padding(8, 16, 18, 4), AccessibleName = T.L("Otsing", "Поиск", "Search") };
         search.TextChanged += (_, _) => { query = search.Text; home = false; Render(); }; header.Controls.Add(search, 1, 0);
-        var language = Shop67Ui.LanguagePicker(Build); language.Anchor = AnchorStyles.None; header.Controls.Add(language, 2, 0);
-        basket = Shop67Ui.Button("", OpenCart, true); basket.Dock = DockStyle.Fill; header.Controls.Add(basket, 3, 0);
+        basket = Shop67Ui.Button("", OpenCart, true); basket.Dock = DockStyle.Fill; header.Controls.Add(basket, 2, 0);
         root.Controls.Add(header, 0, 0);
         var nav = new FlowLayoutPanel { Dock = DockStyle.Fill, BackColor = Color.White, Padding = new Padding(20, 5, 10, 0), WrapContents = false };
         var homeButton = Shop67Ui.Button(T.L("Avaleht ja pakkumised", "Главная и акции", "Home and offers"), () => Navigate("", true)); homeButton.Width = 200; nav.Controls.Add(homeButton);

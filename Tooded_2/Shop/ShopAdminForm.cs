@@ -114,9 +114,14 @@ internal abstract class ShopEditorForm : Form
         var field = new TextBox { Text = value, Width = 710, Multiline = multiline, Height = multiline ? 75 : 28, ScrollBars = multiline ? ScrollBars.Vertical : ScrollBars.None };
         Fields.Controls.Add(field); return field;
     }
-    protected TextBox[] Translated(string label, LocalText value, bool multiline = false) => new[]
-    { TextField(label + " · ET", value.Et, multiline), TextField(label + " · RU", value.Ru, multiline), TextField(label + " · EN", value.En, multiline) };
-    protected static LocalText Read(TextBox[] fields) => new(fields[0].Text.Trim(), fields[1].Text.Trim(), fields[2].Text.Trim());
+    protected TextBox[] Translated(string label, LocalText value, bool multiline = false)
+    {
+        var field = TextField(label, value.Et, multiline);
+        field.Tag = value;
+        return new[] { field };
+    }
+    protected static LocalText Read(TextBox[] fields) =>
+        (fields[0].Tag as LocalText ?? new()) with { Et = fields[0].Text.Trim() };
     protected NumericUpDown Number(string label, decimal value, decimal maximum, int decimals = 0)
     {
         Fields.Controls.Add(Shop67Ui.Label(label, 10, true));
@@ -226,7 +231,7 @@ internal sealed class ProductEditorForm : ShopEditorForm
         productId = id;
         using var db = new AppDbContext(); var product = db.Toodetabel.Find(id) ?? throw new InvalidOperationException("Product not found");
         original = Shop67Settings.Details(Shop67Settings.Load(db), product);
-        names = Translated(T.L("Nimetus", "Название", "Name"), original.Name.En.Length == 0 ? new(product.Toodenimetus, product.Toodenimetus, product.Toodenimetus) : original.Name);
+        names = Translated(T.L("Nimetus", "Название", "Name"), original.Name.Et.Length == 0 ? new(product.Toodenimetus, product.Toodenimetus, product.Toodenimetus) : original.Name);
         descriptions = Translated(T.L("Kirjeldus", "Описание", "Description"), original.Description, true);
         category = Choice(T.L("Kategooria", "Категория", "Category"), CatalogRules.Categories, original.Category, T.Category);
         kind = Choice(T.Spec("kind"), new[] { "phone", "laptop", "desktop", "mouse", "keyboard", "headphones" }, original.Kind, T.Value);
@@ -251,8 +256,8 @@ internal sealed class ProductEditorForm : ShopEditorForm
     {
         specs.EndEdit();
         var translated = Read(names);
-        if (new[] { translated.Et, translated.Ru, translated.En }.Any(string.IsNullOrWhiteSpace))
-            throw new InvalidOperationException(T.L("Sisesta nimi kolmes keeles.", "Введите название на трёх языках.", "Enter a name in all three languages."));
+        if (string.IsNullOrWhiteSpace(translated.Et))
+            throw new InvalidOperationException(T.L("Sisesta toote nimetus.", "Введите название на трёх языках.", "Enter a name in all three languages."));
         var values = new Dictionary<string, string>();
         foreach (DataGridViewRow row in specs.Rows)
         {
@@ -270,7 +275,7 @@ internal sealed class ProductEditorForm : ShopEditorForm
         var config = Shop67Settings.Load(db);
         var detail = original with { Name = translated, Description = Read(descriptions), Brand = brand.Text.Trim(), Category = selectedCategory,
             Kind = selectedKind, Specs = values, Visible = visible.Checked, SourceKey = original.SourceKey.Length == 0 ? "local:" + productId : original.SourceKey };
-        if (!CatalogRules.IsTechnical(new ShopProduct { Name = translated.En, Details = detail }))
+        if (!CatalogRules.IsTechnical(new ShopProduct { Name = translated.Et, Details = detail }))
             throw new InvalidOperationException(T.L("Kontrolli tegelikku tootemudelit, kaubamärki ja kategooriat.", "Укажите реальную модель, производителя и подходящую категорию.", "Enter a real product model, manufacturer and matching category."));
         if (detail.Visible && string.IsNullOrWhiteSpace(image.Text))
             throw new InvalidOperationException(T.L("Nähtaval tootel peab olema pilt.", "Для товара в витрине нужно изображение.", "A visible product must have an image."));

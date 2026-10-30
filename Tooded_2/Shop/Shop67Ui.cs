@@ -19,20 +19,6 @@ internal sealed class Shop67Logo : Control
 
 internal static class Shop67Ui
 {
-    public static ComboBox LanguagePicker(Action changed)
-    {
-        var combo = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 90, AccessibleName = "ET / RU / EN" };
-        combo.Items.AddRange(new object[] { "ET", "RU", "EN" });
-        combo.SelectedIndex = T.Language == "ru" ? 1 : T.Language == "en" ? 2 : 0;
-        combo.SelectedIndexChanged += (_, _) =>
-        {
-            T.SetLanguage(new[] { "et", "ru", "en" }[combo.SelectedIndex]);
-            foreach (Form form in Application.OpenForms) Translate(form);
-            changed();
-        };
-        return combo;
-    }
-
     public static void Translate(Control root)
     {
         if (root is not TextBoxBase && root is not ComboBox && root is not NumericUpDown)

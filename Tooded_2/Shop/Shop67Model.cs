@@ -4,7 +4,7 @@ namespace Tooded_2.Shop;
 
 public sealed record LocalText(string Et = "", string Ru = "", string En = "")
 {
-    public string Value => T.Language switch { "ru" => string.IsNullOrWhiteSpace(Ru) ? En : Ru, "en" => En, _ => string.IsNullOrWhiteSpace(Et) ? En : Et };
+    public string Value => Et;
 }
 
 public sealed record ProductDetails
@@ -40,8 +40,8 @@ public sealed record Promotion
         && (string.IsNullOrWhiteSpace(ProductKeys) || ProductKeys.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).Contains(product.Details.SourceKey, StringComparer.OrdinalIgnoreCase));
     public void Validate()
     {
-        if (string.IsNullOrWhiteSpace(Title.Et) || string.IsNullOrWhiteSpace(Title.Ru) || string.IsNullOrWhiteSpace(Title.En))
-            throw new InvalidOperationException(T.L("Sisesta pealkiri kolmes keeles.", "Введи заголовок на трёх языках.", "Enter a title in all three languages."));
+        if (string.IsNullOrWhiteSpace(Title.Et))
+            throw new InvalidOperationException(T.L("Sisesta kampaania pealkiri.", "Введи заголовок на трёх языках.", "Enter a title in all three languages."));
         if (Percent < 0 || Percent > 90 || Ends <= Starts || !CatalogRules.Categories.Prepend("").Contains(Category))
             throw new InvalidOperationException(T.L("Kontrolli kuupäevi, kategooriat ja allahindlust (0–90%).", "Проверь даты, категорию и скидку (0–90%).", "Check dates, category and discount (0–90%)."));
     }
