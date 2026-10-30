@@ -237,6 +237,10 @@ internal sealed class ProductEditorForm : ShopEditorForm
         var config = Shop67Settings.Load(db);
         var detail = original with { Name = translated, Description = Read(descriptions), Brand = brand.Text.Trim(), Category = selectedCategory,
             Kind = selectedKind, Specs = values, Visible = visible.Checked, SourceKey = original.SourceKey.Length == 0 ? "local:" + productId : original.SourceKey };
+        if (!CatalogRules.IsTechnical(new ShopProduct { Name = translated.En, Details = detail }))
+            throw new InvalidOperationException(T.L("Kontrolli tegelikku tootemudelit, kaubamärki ja kategooriat.", "Укажите реальную модель, производителя и подходящую категорию.", "Enter a real product model, manufacturer and matching category."));
+        if (detail.Visible && string.IsNullOrWhiteSpace(image.Text))
+            throw new InvalidOperationException(T.L("Nähtaval tootel peab olema pilt.", "Для товара в витрине нужно изображение.", "A visible product must have an image."));
         var dbCategory = db.Kategooriatabel.FirstOrDefault(c => c.nimetus == selectedCategory);
         if (dbCategory == null) { dbCategory = new Kategooria { nimetus = selectedCategory }; db.Kategooriatabel.Add(dbCategory); }
         product.Kategooria = dbCategory; product.Toodenimetus = translated.Et; product.Hind = (float)price.Value;
