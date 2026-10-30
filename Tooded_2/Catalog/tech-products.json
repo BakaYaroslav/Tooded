@@ -1,0 +1,444 @@
+[
+  {
+    "Id": 1,
+    "Name": "Apple iPhone 13 Pro",
+    "Price": 799,
+    "Stock": 8,
+    "Details": {
+      "SourceKey": "ref:apple-iphone-13-pro",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Apple",
+      "Name": {
+        "Et": "Apple iPhone 13 Pro",
+        "Ru": "Apple iPhone 13 Pro",
+        "En": "Apple iPhone 13 Pro"
+      },
+      "Description": {
+        "Et": "Apple iPhone 13 Pro. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "Apple iPhone 13 Pro. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "Apple iPhone 13 Pro. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "ram": "6 GB",
+        "storage": "128 GB",
+        "screen": "6.1″",
+        "os": "iOS",
+        "5g": "yes"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    },
+    "Image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"
+  },
+  {
+    "Id": 2,
+    "Name": "Samsung Galaxy S24",
+    "Price": 699,
+    "Stock": 12,
+    "Details": {
+      "SourceKey": "ref:samsung-galaxy-s24",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Samsung",
+      "Name": {
+        "Et": "Samsung Galaxy S24",
+        "Ru": "Samsung Galaxy S24",
+        "En": "Samsung Galaxy S24"
+      },
+      "Description": {
+        "Et": "Samsung Galaxy S24. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "Samsung Galaxy S24. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "Samsung Galaxy S24. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "ram": "8 GB",
+        "storage": "256 GB",
+        "screen": "6.2″",
+        "os": "Android",
+        "5g": "yes"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 3,
+    "Name": "Google Pixel 8",
+    "Price": 549,
+    "Stock": 5,
+    "Details": {
+      "SourceKey": "ref:google-pixel-8",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "phones",
+      "Kind": "phone",
+      "Brand": "Google",
+      "Name": {
+        "Et": "Google Pixel 8",
+        "Ru": "Google Pixel 8",
+        "En": "Google Pixel 8"
+      },
+      "Description": {
+        "Et": "Google Pixel 8. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "Google Pixel 8. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "Google Pixel 8. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "ram": "8 GB",
+        "storage": "128 GB",
+        "screen": "6.2″",
+        "os": "Android",
+        "5g": "yes"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 4,
+    "Name": "shoping67 Laptop · RTX 4070",
+    "Price": 1499,
+    "Stock": 6,
+    "Details": {
+      "SourceKey": "ref:laptop-4070",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "computers",
+      "Kind": "laptop",
+      "Brand": "shoping67",
+      "Name": {
+        "Et": "shoping67 Laptop · RTX 4070",
+        "Ru": "shoping67 Laptop · RTX 4070",
+        "En": "shoping67 Laptop · RTX 4070"
+      },
+      "Description": {
+        "Et": "shoping67 Laptop · RTX 4070. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "shoping67 Laptop · RTX 4070. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "shoping67 Laptop · RTX 4070. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "gpu": "RTX 4070 Laptop GPU",
+        "cpu": "Intel Core i7-13620H",
+        "ram": "32 GB",
+        "storage": "1 TB SSD",
+        "screen": "15.6″",
+        "os": "Windows 11"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 5,
+    "Name": "shoping67 Laptop · RTX 4060",
+    "Price": 1199,
+    "Stock": 10,
+    "Details": {
+      "SourceKey": "ref:laptop-4060",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "computers",
+      "Kind": "laptop",
+      "Brand": "shoping67",
+      "Name": {
+        "Et": "shoping67 Laptop · RTX 4060",
+        "Ru": "shoping67 Laptop · RTX 4060",
+        "En": "shoping67 Laptop · RTX 4060"
+      },
+      "Description": {
+        "Et": "shoping67 Laptop · RTX 4060. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "shoping67 Laptop · RTX 4060. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "shoping67 Laptop · RTX 4060. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "gpu": "RTX 4060 Laptop GPU",
+        "cpu": "Intel Core i7-13620H",
+        "ram": "16 GB",
+        "storage": "512 GB SSD",
+        "screen": "15.6″",
+        "os": "Windows 11"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 6,
+    "Name": "shoping67 Study Laptop",
+    "Price": 599,
+    "Stock": 9,
+    "Details": {
+      "SourceKey": "ref:laptop-study",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "computers",
+      "Kind": "laptop",
+      "Brand": "shoping67",
+      "Name": {
+        "Et": "shoping67 Study Laptop",
+        "Ru": "shoping67 Study Laptop",
+        "En": "shoping67 Study Laptop"
+      },
+      "Description": {
+        "Et": "shoping67 Study Laptop. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "shoping67 Study Laptop. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "shoping67 Study Laptop. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "gpu": "Intel Iris Xe",
+        "cpu": "Intel Core i5-1235U",
+        "ram": "16 GB",
+        "storage": "512 GB SSD",
+        "screen": "14″",
+        "os": "Windows 11"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 7,
+    "Name": "shoping67 PC · RTX 4070",
+    "Price": 1399,
+    "Stock": 7,
+    "Details": {
+      "SourceKey": "ref:pc-4070",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "computers",
+      "Kind": "desktop",
+      "Brand": "shoping67",
+      "Name": {
+        "Et": "shoping67 PC · RTX 4070",
+        "Ru": "shoping67 PC · RTX 4070",
+        "En": "shoping67 PC · RTX 4070"
+      },
+      "Description": {
+        "Et": "shoping67 PC · RTX 4070. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "shoping67 PC · RTX 4070. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "shoping67 PC · RTX 4070. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "gpu": "RTX 4070",
+        "cpu": "AMD Ryzen 5 7600",
+        "ram": "32 GB",
+        "storage": "1 TB SSD",
+        "os": "Windows 11"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 8,
+    "Name": "shoping67 PC · RTX 4070 SUPER",
+    "Price": 1649,
+    "Stock": 4,
+    "Details": {
+      "SourceKey": "ref:pc-4070-super",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "computers",
+      "Kind": "desktop",
+      "Brand": "shoping67",
+      "Name": {
+        "Et": "shoping67 PC · RTX 4070 SUPER",
+        "Ru": "shoping67 PC · RTX 4070 SUPER",
+        "En": "shoping67 PC · RTX 4070 SUPER"
+      },
+      "Description": {
+        "Et": "shoping67 PC · RTX 4070 SUPER. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "shoping67 PC · RTX 4070 SUPER. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "shoping67 PC · RTX 4070 SUPER. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "gpu": "RTX 4070 SUPER",
+        "cpu": "AMD Ryzen 7 7700",
+        "ram": "32 GB",
+        "storage": "2 TB SSD",
+        "os": "Windows 11"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 9,
+    "Name": "shoping67 PC · RTX 4060",
+    "Price": 899,
+    "Stock": 0,
+    "Details": {
+      "SourceKey": "ref:pc-4060",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "computers",
+      "Kind": "desktop",
+      "Brand": "shoping67",
+      "Name": {
+        "Et": "shoping67 PC · RTX 4060",
+        "Ru": "shoping67 PC · RTX 4060",
+        "En": "shoping67 PC · RTX 4060"
+      },
+      "Description": {
+        "Et": "shoping67 PC · RTX 4060. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "shoping67 PC · RTX 4060. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "shoping67 PC · RTX 4060. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "gpu": "RTX 4060",
+        "cpu": "Intel Core i5-13400F",
+        "ram": "16 GB",
+        "storage": "512 GB SSD",
+        "os": "Windows 11"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 10,
+    "Name": "Logitech G502 HERO",
+    "Price": 49.99,
+    "Stock": 24,
+    "Details": {
+      "SourceKey": "ref:logitech-g502-hero",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "accessories",
+      "Kind": "mouse",
+      "Brand": "Logitech",
+      "Name": {
+        "Et": "Logitech G502 HERO",
+        "Ru": "Logitech G502 HERO",
+        "En": "Logitech G502 HERO"
+      },
+      "Description": {
+        "Et": "Logitech G502 HERO. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "Logitech G502 HERO. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "Logitech G502 HERO. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "connection": "wired",
+        "sensor": "HERO 25K",
+        "buttons": "11"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 11,
+    "Name": "Logitech G305 LIGHTSPEED",
+    "Price": 39.99,
+    "Stock": 18,
+    "Details": {
+      "SourceKey": "ref:logitech-g305",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "accessories",
+      "Kind": "mouse",
+      "Brand": "Logitech",
+      "Name": {
+        "Et": "Logitech G305 LIGHTSPEED",
+        "Ru": "Logitech G305 LIGHTSPEED",
+        "En": "Logitech G305 LIGHTSPEED"
+      },
+      "Description": {
+        "Et": "Logitech G305 LIGHTSPEED. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "Logitech G305 LIGHTSPEED. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "Logitech G305 LIGHTSPEED. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "connection": "wireless",
+        "sensor": "HERO 12K",
+        "buttons": "6"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 12,
+    "Name": "Logitech G413 SE",
+    "Price": 69.99,
+    "Stock": 15,
+    "Details": {
+      "SourceKey": "ref:logitech-g413-se",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "accessories",
+      "Kind": "keyboard",
+      "Brand": "Logitech",
+      "Name": {
+        "Et": "Logitech G413 SE",
+        "Ru": "Logitech G413 SE",
+        "En": "Logitech G413 SE"
+      },
+      "Description": {
+        "Et": "Logitech G413 SE. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "Logitech G413 SE. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "Logitech G413 SE. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "connection": "wired",
+        "layout": "US",
+        "switches": "Tactile"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 13,
+    "Name": "HyperX Cloud II",
+    "Price": 79.99,
+    "Stock": 13,
+    "Details": {
+      "SourceKey": "ref:hyperx-cloud-ii",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "accessories",
+      "Kind": "headphones",
+      "Brand": "HyperX",
+      "Name": {
+        "Et": "HyperX Cloud II",
+        "Ru": "HyperX Cloud II",
+        "En": "HyperX Cloud II"
+      },
+      "Description": {
+        "Et": "HyperX Cloud II. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "HyperX Cloud II. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "HyperX Cloud II. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "connection": "wired",
+        "microphone": "yes",
+        "drivers": "53 mm"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  },
+  {
+    "Id": 14,
+    "Name": "Logitech G435 LIGHTSPEED",
+    "Price": 59.99,
+    "Stock": 11,
+    "Details": {
+      "SourceKey": "ref:logitech-g435",
+      "SourceUrl": "https://github.com/BakaYaroslav/Tooded/blob/codex/shop-cart-demo/Tooded_2/Catalog/tech-products.json",
+      "Category": "accessories",
+      "Kind": "headphones",
+      "Brand": "Logitech",
+      "Name": {
+        "Et": "Logitech G435 LIGHTSPEED",
+        "Ru": "Logitech G435 LIGHTSPEED",
+        "En": "Logitech G435 LIGHTSPEED"
+      },
+      "Description": {
+        "Et": "Logitech G435 LIGHTSPEED. Õppepoe näidiskonfiguratsioon. Hind ja laoseis on näitlikud. Võrdle tehnilisi andmeid ning vali sobiv kogus. Kaupu ei saadeta.",
+        "Ru": "Logitech G435 LIGHTSPEED. Пример конфигурации для учебного магазина. Цена и наличие демонстрационные. Сравните характеристики и выберите количество. Товары не отправляются.",
+        "En": "Logitech G435 LIGHTSPEED. Reference configuration for the teaching shop. Price and inventory are illustrative. Compare the specifications and choose a quantity. No goods are shipped."
+      },
+      "Specs": {
+        "connection": "wireless",
+        "microphone": "yes",
+        "drivers": "40 mm"
+      },
+      "Visible": true,
+      "ReferenceConfiguration": true
+    }
+  }
+]

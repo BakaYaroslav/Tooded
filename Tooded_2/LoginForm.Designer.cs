@@ -1,4 +1,5 @@
-﻿namespace Tooded_2
+using Tooded_2.Shop;
+namespace Tooded_2
 {
     partial class LoginForm
     {
@@ -35,7 +36,7 @@
             pealkiriLabel.Name = "pealkiriLabel";
             pealkiriLabel.Size = new Size(130, 30);
             pealkiriLabel.TabIndex = 0;
-            pealkiriLabel.Text = "Sisselogimine";
+            pealkiriLabel.Text = T.Legacy("Sisselogimine");
             // 
             // kasutajaLabel
             // 
@@ -45,7 +46,7 @@
             kasutajaLabel.Name = "kasutajaLabel";
             kasutajaLabel.Size = new Size(90, 19);
             kasutajaLabel.TabIndex = 1;
-            kasutajaLabel.Text = "Kasutajanimi:";
+            kasutajaLabel.Text = T.Legacy("Kasutajanimi:");
             // 
             // kasutajaEntry
             // 
@@ -63,7 +64,7 @@
             paroolLabel.Name = "paroolLabel";
             paroolLabel.Size = new Size(60, 19);
             paroolLabel.TabIndex = 3;
-            paroolLabel.Text = "Parool:";
+            paroolLabel.Text = T.Legacy("Parool:");
             // 
             // paroolEntry
             // 
@@ -81,7 +82,7 @@
             loginBtn.Name = "loginBtn";
             loginBtn.Size = new Size(140, 36);
             loginBtn.TabIndex = 5;
-            loginBtn.Text = "Logi sisse";
+            loginBtn.Text = T.Legacy("Logi sisse");
             loginBtn.UseVisualStyleBackColor = true;
             loginBtn.Click += LoginBtn_Click;
             // 
@@ -92,7 +93,7 @@
             registreeriBtn.Name = "registreeriBtn";
             registreeriBtn.Size = new Size(140, 36);
             registreeriBtn.TabIndex = 6;
-            registreeriBtn.Text = "Registreeri";
+            registreeriBtn.Text = T.Legacy("Registreeri");
             registreeriBtn.UseVisualStyleBackColor = true;
             registreeriBtn.Click += RegistreeriBtn_Click;
             // 
@@ -114,7 +115,7 @@
             MinimizeBox = false;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Logi sisse";
+            Text = T.Legacy("Logi sisse");
             ResumeLayout(false);
             PerformLayout();
         }
