@@ -1,5 +1,6 @@
 using Tooded_2.Shop;
 
+T.SetLanguage("et");
 int passed = 0;
 void Check(string name, Action test)
 {
@@ -143,6 +144,87 @@ Check("No internet and no cache uses bundled demo products or rejects database i
     var loader = new OnlineCatalog(client, directory);
     Equal(6, loader.LoadAsync().GetAwaiter().GetResult().Products.Count);
     Reject(() => loader.LoadAsync(false).GetAwaiter().GetResult());
+});
+
+
+Check("Tech catalog contains exactly three supported categories and explicit reference configurations", () =>
+{
+    var products = TechCatalog.Reference(); Equal(14, products.Count);
+    Equal(3, products.Select(p => p.Details.Category).Distinct().Count());
+    Equal(true, products.All(p => p.Details.ReferenceConfiguration));
+    Equal(products.Count, products.Select(p => p.Details.SourceKey).Distinct().Count());
+});
+Check("RTX filters match exact desktop GPU and distinguish SUPER and laptop versions", () =>
+{
+    var filter = new CatalogFilter { Category = "computers", Facets = new() { ["gpu"] = new(StringComparer.OrdinalIgnoreCase) { "RTX 4070" } } };
+    var products = TechCatalog.Reference().Where(filter.Matches).ToArray();
+    Equal(1, products.Length); Equal("desktop", products[0].Details.Kind);
+    Equal("RTX 4070", products[0].Details.Specs["gpu"]);
+});
+Check("Facet values use OR within a facet and AND across facets, with price and stock", () =>
+{
+    var filter = new CatalogFilter { Category = "computers", Maximum = 1500, InStock = true,
+        Facets = new() { ["gpu"] = new() { "RTX 4070", "RTX 4060" }, ["ram"] = new() { "32 GB" } } };
+    Equal(1, TechCatalog.Reference().Count(filter.Matches));
+    Equal(0, TechCatalog.Reference().Count((filter with { Query = "nonexistent GPU" }).Matches));
+    Equal(true, new CatalogFilter { Query = "RTX 4070" }.Matches(TechCatalog.Reference().First(p => p.Details.Specs.GetValueOrDefault("gpu") == "RTX 4070")));
+});
+Check("Promotions honor start/end boundaries, category and products without stacking", () =>
+{
+    var now = DateTimeOffset.UtcNow;
+    var p = TechCatalog.Reference().First(p => p.Details.Category == "accessories") with { Price = 100 };
+    var first = new Promotion { Category = "accessories", Percent = 10, Starts = now.AddDays(-1), Ends = now.AddDays(1) };
+    var second = first with { Id = "second", Percent = 20, ProductKeys = p.Details.SourceKey };
+    Equal(80m, PromotionEngine.Apply(p, new[] { first, second }, now).Price);
+    Equal(100m, PromotionEngine.Apply(p, new[] { first with { Ends = now } }, now).Price);
+    Equal(100m, PromotionEngine.Apply(p, new[] { first with { Starts = now.AddSeconds(1) } }, now).Price);
+    Equal(100m, PromotionEngine.Apply(p, new[] { first with { Enabled = false } }, now).Price);
+    Equal(100m, PromotionEngine.Apply(p, new[] { first with { Category = "phones" } }, now).Price);
+    Equal(100m, PromotionEngine.Apply(p, new[] { first with { ProductKeys = "another-key" } }, now).Price);
+    Equal(90m, PromotionEngine.Apply(p, new[] { first with { Starts = now } }, now).Price);
+});
+Check("Discounts do not compound on refresh and validation rejects expired-price carts", () =>
+{
+    var now = DateTimeOffset.UtcNow; var p = Product(price: 100);
+    var promotion = new Promotion { Percent = 10, Starts = now.AddDays(-1), Ends = now.AddDays(1) };
+    var discounted = PromotionEngine.Apply(p, new[] { promotion }, now);
+    Equal(90m, PromotionEngine.Apply(discounted, new[] { promotion }, now).Price);
+    Reject(() => OrderValidation.Validate(new[] { new CartLine(discounted, 1) }, new[] { p }));
+    using var store = new DemoShopStore(new[] { p }, new[] { promotion });
+    var order = store.Checkout(new[] { new CartLine(store.GetProducts()[0], 2) });
+    Equal(180m, order.Total); Equal(3, store.GetProducts()[0].Stock);
+});
+Check("Configuration roundtrip preserves admin translations, visibility, source keys and promotions", () =>
+{
+    var product = TechCatalog.Reference()[0];
+    var config = new ShopConfiguration { Initialized = true,
+        Products = new() { [9] = product.Details with { Visible = false } },
+        ImportedKeys = new() { [product.Details.SourceKey] = 9 }, Promotions = TechCatalog.InitialPromotions() };
+    var parsed = ShopConfiguration.Parse(ShopConfiguration.Serialize(config));
+    Equal(false, parsed.Products[9].Visible); Equal(9, parsed.ImportedKeys[product.Details.SourceKey]);
+    Equal(config.Promotions[0].Title.Ru, parsed.Promotions[0].Title.Ru);
+});
+Check("Unknown API specifications remain unknown instead of inventing a GPU or memory size", () =>
+{
+    var products = TechCatalog.ParseDummyJson("""{"products":[{"id":12,"title":"A laptop","category":"laptops","price":700,"stock":3,"brand":"Brand","description":"Source description"}]}""", "computers");
+    Equal(1, products.Count); Equal(0, products[0].Details.Specs.Count);
+    Equal(false, products[0].Details.ReferenceConfiguration); Equal("dummyjson:12", products[0].Details.SourceKey);
+});
+Check("ET/RU/EN switch changes product and interface text while preserving cart and filters", () =>
+{
+    var product = Product() with { Details = new ProductDetails { Category = "phones", Name = new("Telefon", "Телефон", "Phone") } };
+    var cart = new ShoppingCart(); cart.Add(product, 2);
+    T.SetLanguage("ru"); Equal("Телефон", product.DisplayName); Equal("Телефоны", T.Category("phones"));
+    T.SetLanguage("en"); Equal("Phone", product.DisplayName); Equal(2, cart.Count);
+    T.SetLanguage("et"); Equal("Telefon", product.DisplayName); Equal(39.98m, cart.Total);
+});
+Check("Invalid promotion dates, discounts and missing translations cannot be published", () =>
+{
+    var value = new Promotion { Title = new("ET", "RU", "EN") };
+    value.Validate();
+    Reject(() => (value with { Percent = 95 }).Validate());
+    Reject(() => (value with { Ends = value.Starts }).Validate());
+    Reject(() => (value with { Title = new("ET", "", "EN") }).Validate());
 });
 
 Console.WriteLine($"{passed} checks passed.");

@@ -8,6 +8,7 @@ namespace Tooded_2
         static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
+            Shop.T.SetLanguage(Shop.T.Language);
 
             if (args.Contains("--demo", StringComparer.OrdinalIgnoreCase))
             {

@@ -95,6 +95,14 @@ namespace Tooded_2.Migrations
                     b.ToTable("Muugitabel");
                 });
 
+            modelBuilder.Entity("Tooded_2.ShopSetting", b =>
+                {
+                    b.Property<string>("Id").HasColumnType("nvarchar(450)");
+                    b.Property<string>("Value").IsRequired().HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
+                    b.ToTable("ShopSettings");
+                });
+
             modelBuilder.Entity("Tooded_2.Toode", b =>
                 {
                     b.Property<int>("Id")

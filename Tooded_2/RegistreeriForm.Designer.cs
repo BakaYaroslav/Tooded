@@ -1,4 +1,5 @@
-﻿namespace Tooded_2
+using Tooded_2.Shop;
+namespace Tooded_2
 {
     partial class RegistreeriForm
     {
@@ -37,7 +38,7 @@
             pealkiriLabel.Name = "pealkiriLabel";
             pealkiriLabel.Size = new Size(150, 30);
             pealkiriLabel.TabIndex = 0;
-            pealkiriLabel.Text = "Registreerimine";
+            pealkiriLabel.Text = T.Legacy("Registreerimine");
             // 
             // kasutajaLabel
             // 
@@ -47,7 +48,7 @@
             kasutajaLabel.Name = "kasutajaLabel";
             kasutajaLabel.Size = new Size(90, 19);
             kasutajaLabel.TabIndex = 1;
-            kasutajaLabel.Text = "Kasutajanimi:";
+            kasutajaLabel.Text = T.Legacy("Kasutajanimi:");
             // 
             // kasutajaEntry
             // 
@@ -65,7 +66,7 @@
             paroolLabel.Name = "paroolLabel";
             paroolLabel.Size = new Size(60, 19);
             paroolLabel.TabIndex = 3;
-            paroolLabel.Text = "Parool:";
+            paroolLabel.Text = T.Legacy("Parool:");
             // 
             // paroolEntry
             // 
@@ -84,7 +85,7 @@
             parool2Label.Name = "parool2Label";
             parool2Label.Size = new Size(120, 19);
             parool2Label.TabIndex = 5;
-            parool2Label.Text = "Korda parooli:";
+            parool2Label.Text = T.Legacy("Korda parooli:");
             // 
             // parool2Entry
             // 
@@ -102,7 +103,7 @@
             registreeriBtn.Name = "registreeriBtn";
             registreeriBtn.Size = new Size(150, 36);
             registreeriBtn.TabIndex = 7;
-            registreeriBtn.Text = "Registreeri";
+            registreeriBtn.Text = T.Legacy("Registreeri");
             registreeriBtn.UseVisualStyleBackColor = true;
             registreeriBtn.Click += RegistreeriBtn_Click;
             // 
@@ -113,7 +114,7 @@
             tuhistaBtn.Name = "tuhistaBtn";
             tuhistaBtn.Size = new Size(140, 36);
             tuhistaBtn.TabIndex = 8;
-            tuhistaBtn.Text = "Tühista";
+            tuhistaBtn.Text = T.Legacy("Tühista");
             tuhistaBtn.UseVisualStyleBackColor = true;
             tuhistaBtn.Click += TuhistaBtn_Click;
             // 
@@ -138,7 +139,7 @@
             MinimizeBox = false;
             Name = "RegistreeriForm";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Registreeri";
+            Text = T.Legacy("Registreeri");
             ResumeLayout(false);
             PerformLayout();
         }

@@ -12,12 +12,14 @@ public sealed class OnlineDemoShopStore : IShopStore
         // Called on the catalog worker, never on the UI thread.
         if (inner == null)
         {
-            var result = new OnlineCatalog().LoadAsync().GetAwaiter().GetResult();
-            inner = new DemoShopStore(result.Products);
-            CatalogStatus = result.Status + " Laoseis säilib selle seansi jooksul.";
+            var result = TechCatalog.LoadAsync().GetAwaiter().GetResult();
+            inner = new DemoShopStore(result.Products, TechCatalog.InitialPromotions());
+            CatalogStatus = result.Status;
         }
         return inner.GetProducts();
     }
+
+    public IReadOnlyList<Promotion> GetPromotions() => inner?.GetPromotions() ?? Array.Empty<Promotion>();
 
     public DemoOrder Checkout(IReadOnlyList<CartLine> lines) =>
         (inner ?? throw new InvalidOperationException("Kataloogi alles laaditakse.")).Checkout(lines);
