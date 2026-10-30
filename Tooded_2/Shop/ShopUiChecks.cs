@@ -42,28 +42,33 @@ internal static class ShopUiChecks
         var gpu = Descendants(form).OfType<CheckedListBox>().Single(list => list.Items.Cast<object>().Any(i => i.ToString() == "RTX 4070 Laptop GPU"));
         gpu.SetItemChecked(Enumerable.Range(0, gpu.Items.Count).Single(i => gpu.Items[i].ToString() == "RTX 4070 Laptop GPU"), true);
         PumpUntil(() => Descendants(form).OfType<ProductListItem>().Count() == 1);
-        var picker = Descendants(form).OfType<ComboBox>().Single(c => c.AccessibleName == "ET / RU / EN"); picker.SelectedIndex = 1;
-        Application.DoEvents();
-        Require(Descendants(form).OfType<ProductListItem>().Count() == 1, "Language change lost the GPU filter");
-        Require(Descendants(form).OfType<Label>().Any(l => l.Text.Contains("Видеокарта")), "Russian filter label missing");
+        Require(!Descendants(form).OfType<ComboBox>().Any(c => c.AccessibleName == "ET / RU / EN"), "Language selector is still visible");
+        Require(Descendants(form).OfType<Label>().Any(l => l.Text.Contains("Videokaart")), "Estonian filter label missing");
         using (var bitmap = new Bitmap(form.Width, form.Height))
-        { form.DrawToBitmap(bitmap, form.ClientRectangle); bitmap.Save("ui-checks/rtx4070-ru.png"); }
+        { form.DrawToBitmap(bitmap, form.ClientRectangle); bitmap.Save("ui-checks/rtx4070-et.png"); }
         var cart = new ShoppingCart(); var selected = store.GetProducts().First(p => p.Details.SourceKey == "model:asus-rog-strix-g16-g614ji-as94"); cart.Add(selected, 1);
         using (var details = new ProductDetailsForm(selected, cart, (_, _) => true)) { details.Show(); Application.DoEvents(); details.Close(); }
         using (var basket = new CartForm(cart, store)) { basket.Show(); Application.DoEvents(); basket.Close(); }
         using (var checkout = new DemoCheckoutForm(cart.Lines, store)) { checkout.Show(); Application.DoEvents(); checkout.Close(); }
         var order = store.Checkout(cart.Lines);
         using (var confirmation = new OrderConfirmationForm(order)) { confirmation.Show(); Application.DoEvents(); confirmation.Close(); }
-        using (var login = new LoginForm()) { login.Show(); Application.DoEvents(); login.Close(); }
+        using (var login = new LoginForm())
+        {
+            login.Show(); Application.DoEvents();
+            Require(!Descendants(login).OfType<ComboBox>().Any(c => c.AccessibleName == "ET / RU / EN"), "Login still has a language selector");
+            login.Close();
+        }
         using (var registration = new RegistreeriForm()) { registration.Show(); Application.DoEvents(); registration.Close(); }
         Require(cart.Count == 1, "Closing dialogs changed the basket");
         var config = new ShopConfiguration { Products = products.ToDictionary(p => p.Id, p => p.Details) };
         var oldPhone = products.Single(p => p.Details.SourceKey == "dummyjson:123");
-        var badOffer = new Promotion { Title = new("ET", "RU", "EN"), Category = "accessories", ProductKeys = oldPhone.Details.SourceKey, Percent = 15 };
+        var badOffer = new Promotion { Title = new("Eestikeelne kampaania"), Category = "accessories", ProductKeys = oldPhone.Details.SourceKey, Percent = 15 };
         var rows = products.Select(p => new Toode { Id = p.Id, Toodenimetus = p.Name }).ToArray();
         using (var editor = new PromotionEditorForm(badOffer, rows, config))
         {
             editor.Show(); Application.DoEvents();
+            Require(Descendants(editor).OfType<TextBox>().Count(t => t.Parent is FlowLayoutPanel) == 3, "Promotion editor still asks for translation fields");
+            Require(!Descendants(editor).OfType<Label>().Any(l => l.Text.EndsWith(" · RU") || l.Text.EndsWith(" · EN")), "Foreign-language editor labels remain");
             var list = Descendants(editor).OfType<CheckedListBox>().Single(c => c.AccessibleName == "promotion-products");
             Require(!list.Items.Cast<object>().Any(p => p.ToString()!.Contains("iPhone")), "Accessories target list contains a phone");
             Require(list.CheckedItems.Count == 0, "Incompatible selection was retained");
@@ -77,6 +82,6 @@ internal static class ShopUiChecks
             editor.Close();
         }
         form.Close(); T.SetLanguage("et");
-        Console.WriteLine("PASS Windows form rendering, GPU filter, language preservation and EF migration model");
+        Console.WriteLine("PASS Windows form rendering, GPU filter, Estonian-only forms and EF migration model");
     }
 }

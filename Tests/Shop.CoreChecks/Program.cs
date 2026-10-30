@@ -211,21 +211,24 @@ Check("Unknown API specifications remain unknown instead of inventing a GPU or m
     Equal(1, products.Count); Equal(0, products[0].Details.Specs.Count);
     Equal(false, products[0].Details.ReferenceConfiguration); Equal("dummyjson:78", products[0].Details.SourceKey);
 });
-Check("ET/RU/EN switch changes product and interface text while preserving cart and filters", () =>
+Check("Estonian-only mode ignores old language choices and needs no foreign translations", () =>
 {
     var product = Product() with { Details = new ProductDetails { Category = "phones", Name = new("Telefon", "Телефон", "Phone") } };
     var cart = new ShoppingCart(); cart.Add(product, 2);
-    T.SetLanguage("ru"); Equal("Телефон", product.DisplayName); Equal("Телефоны", T.Category("phones"));
-    T.SetLanguage("en"); Equal("Phone", product.DisplayName); Equal(2, cart.Count);
-    T.SetLanguage("et"); Equal("Telefon", product.DisplayName); Equal(39.98m, cart.Total);
+    T.SetLanguage("ru"); Equal("et", T.Language); Equal("Telefon", product.DisplayName);
+    T.SetLanguage("en"); Equal("Telefonid", T.Category("phones")); Equal("Vali", T.L("Vali", "Выбрать", "Select"));
+    Equal("et-EE", System.Globalization.CultureInfo.CurrentCulture.Name);
+    new Promotion { Title = new("Ainult eestikeelne pealkiri") }.Validate();
+    Equal("", new LocalText("", "Русский текст", "English text").Value);
+    Equal(2, cart.Count); Equal(39.98m, cart.Total);
 });
-Check("Invalid promotion dates, discounts and missing translations cannot be published", () =>
+Check("Invalid promotion dates, discounts and missing Estonian titles cannot be published", () =>
 {
     var value = new Promotion { Title = new("ET", "RU", "EN") };
     value.Validate();
     Reject(() => (value with { Percent = 95 }).Validate());
     Reject(() => (value with { Ends = value.Starts }).Validate());
-    Reject(() => (value with { Title = new("ET", "", "EN") }).Validate());
+    Reject(() => (value with { Title = new("", "RU", "EN") }).Validate());
 });
 
 

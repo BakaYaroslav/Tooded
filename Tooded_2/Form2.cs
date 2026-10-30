@@ -18,7 +18,6 @@ namespace Tooded_2
             foreach (Control control in Controls) control.Top += 48;
             ClientSize = new Size(ClientSize.Width, ClientSize.Height + 48);
             var toolbar = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 44, Padding = new Padding(8, 4, 0, 0), BackColor = Color.White };
-            toolbar.Controls.Add(Shop67Ui.LanguagePicker(() => { Shop67Ui.Translate(this); LaeMuuk(); }));
             var shopManagement = Shop67Ui.Button(T.L("Kampaaniad ja omadused", "Акции и характеристики", "Promotions and specifications"), () =>
             {
                 using var editor = new ShopAdminForm(); editor.ShowDialog(this); LaeTooted(); LaeKategooriad(); LaeMuuk();
