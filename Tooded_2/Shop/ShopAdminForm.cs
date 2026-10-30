@@ -27,7 +27,10 @@ internal sealed class ShopAdminForm : Form
         productPage.Controls.Add(productGrid); offerPage.Controls.Add(offerGrid);
         var productActions = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 60, Padding = new Padding(10) };
         var edit = Shop67Ui.Button(T.L("Muuda valitud toodet", "Изменить выбранный товар", "Edit selected product"), EditProduct, true); edit.Width = 270;
-        productActions.Controls.Add(edit); productActions.Controls.Add(Shop67Ui.Button(T.Legacy("Uuenda"), Reload));
+        productActions.Controls.Add(edit);
+        var delete = Shop67Ui.Button("Kustuta toode", DeleteProduct); delete.AccessibleName = "delete-product";
+        delete.ForeColor = Color.Firebrick; productActions.Controls.Add(delete);
+        productActions.Controls.Add(Shop67Ui.Button(T.Legacy("Uuenda"), Reload));
         productPage.Controls.Add(productActions);
         var offerActions = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 60, Padding = new Padding(10) };
         offerActions.Controls.Add(Shop67Ui.Button(T.L("Lisa kampaania", "Добавить акцию", "Add promotion"), () => EditOffer(null), true));
@@ -70,6 +73,23 @@ internal sealed class ShopAdminForm : Form
         int id = Convert.ToInt32(productGrid.CurrentRow.Cells["Id"].Value);
         using var editor = new ProductEditorForm(id); if (editor.ShowDialog(this) == DialogResult.OK) Reload();
     }
+    private void DeleteProduct()
+    {
+        if (productGrid.CurrentRow == null)
+        { MessageBox.Show(this, "Vali tabelist toode.", "shoping67"); return; }
+        int id = Convert.ToInt32(productGrid.CurrentRow.Cells["Id"].Value);
+        string name = Convert.ToString(productGrid.CurrentRow.Cells["Name"].Value) ?? "";
+        if (MessageBox.Show(this, $"Kas kustutada toode „{name}” andmebaasist?\n\nToode ei tule automaatse impordiga tagasi. Senised müügiandmed säilivad.",
+            "Kustuta toode", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
+        try
+        {
+            if (!Shop67Settings.DeleteProduct(id)) MessageBox.Show(this, "Toode on juba kustutatud.", "shoping67");
+            Reload();
+        }
+        catch (Exception)
+        { MessageBox.Show(this, "Toodet ei saanud kustutada. Kontrolli andmebaasiühendust ja proovi uuesti.", "shoping67", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+    }
+
     private void EditOffer(Promotion? offer)
     {
         using var editor = new PromotionEditorForm(offer ?? new Promotion(), products, configuration);

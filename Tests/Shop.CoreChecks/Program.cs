@@ -284,6 +284,38 @@ Check("Promotion targeting rejects a phone in accessories and excludes hidden an
     Equal(true, PromotionTargets.Eligible(catalog, "accessories").All(p => p.Details.Category == "accessories"));
 });
 
+
+Check("Deleting a product removes its metadata but keeps import suppression after reload and repair", () =>
+{
+    var product = TechCatalog.Reference()[0];
+    var config = new ShopConfiguration { Products = new() { [52] = product.Details }, ImportedKeys = new() { [product.Details.SourceKey] = 52 } };
+    ProductRemoval.Apply(config, 52);
+    var reloaded = ShopConfiguration.Parse(ShopConfiguration.Serialize(config));
+    CatalogRepair.Reconcile(reloaded, new Dictionary<int, string>(), TechCatalog.Reference());
+    Equal(false, reloaded.Products.ContainsKey(52));
+    Equal(true, reloaded.ImportedKeys.ContainsKey(product.Details.SourceKey));
+    Equal(52, reloaded.ImportedKeys[product.Details.SourceKey]);
+    ProductRemoval.Apply(reloaded, 52); Equal(52, reloaded.ImportedKeys[product.Details.SourceKey]);
+});
+Check("Deleting the last selected promotion target disables its discount instead of applying it to all products", () =>
+{
+    var first = TechCatalog.Reference()[0]; var second = TechCatalog.Reference()[1];
+    var single = new Promotion { ProductKeys = first.Details.SourceKey, Percent = 15 };
+    var multiple = new Promotion { ProductKeys = first.Details.SourceKey + "," + second.Details.SourceKey, Percent = 20 };
+    var all = new Promotion { Category = "computers", ProductKeys = "", Percent = 5 };
+    var config = new ShopConfiguration { Products = new() { [52] = first.Details }, Promotions = new() { single, multiple, all } };
+    ProductRemoval.Apply(config, 52);
+    Equal(false, config.Promotions[0].Enabled);
+    Equal(true, config.Promotions[1].Enabled); Equal(second.Details.SourceKey, config.Promotions[1].ProductKeys);
+    Equal(true, config.Promotions[2].Enabled); Equal("", config.Promotions[2].ProductKeys);
+});
+Check("Deleting a legacy row without catalog metadata is supported and leaves unrelated products intact", () =>
+{
+    var product = TechCatalog.Reference()[0];
+    var config = new ShopConfiguration { Products = new() { [53] = product.Details }, ImportedKeys = new() { [product.Details.SourceKey] = 53 } };
+    ProductRemoval.Apply(config, 1); Equal(1, config.Products.Count); Equal(53, config.ImportedKeys[product.Details.SourceKey]);
+});
+
 Console.WriteLine($"{passed} checks passed.");
 
 sealed class CatalogHandler : System.Net.Http.HttpMessageHandler
