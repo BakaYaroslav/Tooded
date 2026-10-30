@@ -205,7 +205,9 @@ internal sealed class ProductEditorForm : ShopEditorForm
         Fields.Controls.Add(Shop67Ui.Label(T.L("Omadused · tühi väärtus = teadmata", "Характеристики · пустое значение = неизвестно", "Specifications · empty value = unknown"), 11, true));
         specs = new DataGridView { Width = 710, Height = 280, AllowUserToAddRows = true, AllowUserToDeleteRows = true, AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, RowHeadersVisible = false };
         var keys = new DataGridViewComboBoxColumn { Name = "Key", HeaderText = T.L("Omadus", "Характеристика", "Specification"), FlatStyle = FlatStyle.Flat };
-        foreach (string key in CatalogRules.Categories.SelectMany(CatalogRules.Facets).Concat(original.Specs.Keys).Distinct().Where(k => k != "brand" && k != "kind")) keys.Items.Add(key);
+        keys.DataSource = CatalogRules.Categories.SelectMany(CatalogRules.Facets).Concat(original.Specs.Keys).Distinct()
+            .Where(k => k != "brand" && k != "kind").Select(k => new ChoiceItem(k, T.Spec(k))).ToList();
+        keys.ValueMember = "Key"; keys.DisplayMember = "Label";
         specs.Columns.Add(keys); specs.Columns.Add("Value", T.L("Väärtus", "Значение", "Value"));
         foreach (var pair in original.Specs) specs.Rows.Add(pair.Key, pair.Value);
         specs.CellFormatting += (_, e) => { if (e.ColumnIndex == 0 && e.Value is string key) { e.Value = T.Spec(key); e.FormattingApplied = true; } };
