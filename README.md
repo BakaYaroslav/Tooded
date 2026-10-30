@@ -1,6 +1,6 @@
 # shoping67
 
-Windows Forms teaching shop (.NET 10), with an original shoping67 wordmark, home offers, a technical catalog, Estonian-only interface, basket and demo checkout. No real payments or deliveries.
+Windows Forms teaching shop (.NET 10), with an original shoping67 wordmark, home offers, a technical catalog, Estonian-only interface, basket and demo checkout. Payment is simulated; no real money is charged and no goods are shipped. Order confirmation emails can be sent through the configured SMTP account.
 
 ## Windows startup
 
@@ -28,7 +28,7 @@ Categories:
 
 Filters use OR between selected values of one characteristic and AND across characteristics. `RTX 4070`, `RTX 4070 SUPER` and `RTX 4070 Laptop GPU` are distinct values. Search also checks specification values. Price limits, stock filter, sorting and reset are supported. Missing source specifications are displayed as “Not specified” and never guessed.
 
-Product details show Estonian text, specifications, current/old price, zoomable photo, quantity, Add to basket and Buy now. The basket is retained while browsing. Changing a price or an expiring promotion requires removing an outdated basket line and adding it again; stale discounted prices are rejected during checkout. The greatest matching discount applies; discounts do not stack or compound on refresh. In database mode completed demo orders reduce stock and appear in the existing sales report.
+Product details show Estonian text, specifications, current/old price, zoomable photo, quantity, Add to basket and Buy now. In the basket enter the recipient email address and press **Maksa**. There is no separate payment method/checkbox dialog. A successful checkout clears the basket, shows **Makse õnnestus!** and an estimated delivery date 14 calendar days after the order, and sends an Estonian confirmation email. The message identifies this as a teaching-shop order. The basket is retained while browsing. Changing a price or an expiring promotion requires removing an outdated basket line and adding it again; stale discounted prices are rejected during checkout. The greatest matching discount applies; discounts do not stack or compound on refresh. In database mode completed demo orders reduce stock and appear in the existing sales report.
 
 ## Product sources and photographs
 
@@ -50,6 +50,14 @@ Sign in as administrator and click **Promotions and specifications** (ET: `Kampa
 
 `--demo` uses its own in-memory inventory and introductory offers, without administrative database access; it never modifies SQL Server. Closing and reopening demo mode resets its stock. The normal SQL-backed mode is required to edit and persist promotions as administrator. A school PC reset can remove its local SQL data and cache; Git preserves source code, not the database. Persistent shared data requires a permanent SQL Server or database backup.
 
+## Order email setup
+
+Open **E-posti seaded** in either administrator window. Set the sending address, SMTP server, port, TLS and application password. For Gmail use `smtp.gmail.com`, port `587`, TLS and a Gmail app password belonging to the sending account. Save once on the PC. The password is protected with Windows DPAPI for the current user in `%LOCALAPPDATA%\shoping67\mail-settings.json`; it is never saved to source code. A school PC reset can remove these local settings.
+
+The old hard-coded credential has been removed. Revoke/replace that previously exposed app password at the email provider and enter a new one in the settings dialog. Alternatively configure `SHOPING67_SMTP_HOST`, `SHOPING67_SMTP_PORT`, `SHOPING67_SMTP_EMAIL` and `SHOPING67_SMTP_PASSWORD`; the existing `TOODED_SMTP_PAROOL` password variable is also supported.
+
+Email is attempted **after** checkout commits. If SMTP is missing or the mail cannot be sent, the confirmation explicitly says the payment succeeded but the email was not sent. **Saada e-kiri uuesti** retries only the notification for the same order; it never repeats payment or reduces stock again. A successful SMTP submission is reported only after the server accepts the message; inbox placement still depends on the receiving email service. No live email is sent by automated tests.
+
 ## Language
 
 The current interface is Estonian only. Language selectors have been removed from the storefront, login and administrator window. Old RU/EN preferences are ignored and prices/dates use `et-EE`. Product and promotion editors require only the Estonian name/title and description; existing foreign-language fields remain stored for compatibility but are neither shown nor required. Model names and exact technical values are preserved.
@@ -68,3 +76,5 @@ dotnet run --project Tests/Shop.StorageChecks
 Windows manual checks: open demo, check the Estonian-only storefront and editors, filter ASUS RTX 4070 Laptop GPU + 16 GB, check no-result/reset flows, open/zoom a product, buy at the displayed discount. In normal mode, edit and reopen a promotion, schedule expiry, hide a product before checkout, reopen the application to check persistence, and check repeat import does not reset stock or duplicate products.
 
 The storage checks exercise the production delete service on an isolated SQLite relational database: actual row deletion, unchanged sales history, saved import suppression and promotion cleanup, repeated deletion and rollback when writing metadata fails. They never connect to the user’s LocalDB.
+
+Payment checks cover invalid email and stock errors, single successful checkout, double clicks while sending, failed mail and retry without a duplicate order, HTML escaping, the two-week date, the simplified basket UI and encrypted Windows mail settings.

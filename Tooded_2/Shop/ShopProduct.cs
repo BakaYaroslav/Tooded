@@ -52,10 +52,13 @@ public sealed class ShoppingCart
 
 public sealed record DemoOrder(string Number, DateTimeOffset Created, IReadOnlyList<CartLine> Lines)
 {
+    public string CustomerEmail { get; init; } = "";
+    public DateOnly ExpectedDelivery => DateOnly.FromDateTime(Created.LocalDateTime).AddDays(14);
     public decimal Total => Lines.Sum(l => l.Total);
     public string Receipt => string.Join(Environment.NewLine,
         new[] { T.L("shoping67 · NÄIDISTELLIMUS", "shoping67 · УЧЕБНЫЙ ЗАКАЗ", "shoping67 · DEMO ORDER"), $"{T.L("Tellimus", "Заказ", "Order")}: {Number}", $"{T.L("Kuupäev", "Дата", "Date")}: {Created:dd.MM.yyyy HH:mm}",
             T.L("TASUTUD DEMOMAKSEGA · Raha ei võetud.", "УЧЕБНАЯ ОПЛАТА · Деньги не списаны.", "DEMO PAYMENT · No money was charged."), "" }
+        .Concat(new[] { "Tellimus on töös.", $"Eeldatav tarne: {ExpectedDelivery:dd.MM.yyyy} (umbes kahe nädala pärast).", CustomerEmail.Length > 0 ? "E-post: " + CustomerEmail : "" })
         .Concat(Lines.Select(l => $"{l.Product.DisplayName} | {l.Quantity} × {l.Product.Price:0.00} € = {l.Total:0.00} €"))
         .Concat(new[] { "", $"{T.L("KOKKU", "ИТОГО", "TOTAL")}: {Total:0.00} €", T.L("Tegemist on õppemängu tellimusega. Kaupu ei saadeta.", "Это учебный заказ. Товары не отправляются.", "This is a demo order. No goods are shipped.") }));
 

@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../../Tooded_2/Shop/ShopProduct.cs" Link="ShopProduct.cs" />
+    <Compile Include="../../Tooded_2/Shop/OrderEmail.cs" Link="OrderEmail.cs" />
     <Compile Include="../../Tooded_2/Shop/DemoShopStore.cs" Link="DemoShopStore.cs" />
     <Compile Include="../../Tooded_2/Shop/ShopCatalog.cs" Link="ShopCatalog.cs" />
     <Compile Include="../../Tooded_2/Shop/OnlineCatalog.cs" Link="OnlineCatalog.cs" />

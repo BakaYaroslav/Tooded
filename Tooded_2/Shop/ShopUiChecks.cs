@@ -49,7 +49,6 @@ internal static class ShopUiChecks
         var cart = new ShoppingCart(); var selected = store.GetProducts().First(p => p.Details.SourceKey == "model:asus-rog-strix-g16-g614ji-as94"); cart.Add(selected, 1);
         using (var details = new ProductDetailsForm(selected, cart, (_, _) => true)) { details.Show(); Application.DoEvents(); details.Close(); }
         using (var basket = new CartForm(cart, store)) { basket.Show(); Application.DoEvents(); basket.Close(); }
-        using (var checkout = new DemoCheckoutForm(cart.Lines, store)) { checkout.Show(); Application.DoEvents(); checkout.Close(); }
         var order = store.Checkout(cart.Lines);
         using (var confirmation = new OrderConfirmationForm(order)) { confirmation.Show(); Application.DoEvents(); confirmation.Close(); }
         using (var login = new LoginForm())
@@ -81,6 +80,30 @@ internal static class ShopUiChecks
                 "Corrected promotion did not save its selected phone");
             editor.Close();
         }
+        var paymentProduct = store.GetProducts().First(p => p.Stock > 2);
+        var paymentCart = new ShoppingCart(); paymentCart.Add(paymentProduct, 1); int sent = 0;
+        using (var basket = new CartForm(paymentCart, store, _ => { sent++; return Task.CompletedTask; }))
+        {
+            basket.Show(); Application.DoEvents();
+            var email = Descendants(basket).OfType<TextBox>().Single(t => t.AccessibleName == "order-email"); email.Text = "test@example.com";
+            Descendants(basket).OfType<Button>().Single(b => b.AccessibleName == "pay-order").PerformClick();
+            PumpUntil(() => basket.Order != null);
+            Require(sent == 1 && paymentCart.Count == 0 && basket.PaymentFlow.Result?.EmailSent == true, "One-click email checkout failed");
+            using var success = new OrderConfirmationForm(basket.Order!, basket.PaymentFlow); success.Show(); Application.DoEvents();
+            Require(Descendants(success).OfType<Label>().Any(l => l.Text.Contains("umbes kahe nädala")), "Two-week delivery estimate is missing");
+            Require(Descendants(success).OfType<Label>().Any(l => l.Text.Contains("test@example.com")), "Email delivery status is missing");
+            using var image = new Bitmap(success.Width, success.Height); success.DrawToBitmap(image, success.ClientRectangle); image.Save("ui-checks/payment-success-et.png");
+            success.Close();
+        }
+        string temporarySettings = Path.Combine(Path.GetTempPath(), "shoping67-mail-" + Guid.NewGuid().ToString("N") + ".json");
+        try
+        {
+            const string dummy = "test-credential-not-a-real-password";
+            new MailSettings { SenderEmail = "test@example.com", Password = dummy }.Save(temporarySettings);
+            Require(!File.ReadAllText(temporarySettings).Contains(dummy), "Mail password was stored as plaintext");
+            Require(MailSettings.Load(temporarySettings).Password == dummy, "Windows-protected mail settings cannot be read");
+        }
+        finally { if (File.Exists(temporarySettings)) File.Delete(temporarySettings); }
         form.Close(); T.SetLanguage("et");
         Console.WriteLine("PASS Windows form rendering, GPU filter, Estonian-only forms and EF migration model");
     }

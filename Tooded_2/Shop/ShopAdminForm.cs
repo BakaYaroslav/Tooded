@@ -31,6 +31,7 @@ internal sealed class ShopAdminForm : Form
         var delete = Shop67Ui.Button("Kustuta toode", DeleteProduct); delete.AccessibleName = "delete-product";
         delete.ForeColor = Color.Firebrick; productActions.Controls.Add(delete);
         productActions.Controls.Add(Shop67Ui.Button(T.Legacy("Uuenda"), Reload));
+        productActions.Controls.Add(Shop67Ui.Button("E-posti seaded", () => { using var settings = new MailSettingsForm(); settings.ShowDialog(this); }));
         productPage.Controls.Add(productActions);
         var offerActions = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 60, Padding = new Padding(10) };
         offerActions.Controls.Add(Shop67Ui.Button(T.L("Lisa kampaania", "Добавить акцию", "Add promotion"), () => EditOffer(null), true));
