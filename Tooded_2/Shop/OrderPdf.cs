@@ -25,7 +25,7 @@ public static class OrderPdf
             document.Info.Title = "shoping67 · Ostutšekk " + order.Number;
             document.Info.Author = "shoping67";
             document.Info.Subject = "Makse õnnestus · Näidismakse kinnitus";
-            var options = new XPdfFontOptions(PdfFontEncoding.Unicode, PdfFontEmbedding.Always);
+            var options = new XPdfFontOptions(PdfFontEncoding.Unicode);
             var normal = new XFont("shoping67-receipt", 10, XFontStyle.Regular, options);
             var small = new XFont("shoping67-receipt", 8, XFontStyle.Regular, options);
             var bold = new XFont("shoping67-receipt", 10, XFontStyle.Bold, options);
