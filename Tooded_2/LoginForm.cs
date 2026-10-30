@@ -1,4 +1,5 @@
-﻿namespace Tooded_2
+using Tooded_2.Shop;
+namespace Tooded_2
 {
     public partial class LoginForm : Form
     {
@@ -8,16 +9,18 @@
         public LoginForm()
         {
             InitializeComponent();
+            Shop67Ui.Translate(this);
+
         }
 
-        // "Logi sisse": kontrollib kasutajanime ja parooli
+        // T.Legacy("Logi sisse"): kontrollib kasutajanime ja parooli
         private void LoginBtn_Click(object? sender, EventArgs e)
         {
             string nimi = kasutajaEntry.Text.Trim();
 
             if (nimi == "" || paroolEntry.Text == "")
             {
-                MessageBox.Show("Sisesta kasutajanimi ja parool!");
+                MessageBox.Show(T.Legacy("Sisesta kasutajanimi ja parool!"));
                 return;
             }
 
@@ -27,7 +30,7 @@
             // Sama veateade mõlemal juhul, et ei paljastaks, kas kasutaja on olemas
             if (kasutaja == null || !Parool.Kontrolli(paroolEntry.Text, kasutaja.ParoolHash))
             {
-                MessageBox.Show("Vale kasutajanimi või parool!");
+                MessageBox.Show(T.Legacy("Vale kasutajanimi või parool!"));
                 paroolEntry.Clear();
                 return;
             }
@@ -36,7 +39,7 @@
             DialogResult = DialogResult.OK;
         }
 
-        // "Registreeri": avab registreerimise akna
+        // T.Legacy("Registreeri"): avab registreerimise akna
         private void RegistreeriBtn_Click(object? sender, EventArgs e)
         {
             using var reg = new RegistreeriForm();

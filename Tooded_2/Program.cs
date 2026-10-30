@@ -1,15 +1,37 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Tooded_2
 {
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
+            Shop.T.SetLanguage(Shop.T.Language);
+
+            if (args.Contains("--bundle-catalog-images", StringComparer.OrdinalIgnoreCase))
+            {
+                Shop.CatalogPhotos.Bundle().GetAwaiter().GetResult();
+                return;
+            }
+
+            if (args.Contains("--ui-check", StringComparer.OrdinalIgnoreCase))
+            {
+                Shop.ShopUiChecks.Run();
+                return;
+            }
+
+            if (args.Contains("--demo", StringComparer.OrdinalIgnoreCase))
+            {
+                Application.Run(new PoodForm(new Shop.OnlineDemoShopStore()));
+                return;
+            }
 
             // Kui andmebaasis pole admini, loome vaikimisi admini
             using (var db = new AppDbContext())
             {
+                db.Database.Migrate();
                 if (!db.Kasutajatabel.Any(k => k.Roll == "Admin"))
                 {
                     db.Kasutajatabel.Add(new Kasutaja

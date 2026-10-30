@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Acer SB220Q 21.5″ monitor",
+    "category": "Elektroonika",
+    "price": 149.00,
+    "stock": 12,
+    "image": "Catalog/acer-monitor.jpg",
+    "description": "Õhukese raamiga 21,5-tolline Full HD monitor kodusele töölauale. IPS-paneel sobib dokumentide, veebilehtede ja meelelahutuse jaoks. Enne ostu kontrolli, kas sinu arvutil on sobiv videoväljund. See on näidiskataloogi toode; tellimusi ei saadeta.",
+    "specifications": { "Kaubamärk": "Acer", "Mudel": "SB220Q", "Ekraan": "21,5 tolli, IPS", "Resolutsioon": "1920 × 1080", "Ühendused": "HDMI, VGA" }
+  },
+  {
+    "id": 2,
+    "name": "Samsung CHG90 49″ kumer monitor",
+    "category": "Elektroonika",
+    "price": 899.00,
+    "stock": 4,
+    "image": "Catalog/samsung-monitor.jpg",
+    "description": "49-tolline ülilai kumer monitor pakub ruumi mitmele aknale kõrvuti. 32:9 kuvasuhe sobib suure töölaua või mängukeskkonna loomiseks. Kontrolli enne valimist, et laual oleks piisavalt ruumi. Näidistoode; päris makseid ega tarneid ei toimu.",
+    "specifications": { "Kaubamärk": "Samsung", "Mudel": "CHG90", "Ekraan": "49 tolli, kumer", "Kuvasuhe": "32:9", "Värskendussagedus": "144 Hz" }
+  },
+  {
+    "id": 3,
+    "name": "WD Elements 2 TB väline kõvaketas",
+    "category": "Andmekandjad",
+    "price": 64.99,
+    "stock": 24,
+    "image": "Catalog/wd-drive.jpg",
+    "description": "Kompaktne väline kõvaketas failide, fotode ja varukoopiate hoidmiseks. USB-ühendus võimaldab ketta arvutiga ühendada ilma arvuti korpust avamata. Operatsioonisüsteemist sõltuvalt võib vaja minna vormindamist. Näidiskataloogi toode.",
+    "specifications": { "Kaubamärk": "Western Digital", "Seeria": "Elements Portable", "Maht": "2 TB", "Tüüp": "Väline HDD", "Ühendus": "USB 3.0" }
+  },
+  {
+    "id": 4,
+    "name": "SanDisk SSD Plus 1 TB",
+    "category": "Andmekandjad",
+    "price": 109.00,
+    "stock": 18,
+    "image": "Catalog/sandisk-ssd.jpg",
+    "description": "Sisemine pooljuhtketas arvuti salvestusruumi uuendamiseks. Sobib arvutitesse, mis toetavad 2,5-tollist SATA-ketast. Enne paigaldamist tee olemasolevatest failidest varukoopia ja kontrolli arvuti ühilduvust. Tegemist on näidistootega.",
+    "specifications": { "Kaubamärk": "SanDisk", "Seeria": "SSD Plus", "Maht": "1 TB", "Vormitegur": "2,5 tolli", "Liides": "SATA III" }
+  },
+  {
+    "id": 5,
+    "name": "Silicon Power 256 GB SSD",
+    "category": "Andmekandjad",
+    "price": 39.99,
+    "stock": 0,
+    "image": "Catalog/silicon-ssd.jpg",
+    "description": "256 GB sisemine SSD operatsioonisüsteemi ja igapäevaste failide jaoks. 2,5-tolline SATA-vormitegur vajab arvutis sobivat ühendust ja paigalduskohta. Toode on näidiskataloogis hetkel otsas, kuid selle andmeid saab vaadata.",
+    "specifications": { "Kaubamärk": "Silicon Power", "Maht": "256 GB", "Tüüp": "SSD", "Vormitegur": "2,5 tolli", "Liides": "SATA III" }
+  },
+  {
+    "id": 6,
+    "name": "Fjällräven Foldsack No. 1 seljakott",
+    "category": "Kotid ja tarvikud",
+    "price": 59.90,
+    "stock": 9,
+    "image": "Catalog/backpack.jpg",
+    "description": "Igapäevane seljakott tööle, kooli või lühikesele väljasõidule. Klapiga põhisahtel mahutab vajalikud asjad ning eraldi sisetasku sobib kuni 15-tollisele sülearvutile. Kontrolli sülearvuti tegelikke mõõtmeid. Näidistoode, mida päriselt ei tarnita.",
+    "specifications": { "Kaubamärk": "Fjällräven", "Mudel": "Foldsack No. 1", "Värv": "Tumesinine", "Sülearvutitasku": "Kuni 15 tolli" }
+  }
+]

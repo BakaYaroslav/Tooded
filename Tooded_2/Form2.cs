@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Tooded_2.Shop;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 namespace Tooded_2
@@ -14,6 +15,19 @@ namespace Tooded_2
         public Form2()
         {
             InitializeComponent();
+            foreach (Control control in Controls) control.Top += 48;
+            ClientSize = new Size(ClientSize.Width, ClientSize.Height + 48);
+            var toolbar = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 44, Padding = new Padding(8, 4, 0, 0), BackColor = Color.White };
+            var shopManagement = Shop67Ui.Button(T.L("Kampaaniad ja omadused", "Акции и характеристики", "Promotions and specifications"), () =>
+            {
+                using var editor = new ShopAdminForm(); editor.ShowDialog(this); LaeTooted(); LaeKategooriad(); LaeMuuk();
+            });
+            shopManagement.Width = 310; toolbar.Controls.Add(shopManagement);
+            var mailSettings = Shop67Ui.Button("E-posti seaded", () => { using var settings = new MailSettingsForm(); settings.ShowDialog(this); });
+            mailSettings.Width = 180; toolbar.Controls.Add(mailSettings);
+            Controls.Add(toolbar);
+            Shop67Ui.Translate(this);
+
 
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
@@ -122,26 +136,26 @@ namespace Tooded_2
 
             if (string.IsNullOrWhiteSpace(toodeEntry.Text))
             {
-                MessageBox.Show("Sisesta toote nimetus!");
+                MessageBox.Show(T.Legacy("Sisesta toote nimetus!"));
                 return false;
             }
 
             if (!int.TryParse(kogusEntry.Text, out kogus))
             {
-                MessageBox.Show("Kogus peab olema täisarv!");
+                MessageBox.Show(T.Legacy("Kogus peab olema täisarv!"));
                 return false;
             }
 
             string hindTekst = hindEntry.Text.Replace(',', '.');
             if (!float.TryParse(hindTekst, NumberStyles.Float, CultureInfo.InvariantCulture, out hind))
             {
-                MessageBox.Show("Hind peab olema arv!");
+                MessageBox.Show(T.Legacy("Hind peab olema arv!"));
                 return false;
             }
 
             if (kategooriaBox.SelectedValue == null)
             {
-                MessageBox.Show("Vali kategooria!");
+                MessageBox.Show(T.Legacy("Vali kategooria!"));
                 return false;
             }
             kategooriaId = (int)kategooriaBox.SelectedValue;
@@ -172,7 +186,7 @@ namespace Tooded_2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Viga: " + (ex.InnerException?.Message ?? ex.Message));
+                MessageBox.Show(T.Legacy("Viga: ") + (ex.InnerException?.Message ?? ex.Message));
                 return;
             }
 
@@ -184,7 +198,7 @@ namespace Tooded_2
         {
             if (_valitudId == null)
             {
-                MessageBox.Show("Vali tabelist toode!");
+                MessageBox.Show(T.Legacy("Vali tabelist toode!"));
                 return;
             }
 
@@ -194,7 +208,7 @@ namespace Tooded_2
             var toode = _db.Toodetabel.Find(_valitudId.Value);
             if (toode == null)
             {
-                MessageBox.Show("Toodet ei leitud!");
+                MessageBox.Show(T.Legacy("Toodet ei leitud!"));
                 return;
             }
 
@@ -213,7 +227,7 @@ namespace Tooded_2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Viga: " + (ex.InnerException?.Message ?? ex.Message));
+                MessageBox.Show(T.Legacy("Viga: ") + (ex.InnerException?.Message ?? ex.Message));
                 return;
             }
 
@@ -225,11 +239,11 @@ namespace Tooded_2
         {
             if (_valitudId == null)
             {
-                MessageBox.Show("Vali tabelist toode!");
+                MessageBox.Show(T.Legacy("Vali tabelist toode!"));
                 return;
             }
 
-            if (MessageBox.Show("Kas kustutada toode?", "Kinnitus",
+            if (MessageBox.Show(T.Legacy("Kas kustutada toode?"), T.Legacy("Kinnitus"),
                     MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
 
@@ -269,7 +283,7 @@ namespace Tooded_2
 
             _valitudId = Convert.ToInt32(row.Cells["Id"].Value);
             toodeEntry.Text = row.Cells["Toodenimetus"].Value?.ToString();
-            kogusEntry.Text = row.Cells["Kogus"].Value?.ToString();
+            kogusEntry.Text = row.Cells[T.Legacy("Kogus")].Value?.ToString();
             hindEntry.Text = row.Cells["Hind"].Value?.ToString();
 
             if (row.Cells["KategooriaId"].Value != null)
@@ -285,13 +299,13 @@ namespace Tooded_2
             string nimi = kategooriaBox.Text.Trim();
             if (string.IsNullOrEmpty(nimi))
             {
-                MessageBox.Show("Kirjuta kategooria nimi kategooria lahtrisse!");
+                MessageBox.Show(T.Legacy("Kirjuta kategooria nimi kategooria lahtrisse!"));
                 return;
             }
 
             if (_db.Kategooriatabel.Any(k => k.nimetus == nimi))
             {
-                MessageBox.Show("Selline kategooria on juba olemas!");
+                MessageBox.Show(T.Legacy("Selline kategooria on juba olemas!"));
                 return;
             }
 
@@ -306,7 +320,7 @@ namespace Tooded_2
         {
             if (kategooriaBox.SelectedValue == null)
             {
-                MessageBox.Show("Vali kategooria!");
+                MessageBox.Show(T.Legacy("Vali kategooria!"));
                 return;
             }
 
@@ -314,7 +328,7 @@ namespace Tooded_2
 
             if (_db.Toodetabel.Any(t => t.KategooriaId == id))
             {
-                MessageBox.Show("Kategooriat ei saa kustutada, selles on tooteid!");
+                MessageBox.Show(T.Legacy("Kategooriat ei saa kustutada, selles on tooteid!"));
                 return;
             }
 
@@ -335,7 +349,7 @@ namespace Tooded_2
             base.OnFormClosed(e);
         }
 
-        // "Pood" nupp: avab poe akna; pärast sulgemist uuendame tabeli (laoseis muutus)
+        // T.Legacy("Pood") nupp: avab poe akna; pärast sulgemist uuendame tabeli (laoseis muutus)
         private void PoodBtn_Click(object? sender, EventArgs e)
         {
             using var pood = new PoodForm();
@@ -348,7 +362,7 @@ namespace Tooded_2
         {
             int tykke = _db.Muugitabel.Sum(m => (int?)m.Kogus) ?? 0;
             decimal summa = _db.Muugitabel.Sum(m => (decimal?)m.Summa) ?? 0m;
-            muukLabel.Text = $"Müüdud: {tykke} tk   |   Tulu kokku: {summa:0.00} €";
+            muukLabel.Text = string.Format(T.L("Müüdud: {0} tk | Tulu kokku: {1}", "Продано: {0} шт. | Выручка: {1}", "Sold: {0} | Revenue: {1}"), tykke, T.Money(summa));
         }
     }
 }
