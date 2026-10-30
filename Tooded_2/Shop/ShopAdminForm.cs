@@ -75,6 +75,10 @@ internal sealed class ShopAdminForm : Form
         using var editor = new PromotionEditorForm(offer ?? new Promotion(), products, configuration);
         if (editor.ShowDialog(this) != DialogResult.OK) return;
         using var db = new AppDbContext(); var current = Shop67Settings.Load(db);
+        var catalog = db.Toodetabel.AsNoTracking().ToList().Select(p => new ShopProduct
+            { Id = p.Id, Name = p.Toodenimetus, Details = Shop67Settings.Details(current, p) }).ToArray();
+        try { PromotionTargets.Validate(editor.Value, catalog); }
+        catch (InvalidOperationException ex) { MessageBox.Show(this, ex.Message, "shoping67"); return; }
         current.Promotions.RemoveAll(p => p.Id == editor.Value.Id); current.Promotions.Add(editor.Value);
         current.Initialized = true; Shop67Settings.Save(db, current); Reload();
     }
@@ -141,14 +145,20 @@ internal sealed class PromotionEditorForm : ShopEditorForm
     private readonly ComboBox category;
     private readonly TextBox image;
     private readonly CheckedListBox selectedProducts;
+    private readonly CheckBox allProducts;
+    private readonly Label targetSummary;
+    private readonly IReadOnlyList<ShopProduct> targetCatalog;
     public Promotion Value { get; private set; }
     public PromotionEditorForm(Promotion value, IReadOnlyList<Toode> products, ShopConfiguration config)
         : base(T.L("Kampaania", "Акция", "Promotion"))
     {
         original = Value = value;
+        targetCatalog = products.Select(p => new ShopProduct { Id = p.Id, Name = p.Toodenimetus,
+            Details = Shop67Settings.Details(config, p) }).ToArray();
         titles = Translated(T.L("Pealkiri", "Заголовок", "Title"), value.Title);
         descriptions = Translated(T.L("Kirjeldus", "Описание", "Description"), value.Description, true);
         category = Choice(T.L("Kategooria", "Категория", "Category"), CatalogRules.Categories.Prepend(""), value.Category, T.Category);
+        category.AccessibleName = "promotion-category";
         percent = Number(T.L("Allahindlus % (0 = ainult pakkumine)", "Скидка % (0 = подборка без скидки)", "Discount % (0 = collection without discount)"), value.Percent, 90, 2);
         position = Number(T.L("Järjekord", "Порядок показа", "Display order"), value.Position, 999);
         Fields.Controls.Add(Shop67Ui.Label(T.L("Algus / lõpp (kohalik aeg)", "Начало / окончание (местное время)", "Start / end (local time)"), 10, true));
@@ -157,24 +167,47 @@ internal sealed class PromotionEditorForm : ShopEditorForm
         Fields.Controls.Add(starts); Fields.Controls.Add(ends);
         enabled = new CheckBox { Text = T.L("Avaldatud", "Опубликовано", "Published"), Checked = value.Enabled, Width = 300 }; Fields.Controls.Add(enabled);
         image = TextField(T.L("Bänneri pildi HTTPS-aadress (valikuline)", "HTTPS-адрес баннера (необязательно)", "Banner image HTTPS URL (optional)"), value.Image);
-        Fields.Controls.Add(Shop67Ui.Label(T.L("Valitud tooted (tühi = kogu kategooria)", "Товары (ничего не выбрано = вся категория)", "Products (none selected = entire category)"), 10, true));
-        selectedProducts = new CheckedListBox { Width = 710, Height = 200, CheckOnClick = true };
+        allProducts = new CheckBox { Text = T.L("Kogu valitud kategooria", "Вся выбранная категория", "Entire selected category"),
+            Checked = string.IsNullOrWhiteSpace(value.ProductKeys), Width = 710, Height = 32, AccessibleName = "promotion-all-products" };
+        Fields.Controls.Add(allProducts);
+        Fields.Controls.Add(Shop67Ui.Label(T.L("Või vali üksikud tooted", "Или выберите отдельные товары", "Or select individual products"), 10, true));
+        selectedProducts = new CheckedListBox { Width = 710, Height = 200, CheckOnClick = true, AccessibleName = "promotion-products" };
+        targetSummary = Shop67Ui.Label("", 10); targetSummary.MaximumSize = new Size(710, 0);
+        targetSummary.AccessibleName = "promotion-target-summary";
+        Fields.Controls.Add(selectedProducts); Fields.Controls.Add(targetSummary);
         var selected = value.ProductKeys.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-        foreach (var p in products)
+        void Populate(IEnumerable<string> requested)
         {
-            var detail = Shop67Settings.Details(config, p);
-            if (detail.SourceKey.Length > 0) selectedProducts.Items.Add(new ChoiceItem(detail.SourceKey, p.Toodenimetus), selected.Contains(detail.SourceKey));
+            var keys = requested.ToHashSet(StringComparer.OrdinalIgnoreCase);
+            selectedProducts.Items.Clear();
+            foreach (var product in PromotionTargets.Eligible(targetCatalog, Key(category)))
+                selectedProducts.Items.Add(new ChoiceItem(product.Details.SourceKey, product.DisplayName), keys.Contains(product.Details.SourceKey));
+            selectedProducts.Enabled = !allProducts.Checked;
+            UpdateSummary();
         }
-        Fields.Controls.Add(selectedProducts);
+        category.SelectedIndexChanged += (_, _) => Populate(selectedProducts.CheckedItems.Cast<ChoiceItem>().Select(p => p.Key).ToArray());
+        allProducts.CheckedChanged += (_, _) => { selectedProducts.Enabled = !allProducts.Checked; UpdateSummary(); };
+        selectedProducts.ItemCheck += (_, _) => { if (IsHandleCreated) BeginInvoke(new Action(UpdateSummary)); };
+        Populate(selected);
     }
+    private void UpdateSummary()
+    {
+        int count = allProducts.Checked ? selectedProducts.Items.Count : selectedProducts.CheckedItems.Count;
+        targetSummary.ForeColor = count == 0 ? Color.Firebrick : ShopStyle.Muted;
+        targetSummary.Text = count == 0 ? T.L("Vali tooted või kogu kategooria. Varasem valik võib olla peidetud või teises kategoorias.", "Выберите товары или всю категорию. Ранее выбранные позиции могли быть скрыты или относиться к другой категории.", "Select products or the entire category. Previous selections may be hidden or in another category.")
+            : string.Format(T.L("Kampaania kehtib {0} tootele.", "Акция применяется к товарам: {0}.", "Promotion applies to {0} products."), count);
+    }
+
     protected override void Save()
     {
         if (image.Text.Length > 0 && (!Uri.TryCreate(image.Text, UriKind.Absolute, out var uri) || uri.Scheme != "https"))
             throw new InvalidOperationException(T.L("Kasuta HTTPS-aadressi.", "Укажите HTTPS-адрес.", "Use an HTTPS URL."));
+        if (!allProducts.Checked && selectedProducts.CheckedItems.Count == 0)
+            throw new InvalidOperationException(T.L("Vali vähemalt üks toode või kogu kategooria.", "Выберите хотя бы один товар или включите всю категорию.", "Select at least one product or enable the entire category."));
         Value = original with { Title = Read(titles), Description = Read(descriptions), Category = Key(category),
             Percent = percent.Value, Position = (int)position.Value, Starts = new DateTimeOffset(starts.Value), Ends = new DateTimeOffset(ends.Value),
-            Enabled = enabled.Checked, Image = image.Text.Trim(), ProductKeys = string.Join(",", selectedProducts.CheckedItems.Cast<ChoiceItem>().Select(i => i.Key)) };
-        Value.Validate();
+            Enabled = enabled.Checked, Image = image.Text.Trim(), ProductKeys = allProducts.Checked ? "" : string.Join(",", selectedProducts.CheckedItems.Cast<ChoiceItem>().Select(i => i.Key)) };
+        PromotionTargets.Validate(Value, targetCatalog);
     }
 }
 

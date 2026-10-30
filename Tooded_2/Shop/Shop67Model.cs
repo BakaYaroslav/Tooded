@@ -112,3 +112,19 @@ public sealed class ShopConfiguration
     public static string Serialize(ShopConfiguration value) => JsonSerializer.Serialize(value);
     public static ShopConfiguration Parse(string value) => JsonSerializer.Deserialize<ShopConfiguration>(value) ?? throw new InvalidDataException("Invalid shop settings");
 }
+
+public static class PromotionTargets
+{
+    public static IReadOnlyList<ShopProduct> Eligible(IEnumerable<ShopProduct> products, string category) =>
+        products.Where(p => p.Details.Visible && CatalogRules.IsTechnical(p) && p.Details.SourceKey.Length > 0
+            && (category.Length == 0 || p.Details.Category == category)).ToArray();
+
+    public static void Validate(Promotion promotion, IEnumerable<ShopProduct> catalog)
+    {
+        promotion.Validate();
+        var eligible = Eligible(catalog, promotion.Category);
+        var selected = promotion.ProductKeys.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+        if (eligible.Count == 0 || selected.Any(key => !eligible.Any(p => p.Details.SourceKey.Equals(key, StringComparison.OrdinalIgnoreCase))))
+            throw new InvalidOperationException(T.L("Vali valitud kategooria nähtavad tooted. Peidetud või kustutatud toodetele kampaaniat rakendada ei saa.", "Выберите действующие товары указанной категории. Скрытые товары и товары другой категории не подходят для этой акции.", "Select visible products from the chosen category. Hidden, missing or different-category products cannot be targeted."));
+    }
+}
