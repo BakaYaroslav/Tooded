@@ -61,6 +61,9 @@ public sealed record DemoOrder(string Number, DateTimeOffset Created, IReadOnlyL
 public interface IShopStore : IDisposable
 {
     bool IsDemoCatalog { get; }
+    string CatalogStatus => IsDemoCatalog
+        ? "Näidiskataloog · Laoseis taastub rakenduse uuesti avamisel."
+        : "Poe kataloog · Demotellimused vähendavad laoseisu ja kajastuvad müügis.";
     IReadOnlyList<ShopProduct> GetProducts();
     DemoOrder Checkout(IReadOnlyList<CartLine> lines);
 }

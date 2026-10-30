@@ -65,7 +65,7 @@ partial class PoodForm
         sidebar.Controls.Add(categories, 0, 1);
         inStock = new CheckBox { Text = "Ainult laos olevad", Dock = DockStyle.Fill, AutoSize = true }; sidebar.Controls.Add(inStock, 0, 2);
         var reset = ShopStyle.Button("Puhasta filtrid"); reset.Dock = DockStyle.Fill;
-        reset.Click += (_, _) => { search.Clear(); categories.SelectedIndex = 0; inStock.Checked = false; sort.SelectedIndex = 0; };
+        reset.Click += (_, _) => { search.Clear(); if (categories.Items.Count > 0) categories.SelectedIndex = 0; inStock.Checked = false; sort.SelectedIndex = 0; };
         sidebar.Controls.Add(reset, 0, 3);
         var demoNote = ShopStyle.Label("Õppepood\nAinult demomakse.\nRaha ei võeta, kaupu ei saadeta.", 9); demoNote.Dock = DockStyle.Fill; demoNote.AutoSize = false; demoNote.ForeColor = ShopStyle.Muted;
         sidebar.Controls.Add(demoNote, 0, 4); body.Controls.Add(sidebar, 0, 0);

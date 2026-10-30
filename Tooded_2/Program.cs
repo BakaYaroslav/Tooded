@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Tooded_2
 {
     internal static class Program
@@ -9,13 +11,14 @@ namespace Tooded_2
 
             if (args.Contains("--demo", StringComparer.OrdinalIgnoreCase))
             {
-                Application.Run(new PoodForm(new Shop.DemoShopStore(Shop.ShopCatalog.Load())));
+                Application.Run(new PoodForm(new Shop.OnlineDemoShopStore()));
                 return;
             }
 
             // Kui andmebaasis pole admini, loome vaikimisi admini
             using (var db = new AppDbContext())
             {
+                db.Database.Migrate();
                 if (!db.Kasutajatabel.Any(k => k.Roll == "Admin"))
                 {
                     db.Kasutajatabel.Add(new Kasutaja

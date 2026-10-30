@@ -96,4 +96,69 @@ Check("A complete catalog order totals correctly, decrements only selected stock
     Equal(10, store.GetProducts()[0].Stock); Equal(23, store.GetProducts()[2].Stock); Equal(catalog[1].Stock, store.GetProducts()[1].Stock);
     var next = store.Checkout(new[] { new CartLine(catalog[2], 1) }); Equal(false, order.Number == next.Number);
 });
+
+Check("Internet products map API fields, categories and demo inventory", () =>
+{
+    var products = OnlineCatalog.Parse("""[{"id":1,"title":"Headphones","price":12.345,"category":"electronics","description":"Test description","image":null}]""");
+    Equal(1, products.Count); Equal("Headphones", products[0].Name);
+    Equal("Elektroonika", products[0].Category); Equal(12.35m, products[0].Price);
+    Equal(20, products[0].Stock); Equal("Test description", products[0].Description);
+});
+Check("Empty, duplicate and invalid internet catalogs are rejected", () =>
+{
+    foreach (var payload in new[]
+    {
+        "[]", "null", "[null]", """[{"id":1,"title":"X","price":-1}]""",
+        """[{"id":1,"title":" "}]""", """[{"id":1,"title":"X"},{"id":1,"title":"Y"}]"""
+    })
+    {
+        bool rejected = false;
+        try { OnlineCatalog.Parse(payload); }
+        catch (InvalidDataException) { rejected = true; }
+        Equal(true, rejected);
+    }
+});
+Check("Successful downloads cache products and network failures use the cache", () =>
+{
+    string directory = Path.Combine(Path.GetTempPath(), "Tooded-test-" + Guid.NewGuid().ToString("N"));
+    try
+    {
+        using var handler = new CatalogHandler();
+        using var client = new System.Net.Http.HttpClient(handler);
+        var loader = new OnlineCatalog(client, directory);
+        var first = loader.LoadAsync(false).GetAwaiter().GetResult();
+        Equal(1, first.Products.Count); Equal(true, first.Status.Contains("internetist"));
+        handler.Fail = true;
+        var cached = loader.LoadAsync(false).GetAwaiter().GetResult();
+        Equal(first.Products[0].Name, cached.Products[0].Name);
+        Equal(true, cached.Status.Contains("varem alla laaditud"));
+    }
+    finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+});
+Check("No internet and no cache uses bundled demo products or rejects database import", () =>
+{
+    string directory = Path.Combine(Path.GetTempPath(), "Tooded-test-" + Guid.NewGuid().ToString("N"));
+    using var handler = new CatalogHandler { Fail = true };
+    using var client = new System.Net.Http.HttpClient(handler);
+    var loader = new OnlineCatalog(client, directory);
+    Equal(6, loader.LoadAsync().GetAwaiter().GetResult().Products.Count);
+    Reject(() => loader.LoadAsync(false).GetAwaiter().GetResult());
+});
+
 Console.WriteLine($"{passed} checks passed.");
+
+sealed class CatalogHandler : System.Net.Http.HttpMessageHandler
+{
+    public bool Fail { get; set; }
+    protected override Task<System.Net.Http.HttpResponseMessage> SendAsync(
+        System.Net.Http.HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        if (Fail) throw new System.Net.Http.HttpRequestException("Simulated offline connection");
+        if (request.RequestUri?.AbsoluteUri != OnlineCatalog.Endpoint)
+            throw new Exception("Unexpected internet request in the test");
+        return Task.FromResult(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.OK)
+        {
+            Content = new System.Net.Http.StringContent("""[{"id":1,"title":"Test headphones","category":"electronics","price":25.99,"description":"API product","image":null}]""")
+        });
+    }
+}

@@ -17,29 +17,38 @@ public partial class PoodForm : Form
         search.TextChanged += (_, _) => Render(); categories.SelectedIndexChanged += (_, _) => Render();
         sort.SelectedIndexChanged += (_, _) => Render(); inStock.CheckedChanged += (_, _) => Render();
         productsPanel.SizeChanged += (_, _) => ResizeCards(); basket.Click += (_, _) => OpenCart();
-        Reload();
+        Shown += (_, _) => Reload();
     }
 
-    private void Reload()
+    private async void Reload()
     {
+        if (loading || IsDisposed) return;
+        loading = true;
         try
         {
             UseWaitCursor = true;
-            var loaded = store.GetProducts();
+            status.Text = "Toodete laadimine… Esimesel korral laaditakse veebikataloog ja pildid.";
+            var loaded = await Task.Run(() => store.GetProducts());
+            if (IsDisposed) return;
             var selected = categories.SelectedItem as string;
             loading = true; products = loaded; categories.Items.Clear(); categories.Items.Add("Kõik tooted");
             foreach (string category in products.Select(p => p.Category).Distinct().OrderBy(c => c)) categories.Items.Add(category);
             categories.SelectedItem = selected;
             if (categories.SelectedIndex < 0) categories.SelectedIndex = 0;
-            status.Text = store.IsDemoCatalog ? "Näidiskataloog · Laoseis taastub rakenduse uuesti avamisel." : "Poe kataloog · Demotellimused vähendavad laoseisu ja kajastuvad müügis.";
+            status.Text = store.CatalogStatus;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            if (IsDisposed) return;
             status.Text = "Kataloogi ei saanud uuendada. Ostukorv on alles.";
-            MessageBox.Show(this, "Tooteid ei saanud laadida. Kontrolli LocalDB ühendust ja andmebaasi migratsioone. Ilma andmebaasita kasutamiseks käivita rakendus argumendiga --demo.",
+            MessageBox.Show(this, "Tooteid ei saanud laadida. Kontrolli internetti ja LocalDB ühendust ning vajuta „Uuenda”. Ilma andmebaasita kasuta --demo.\n\n" + ex.Message,
                 "Kataloog pole saadaval", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-        finally { loading = false; UseWaitCursor = false; Render(); }
+        finally
+        {
+            loading = false;
+            if (!IsDisposed) { UseWaitCursor = false; Render(); }
+        }
     }
 
     private void Render()
@@ -96,6 +105,7 @@ public partial class PoodForm : Form
 
     private void OpenCart()
     {
+        if (loading) return;
         using var basketForm = new CartForm(cart, store); basketForm.ShowDialog(this); UpdateCart();
         if (basketForm.Order is not { } order) return;
         Reload();
