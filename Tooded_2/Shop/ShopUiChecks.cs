@@ -95,6 +95,17 @@ internal static class ShopUiChecks
             using var image = new Bitmap(success.Width, success.Height); success.DrawToBitmap(image, success.ClientRectangle); image.Save("ui-checks/payment-success-et.png");
             success.Close();
         }
+        using (var mailSettings = new MailSettingsForm())
+        {
+            mailSettings.Show(); Application.DoEvents();
+            Require(Descendants(mailSettings).OfType<TextBox>().Count(t => t.Parent is FlowLayoutPanel) == 2,
+                "Mail settings should ask only for sender and app password");
+            Require(!Descendants(mailSettings).OfType<NumericUpDown>().Any() && !Descendants(mailSettings).OfType<CheckBox>().Any(),
+                "Technical port or TLS controls are still shown");
+            Require(!Descendants(mailSettings).OfType<Label>().Any(l => l.Text.Contains("SMTP") || l.Text == "Port"),
+                "Mail settings still show connection details");
+            mailSettings.Close();
+        }
         string temporarySettings = Path.Combine(Path.GetTempPath(), "shoping67-mail-" + Guid.NewGuid().ToString("N") + ".json");
         try
         {

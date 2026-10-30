@@ -23,7 +23,7 @@ public static class OrderEmail
             $"<p>Eeldatav tarnekuupäev: <strong>{order.ExpectedDelivery:dd.MM.yyyy}</strong> — umbes kahe nädala pärast.</p>" +
             "<table cellpadding=\"8\"><tr><th>Toode</th><th>Kogus</th><th>Summa</th></tr>" + rows + "</table>" +
             $"<p><strong>Kokku: {order.Total.ToString("0.00", CultureInfo.GetCultureInfo("et-EE"))} €</strong></p>" +
-            "<p>Aitäh tellimuse eest!</p><hr><p style=\"color:#5c6975;font-size:12px\">Õppepoe näidistellimus. Makse on simuleeritud, päris raha ei võeta ja kaupa ei saadeta.</p></body></html>";
+            "<p>PDF-vormis ostutšekk ja maksekinnitus on kirja manuses.</p><p>Aitäh tellimuse eest!</p><hr><p style=\"color:#5c6975;font-size:12px\">Õppepoe näidistellimus. Makse on simuleeritud, päris raha ei võeta ja kaupa ei saadeta.</p></body></html>";
     }
 }
 

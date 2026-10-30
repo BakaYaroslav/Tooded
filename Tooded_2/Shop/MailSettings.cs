@@ -40,7 +40,7 @@ public sealed class MailSettings
     {
         if (string.IsNullOrWhiteSpace(Host) || Host.Contains('\r') || Host.Contains('\n') || Port < 1 || Port > 65535
             || !OrderEmail.ValidAddress(SenderEmail) || string.IsNullOrWhiteSpace(Password))
-            throw new InvalidOperationException("Täida saatja e-post, server, port ja rakenduse parool. Gmaili jaoks kasuta rakenduse parooli.");
+            throw new InvalidOperationException("Kontrolli saatja Gmaili aadressi ja rakenduse parooli. Vajadusel salvesta e-posti seaded uuesti.");
     }
     public void Save(string? path = null)
     {
@@ -56,21 +56,21 @@ public sealed class MailSettings
 
 internal sealed class MailSettingsForm : ShopEditorForm
 {
-    private readonly TextBox host, address, password;
-    private readonly NumericUpDown port;
-    private readonly CheckBox ssl;
+    private readonly TextBox address, password;
     public MailSettingsForm() : base("E-posti seaded")
     {
-        Size = new Size(820, 600);
+        Size = new Size(820, 480); MinimumSize = new Size(700, 430);
         var settings = MailSettings.Load();
-        Fields.Controls.Add(ShopStyle.Label("Tellimuste kinnitused saadetakse selle postkasti kaudu. Gmail vajab rakenduse parooli.", 11));
-        address = TextField("Saatja e-post", settings.SenderEmail);
-        host = TextField("SMTP server", settings.Host);
-        port = Number("Port", settings.Port, 65535);
-        password = TextField("Rakenduse parool", settings.Password); password.UseSystemPasswordChar = true;
-        ssl = new CheckBox { Text = "Kasuta turvalist ühendust (TLS)", Checked = settings.EnableSsl, Width = 500 }; Fields.Controls.Add(ssl);
-        Fields.Controls.Add(ShopStyle.Label("Parool salvestatakse krüpteeritult selle Windowsi kasutaja jaoks. Seda ei lisata projekti ega GitHubi.", 10));
+        var help = ShopStyle.Label("Sisesta Gmaili aadress, millelt pood tellimuste kinnitusi saadab. Ühenduse seadistame automaatselt.", 11);
+        help.MaximumSize = new Size(710, 0); Fields.Controls.Add(help);
+        address = TextField("Saatja Gmaili aadress", settings.SenderEmail); address.AccessibleName = "mail-sender";
+        password = TextField("Gmaili rakenduse parool", settings.Password); password.UseSystemPasswordChar = true; password.AccessibleName = "mail-password";
+        var hint = ShopStyle.Label("Kasuta Google'i kontol loodud rakenduse parooli, mitte oma tavalist parooli. Salvestatud parool jääb selle Windowsi kasutaja jaoks krüpteerituks.", 10);
+        hint.MaximumSize = new Size(710, 0); Fields.Controls.Add(hint);
     }
-    protected override void Save() => new MailSettings { Host = host.Text.Trim(), Port = (int)port.Value,
-        SenderEmail = address.Text.Trim(), SenderName = "shoping67", Password = password.Text, EnableSsl = ssl.Checked }.Save();
+    protected override void Save() => new MailSettings
+    {
+        Host = "smtp.gmail.com", Port = 587, EnableSsl = true,
+        SenderEmail = address.Text.Trim(), SenderName = "shoping67", Password = password.Text
+    }.Save();
 }
