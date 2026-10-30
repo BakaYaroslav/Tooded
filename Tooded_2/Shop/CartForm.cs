@@ -17,7 +17,7 @@ internal sealed class CartForm : Form
     public CartForm(ShoppingCart cart, IShopStore store, Func<DemoOrder, Task>? sendEmail = null)
     {
         this.cart = cart;
-        PaymentFlow = new CheckoutFlow(store, sendEmail ?? (order => EpostiSaatja.SaadaAsync(order.CustomerEmail, OrderEmail.Subject(order), OrderEmail.Html(order))));
+        PaymentFlow = new CheckoutFlow(store, sendEmail ?? (order => EpostiSaatja.SaadaTellimuseKinnitusAsync(order)));
         Text = T.Legacy("Ostukorv"); Size = new Size(920, 760); MinimumSize = new Size(850, 640);
         Font = new Font("Segoe UI", 10); BackColor = Color.White; AutoScaleMode = AutoScaleMode.Dpi;
         StartPosition = FormStartPosition.CenterParent;

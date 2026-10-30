@@ -38,5 +38,7 @@ jobs:
         if: always()
         with:
           name: shoping67-ui
-          path: ui-checks/*.png
+          path: |
+            ui-checks/*.png
+            ui-checks/*.pdf
           if-no-files-found: ignore

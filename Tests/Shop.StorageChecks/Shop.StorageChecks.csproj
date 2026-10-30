@@ -8,6 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../Tooded_2/Tooded_2.csproj" />
+    <PackageReference Include="PdfPig" Version="0.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.13" />
   </ItemGroup>
 </Project>

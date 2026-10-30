@@ -1,4 +1,3 @@
-using System.Text;
 
 namespace Tooded_2.Shop;
 
@@ -25,12 +24,12 @@ internal sealed class OrderConfirmationForm : Form
         }
         UpdateEmail(); root.Controls.Add(delivery, 0, 3);
         var buttons = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = false };
-        var save = ShopStyle.Button("Salvesta kinnitus"); save.Width = 190;
+        var save = ShopStyle.Button("Salvesta PDF-tšekk"); save.Width = 190;
         save.Click += (_, _) =>
         {
-            using var dialog = new SaveFileDialog { FileName = order.Number + ".txt", Filter = "Tekstifail (*.txt)|*.txt", DefaultExt = "txt" };
+            using var dialog = new SaveFileDialog { FileName = OrderPdf.FileName(order), Filter = "PDF-fail (*.pdf)|*.pdf", DefaultExt = "pdf" };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
-            try { File.WriteAllText(dialog.FileName, order.Receipt, Encoding.UTF8); }
+            try { File.WriteAllBytes(dialog.FileName, OrderPdf.Create(order)); }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             { MessageBox.Show(this, "Faili ei saanud salvestada. Vali teine asukoht.", "Salvestamine"); }
         };

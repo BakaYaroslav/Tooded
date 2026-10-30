@@ -17,6 +17,16 @@ public static class EpostiSaatja
             Body = html, IsBodyHtml = true, BodyEncoding = Encoding.UTF8, SubjectEncoding = Encoding.UTF8
         };
         message.To.Add(kellele.Trim());
+        await SendAsync(message, settings);
+    }
+    public static async Task SaadaTellimuseKinnitusAsync(DemoOrder order)
+    {
+        var settings = MailSettings.Load(); settings.Validate();
+        using var message = OrderMailMessage.Create(order, settings);
+        await SendAsync(message, settings);
+    }
+    private static async Task SendAsync(MailMessage message, MailSettings settings)
+    {
         using var smtp = new SmtpClient(settings.Host, settings.Port)
         {
             EnableSsl = settings.EnableSsl, UseDefaultCredentials = false,
