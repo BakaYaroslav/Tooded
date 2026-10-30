@@ -178,6 +178,6 @@ Product/source: https://www.gsmarena.com/google_pixel_8-12546.php
 
 ## Samsung Galaxy S24
 
-Photo: https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-s24.jpg
+Photo: https://raw.githubusercontent.com/favianyip/iboxmobile-website/825439b978cc5004c3a8cb6ec3756e80b61cd4dd/images/phones/samsung-galaxy-s24-5g.jpg
 
 Product/source: https://www.gsmarena.com/samsung_galaxy_s24-12773.php
