@@ -853,7 +853,7 @@
     "Details": {
       "SourceKey": "model:samsung-galaxy-s24",
       "SourceUrl": "https://www.gsmarena.com/samsung_galaxy_s24-12773.php",
-      "PhotoUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-s24.jpg",
+      "PhotoUrl": "https://raw.githubusercontent.com/favianyip/iboxmobile-website/825439b978cc5004c3a8cb6ec3756e80b61cd4dd/images/phones/samsung-galaxy-s24-5g.jpg",
       "Category": "phones",
       "Kind": "phone",
       "Brand": "Samsung",
