@@ -40,7 +40,7 @@ internal sealed class ProductEditorForm : EditorForm
         {
             using var picker = new OpenFileDialog
             {
-                Filter = "Images|*.png;*.jpg;*.jpeg;*.webp;*.bmp"
+                Filter = UiText.Get("ImageFileFilter")
             };
             if (picker.ShowDialog(this) == DialogResult.OK)
                 image.Text = picker.FileName;

@@ -655,4 +655,7 @@
   <data name="ChooseImage" xml:space="preserve">
     <value>Выбрать изображение</value>
   </data>
+  <data name="ImageFileFilter" xml:space="preserve">
+    <value>Изображения|*.png;*.jpg;*.jpeg;*.webp;*.bmp</value>
+  </data>
 </root>

@@ -152,6 +152,22 @@ using (var db = new StorageContext(productConnection))
     try { ProductService.Save(db, null, details, -1, 1, "image.png"); } catch (InvalidOperationException) { rejected = true; }
     Require(rejected && db.Toodetabel.Count() == 1, "Invalid product was not rejected before saving");
 }
+using (var db = new StorageContext(productConnection))
+{
+    db.Database.ExecuteSqlRaw("CREATE TRIGGER RejectProductMetadata BEFORE UPDATE ON ShopSettings BEGIN SELECT RAISE(ABORT, 'simulated write failure'); END;");
+    bool rolledBack = false;
+    try
+    {
+        ProductService.Save(db, null, new ProductDetails { Name = new("Another mouse"), Category = "accessories", Kind = "mouse", Brand = "Logitech" }, 9.99m, 2, "image.png");
+    }
+    catch (DbUpdateException) { rolledBack = true; }
+    Require(rolledBack, "Expected metadata write failure was not triggered");
+}
+using (var db = new StorageContext(productConnection))
+{
+    Require(db.Toodetabel.Count() == 1 && ShopSettingsStore.Load(db).Products.Count == 1,
+        "Failed metadata save left a partially created product");
+}
 Console.WriteLine("PASS unified administrator adds and edits products with stable metadata and validation");
 
 sealed class StorageContext(SqliteConnection connection) : AppDbContext

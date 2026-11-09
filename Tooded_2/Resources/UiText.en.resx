@@ -655,4 +655,7 @@ Demo order: no real money is charged and no goods are shipped.</value>
   <data name="ChooseImage" xml:space="preserve">
     <value>Choose image</value>
   </data>
+  <data name="ImageFileFilter" xml:space="preserve">
+    <value>Images|*.png;*.jpg;*.jpeg;*.webp;*.bmp</value>
+  </data>
 </root>

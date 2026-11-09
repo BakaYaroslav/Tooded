@@ -655,4 +655,7 @@ Näidistellimus: päris raha ei võeta ja kaupa ei saadeta.</value>
   <data name="ChooseImage" xml:space="preserve">
     <value>Vali pilt</value>
   </data>
+  <data name="ImageFileFilter" xml:space="preserve">
+    <value>Pildid|*.png;*.jpg;*.jpeg;*.webp;*.bmp</value>
+  </data>
 </root>
