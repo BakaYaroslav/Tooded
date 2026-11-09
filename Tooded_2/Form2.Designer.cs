@@ -18,6 +18,7 @@ namespace Tooded_2
 
         private void InitializeComponent()
         {
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             components = new System.ComponentModel.Container();
             nimetus = new Label();
             kogus = new Label();
@@ -42,9 +43,9 @@ namespace Tooded_2
             ((System.ComponentModel.ISupportInitialize)toodePilt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
+            //
             // nimetus
-            // 
+            //
             nimetus.AutoSize = true;
             nimetus.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold);
             nimetus.Location = new Point(46, 35);
@@ -52,10 +53,10 @@ namespace Tooded_2
             nimetus.Name = "nimetus";
             nimetus.Size = new Size(159, 20);
             nimetus.TabIndex = 0;
-            nimetus.Text = T.Legacy("Toode nimetus: ");
-            // 
+            resources.ApplyResources(nimetus, "nimetus");
+            //
             // kogus
-            // 
+            //
             kogus.AutoSize = true;
             kogus.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold);
             kogus.Location = new Point(46, 80);
@@ -63,10 +64,10 @@ namespace Tooded_2
             kogus.Name = "kogus";
             kogus.Size = new Size(79, 20);
             kogus.TabIndex = 1;
-            kogus.Text = T.Legacy("Kogus: ");
-            // 
+            resources.ApplyResources(kogus, "kogus");
+            //
             // hind
-            // 
+            //
             hind.AutoSize = true;
             hind.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold);
             hind.Location = new Point(46, 121);
@@ -74,10 +75,10 @@ namespace Tooded_2
             hind.Name = "hind";
             hind.Size = new Size(65, 20);
             hind.TabIndex = 2;
-            hind.Text = T.Legacy("Hind: ");
-            // 
+            resources.ApplyResources(hind, "hind");
+            //
             // kategooria
-            // 
+            //
             kategooria.AutoSize = true;
             kategooria.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold);
             kategooria.Location = new Point(49, 162);
@@ -85,168 +86,168 @@ namespace Tooded_2
             kategooria.Name = "kategooria";
             kategooria.Size = new Size(134, 20);
             kategooria.TabIndex = 3;
-            kategooria.Text = T.Legacy("Kategooriad: ");
-            // 
+            resources.ApplyResources(kategooria, "kategooria");
+            //
             // toodeEntry
-            // 
+            //
             toodeEntry.Location = new Point(196, 32);
             toodeEntry.Margin = new Padding(4, 3, 4, 3);
             toodeEntry.Name = "toodeEntry";
             toodeEntry.Size = new Size(116, 23);
             toodeEntry.TabIndex = 4;
-            // 
+            //
             // kogusEntry
-            // 
+            //
             kogusEntry.Location = new Point(195, 76);
             kogusEntry.Margin = new Padding(4, 3, 4, 3);
             kogusEntry.Name = "kogusEntry";
             kogusEntry.Size = new Size(116, 23);
             kogusEntry.TabIndex = 5;
-            // 
+            //
             // hindEntry
-            // 
+            //
             hindEntry.Location = new Point(195, 118);
             hindEntry.Margin = new Padding(4, 3, 4, 3);
             hindEntry.Name = "hindEntry";
             hindEntry.Size = new Size(116, 23);
             hindEntry.TabIndex = 6;
-            // 
+            //
             // kategooriaBox
-            // 
+            //
             kategooriaBox.FormattingEnabled = true;
             kategooriaBox.Location = new Point(195, 157);
             kategooriaBox.Margin = new Padding(4, 3, 4, 3);
             kategooriaBox.Name = "kategooriaBox";
             kategooriaBox.Size = new Size(140, 23);
             kategooriaBox.TabIndex = 7;
-            // 
+            //
             // imageList1
-            // 
+            //
             imageList1.ColorDepth = ColorDepth.Depth8Bit;
             imageList1.ImageSize = new Size(16, 16);
             imageList1.TransparentColor = Color.Transparent;
-            // 
+            //
             // lisaKategooriaBtn
-            // 
+            //
             lisaKategooriaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             lisaKategooriaBtn.Location = new Point(140, 233);
             lisaKategooriaBtn.Margin = new Padding(4, 3, 4, 3);
             lisaKategooriaBtn.Name = "lisaKategooriaBtn";
             lisaKategooriaBtn.Size = new Size(172, 27);
             lisaKategooriaBtn.TabIndex = 8;
-            lisaKategooriaBtn.Text = T.Legacy("Lisa kategooriad");
+            resources.ApplyResources(lisaKategooriaBtn, "lisaKategooriaBtn");
             lisaKategooriaBtn.UseVisualStyleBackColor = true;
-            // 
+            //
             // kustutaKategooriaBtn
-            // 
+            //
             kustutaKategooriaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             kustutaKategooriaBtn.Location = new Point(318, 233);
             kustutaKategooriaBtn.Margin = new Padding(4, 3, 4, 3);
             kustutaKategooriaBtn.Name = "kustutaKategooriaBtn";
             kustutaKategooriaBtn.Size = new Size(198, 27);
             kustutaKategooriaBtn.TabIndex = 9;
-            kustutaKategooriaBtn.Text = T.Legacy("Kustuta kategooriad");
+            resources.ApplyResources(kustutaKategooriaBtn, "kustutaKategooriaBtn");
             kustutaKategooriaBtn.UseVisualStyleBackColor = true;
-            // 
+            //
             // otsiFailBtn
-            // 
+            //
             otsiFailBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             otsiFailBtn.Location = new Point(524, 233);
             otsiFailBtn.Margin = new Padding(4, 3, 4, 3);
             otsiFailBtn.Name = "otsiFailBtn";
             otsiFailBtn.Size = new Size(106, 27);
             otsiFailBtn.TabIndex = 10;
-            otsiFailBtn.Text = T.Legacy("Otsi pilt");
+            resources.ApplyResources(otsiFailBtn, "otsiFailBtn");
             otsiFailBtn.UseVisualStyleBackColor = true;
-            // 
+            //
             // toodePilt
-            // 
+            //
             toodePilt.Location = new Point(524, 32);
             toodePilt.Margin = new Padding(4, 3, 4, 3);
             toodePilt.Name = "toodePilt";
             toodePilt.Size = new Size(382, 184);
             toodePilt.TabIndex = 11;
             toodePilt.TabStop = false;
-            // 
+            //
             // lisaBtn
-            // 
+            //
             lisaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             lisaBtn.Location = new Point(140, 265);
             lisaBtn.Margin = new Padding(4, 3, 4, 3);
             lisaBtn.Name = "lisaBtn";
             lisaBtn.Size = new Size(62, 27);
             lisaBtn.TabIndex = 15;
-            lisaBtn.Text = T.Legacy("Lisa");
+            resources.ApplyResources(lisaBtn, "lisaBtn");
             lisaBtn.UseVisualStyleBackColor = true;
             lisaBtn.Click += Lisabtn_Click;
-            // 
+            //
             // kustutaBtn
-            // 
+            //
             kustutaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             kustutaBtn.Location = new Point(293, 265);
             kustutaBtn.Margin = new Padding(4, 3, 4, 3);
             kustutaBtn.Name = "kustutaBtn";
             kustutaBtn.Size = new Size(88, 27);
             kustutaBtn.TabIndex = 16;
-            kustutaBtn.Text = T.Legacy("Kustuta");
+            resources.ApplyResources(kustutaBtn, "kustutaBtn");
             kustutaBtn.UseVisualStyleBackColor = true;
             kustutaBtn.Click += KustutaBtn_Click;
-            // 
+            //
             // uuendaBtn
-            // 
+            //
             uuendaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             uuendaBtn.Location = new Point(209, 265);
             uuendaBtn.Margin = new Padding(4, 3, 4, 3);
             uuendaBtn.Name = "uuendaBtn";
             uuendaBtn.Size = new Size(77, 27);
             uuendaBtn.TabIndex = 17;
-            uuendaBtn.Text = T.Legacy("Uuenda");
+            resources.ApplyResources(uuendaBtn, "uuendaBtn");
             uuendaBtn.UseVisualStyleBackColor = true;
             uuendaBtn.Click += UuendaBtn_Click;
-            // 
+            //
             // puhastaBtn
-            // 
+            //
             puhastaBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             puhastaBtn.Location = new Point(387, 265);
             puhastaBtn.Margin = new Padding(4, 3, 4, 3);
             puhastaBtn.Name = "puhastaBtn";
             puhastaBtn.Size = new Size(129, 27);
             puhastaBtn.TabIndex = 18;
-            puhastaBtn.Text = T.Legacy("Puhasta");
+            resources.ApplyResources(puhastaBtn, "puhastaBtn");
             puhastaBtn.UseVisualStyleBackColor = true;
-            // 
+            //
             // poodBtn
-            // 
+            //
             poodBtn.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             poodBtn.Location = new Point(638, 233);
             poodBtn.Margin = new Padding(4, 3, 4, 3);
             poodBtn.Name = "poodBtn";
             poodBtn.Size = new Size(253, 61);
             poodBtn.TabIndex = 20;
-            poodBtn.Text = T.Legacy("Pood");
+            resources.ApplyResources(poodBtn, "poodBtn");
             poodBtn.UseVisualStyleBackColor = true;
-            // 
+            //
             // dataGridView1
-            // 
+            //
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(140, 300);
             dataGridView1.Margin = new Padding(4, 3, 4, 3);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(490, 328);
             dataGridView1.TabIndex = 22;
-            // 
+            //
             // muukLabel
-            // 
+            //
             muukLabel.AutoSize = true;
             muukLabel.Font = new Font("Microsoft YaHei", 12F, FontStyle.Bold);
             muukLabel.Location = new Point(140, 640);
             muukLabel.Name = "muukLabel";
             muukLabel.Size = new Size(200, 21);
             muukLabel.TabIndex = 23;
-            muukLabel.Text = T.Legacy("Müüdud: 0 tk");
-            // 
+            resources.ApplyResources(muukLabel, "muukLabel");
+            //
             // Form2
-            // 
+            //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(933, 680);

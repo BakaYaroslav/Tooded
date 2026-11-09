@@ -9,7 +9,7 @@ public static class EpostiSaatja
 {
     public static async Task SaadaAsync(string kellele, string teema, string html)
     {
-        if (!OrderEmail.ValidAddress(kellele)) throw new InvalidOperationException("Sisesta korrektne e-posti aadress.");
+        if (!OrderEmail.ValidAddress(kellele)) throw new InvalidOperationException(UiText.Get("EnterAValidEmailAddress"));
         var settings = MailSettings.Load(); settings.Validate();
         using var message = new MailMessage
         {

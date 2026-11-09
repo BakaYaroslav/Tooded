@@ -1,7 +1,7 @@
 using Tooded_2.Shop;
 namespace Tooded_2
 {
-    public partial class RegistreeriForm : Form
+    public partial class RegistreeriForm : LocalizedForm
     {
         // Uus kasutajanimi, mida LoginForm saab pärast registreerimist lugeda
         public string Kasutajanimi { get; private set; } = "";
@@ -11,26 +11,26 @@ namespace Tooded_2
             InitializeComponent();
         }
 
-        // T.Legacy("Registreeri"): kontrollib andmeid ja salvestab uue kasutaja (alati rolliga Klient)
+        // Registreeri: kontrollib andmeid ja salvestab uue kasutaja (alati rolliga Klient)
         private void RegistreeriBtn_Click(object? sender, EventArgs e)
         {
             string nimi = kasutajaEntry.Text.Trim();
 
             if (nimi.Length < 3)
             {
-                MessageBox.Show(T.Legacy("Kasutajanimi peab olema vähemalt 3 märki!"));
+                MessageBox.Show(UiText.Get("TheUsernameMustContainAtLeast3Characters"));
                 return;
             }
 
             if (paroolEntry.Text.Length < 4)
             {
-                MessageBox.Show(T.Legacy("Parool peab olema vähemalt 4 märki!"));
+                MessageBox.Show(UiText.Get("ThePasswordMustContainAtLeast4Characters"));
                 return;
             }
 
             if (paroolEntry.Text != parool2Entry.Text)
             {
-                MessageBox.Show(T.Legacy("Paroolid ei ühti!"));
+                MessageBox.Show(UiText.Get("ThePasswordsDoNotMatch"));
                 return;
             }
 
@@ -40,7 +40,7 @@ namespace Tooded_2
 
                 if (db.Kasutajatabel.Any(k => k.Kasutajanimi == nimi))
                 {
-                    MessageBox.Show(T.Legacy("Selline kasutajanimi on juba olemas!"));
+                    MessageBox.Show(UiText.Get("ThisUsernameAlreadyExists"));
                     return;
                 }
 
@@ -54,16 +54,16 @@ namespace Tooded_2
             }
             catch (Exception ex)
             {
-                MessageBox.Show(T.Legacy("Viga: ") + (ex.InnerException?.Message ?? ex.Message));
+                MessageBox.Show(UiText.Get("Error") + (ex.InnerException?.Message ?? ex.Message));
                 return;
             }
 
             Kasutajanimi = nimi;
-            MessageBox.Show(T.Legacy("Registreerimine õnnestus! Nüüd saad sisse logida."));
+            MessageBox.Show(UiText.Get("RegistrationSuccessfulYouCanNowSignIn"));
             DialogResult = DialogResult.OK;
         }
 
-        // T.Legacy("Tühista"): sulgeb akna
+        // Tühista: sulgeb akna
         private void TuhistaBtn_Click(object? sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

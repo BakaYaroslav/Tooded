@@ -18,6 +18,7 @@ namespace Tooded_2
 
         private void InitializeComponent()
         {
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistreeriForm));
             components = new System.ComponentModel.Container();
             pealkiriLabel = new Label();
             kasutajaLabel = new Label();
@@ -29,97 +30,97 @@ namespace Tooded_2
             registreeriBtn = new Button();
             tuhistaBtn = new Button();
             SuspendLayout();
-            // 
+            //
             // pealkiriLabel
-            // 
+            //
             pealkiriLabel.AutoSize = true;
             pealkiriLabel.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             pealkiriLabel.Location = new Point(100, 20);
             pealkiriLabel.Name = "pealkiriLabel";
             pealkiriLabel.Size = new Size(150, 30);
             pealkiriLabel.TabIndex = 0;
-            pealkiriLabel.Text = T.Legacy("Registreerimine");
-            // 
+            resources.ApplyResources(pealkiriLabel, "pealkiriLabel");
+            //
             // kasutajaLabel
-            // 
+            //
             kasutajaLabel.AutoSize = true;
             kasutajaLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             kasutajaLabel.Location = new Point(30, 78);
             kasutajaLabel.Name = "kasutajaLabel";
             kasutajaLabel.Size = new Size(90, 19);
             kasutajaLabel.TabIndex = 1;
-            kasutajaLabel.Text = T.Legacy("Kasutajanimi:");
-            // 
+            resources.ApplyResources(kasutajaLabel, "kasutajaLabel");
+            //
             // kasutajaEntry
-            // 
+            //
             kasutajaEntry.Font = new Font("Segoe UI", 10F);
             kasutajaEntry.Location = new Point(170, 75);
             kasutajaEntry.Name = "kasutajaEntry";
             kasutajaEntry.Size = new Size(160, 25);
             kasutajaEntry.TabIndex = 2;
-            // 
+            //
             // paroolLabel
-            // 
+            //
             paroolLabel.AutoSize = true;
             paroolLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             paroolLabel.Location = new Point(30, 118);
             paroolLabel.Name = "paroolLabel";
             paroolLabel.Size = new Size(60, 19);
             paroolLabel.TabIndex = 3;
-            paroolLabel.Text = T.Legacy("Parool:");
-            // 
+            resources.ApplyResources(paroolLabel, "paroolLabel");
+            //
             // paroolEntry
-            // 
+            //
             paroolEntry.Font = new Font("Segoe UI", 10F);
             paroolEntry.Location = new Point(170, 115);
             paroolEntry.Name = "paroolEntry";
             paroolEntry.Size = new Size(160, 25);
             paroolEntry.TabIndex = 4;
             paroolEntry.UseSystemPasswordChar = true;
-            // 
+            //
             // parool2Label
-            // 
+            //
             parool2Label.AutoSize = true;
             parool2Label.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             parool2Label.Location = new Point(30, 158);
             parool2Label.Name = "parool2Label";
             parool2Label.Size = new Size(120, 19);
             parool2Label.TabIndex = 5;
-            parool2Label.Text = T.Legacy("Korda parooli:");
-            // 
+            resources.ApplyResources(parool2Label, "parool2Label");
+            //
             // parool2Entry
-            // 
+            //
             parool2Entry.Font = new Font("Segoe UI", 10F);
             parool2Entry.Location = new Point(170, 155);
             parool2Entry.Name = "parool2Entry";
             parool2Entry.Size = new Size(160, 25);
             parool2Entry.TabIndex = 6;
             parool2Entry.UseSystemPasswordChar = true;
-            // 
+            //
             // registreeriBtn
-            // 
+            //
             registreeriBtn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             registreeriBtn.Location = new Point(30, 205);
             registreeriBtn.Name = "registreeriBtn";
             registreeriBtn.Size = new Size(150, 36);
             registreeriBtn.TabIndex = 7;
-            registreeriBtn.Text = T.Legacy("Registreeri");
+            resources.ApplyResources(registreeriBtn, "registreeriBtn");
             registreeriBtn.UseVisualStyleBackColor = true;
             registreeriBtn.Click += RegistreeriBtn_Click;
-            // 
+            //
             // tuhistaBtn
-            // 
+            //
             tuhistaBtn.Font = new Font("Segoe UI", 10F);
             tuhistaBtn.Location = new Point(190, 205);
             tuhistaBtn.Name = "tuhistaBtn";
             tuhistaBtn.Size = new Size(140, 36);
             tuhistaBtn.TabIndex = 8;
-            tuhistaBtn.Text = T.Legacy("Tühista");
+            resources.ApplyResources(tuhistaBtn, "tuhistaBtn");
             tuhistaBtn.UseVisualStyleBackColor = true;
             tuhistaBtn.Click += TuhistaBtn_Click;
-            // 
+            //
             // RegistreeriForm
-            // 
+            //
             AcceptButton = registreeriBtn;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -139,7 +140,7 @@ namespace Tooded_2
             MinimizeBox = false;
             Name = "RegistreeriForm";
             StartPosition = FormStartPosition.CenterParent;
-            Text = T.Legacy("Registreeri");
+            resources.ApplyResources(this, "$this");
             ResumeLayout(false);
             PerformLayout();
         }

@@ -7,7 +7,8 @@ public sealed class DatabaseShopStore : IShopStore
     private ShopConfiguration configuration = new();
     private bool imported;
     public bool IsDemoCatalog => false;
-    public string CatalogStatus { get; private set; } = "shoping67";
+    private string? catalogStatusKey;
+    public string CatalogStatus => catalogStatusKey == null ? "shoping67" : UiText.Get(catalogStatusKey);
 
     public IReadOnlyList<ShopProduct> GetProducts()
     {
@@ -47,7 +48,7 @@ public sealed class DatabaseShopStore : IShopStore
                 configuration.Products[row.Id] = product.Details;
             }
             Shop67Settings.Save(db, configuration);
-            transaction.Commit(); imported = true; CatalogStatus = catalog.Status;
+            transaction.Commit(); imported = true; catalogStatusKey = catalog.StatusKey;
         }
         using (var db = new AppDbContext())
         {
@@ -85,7 +86,7 @@ public sealed class DatabaseShopStore : IShopStore
             var original = current.Single(p => p.Id == line.Product.Id);
             int updated = db.Toodetabel.Where(p => p.Id == original.Id && p.Kogus >= line.Quantity && p.Hind == original.Hind)
                 .ExecuteUpdate(setters => setters.SetProperty(p => p.Kogus, p => p.Kogus - line.Quantity));
-            if (updated != 1) throw new InvalidOperationException(T.L("Laoseis või hind muutus.", "Наличие или цена изменились.", "Stock or price changed."));
+            if (updated != 1) throw new InvalidOperationException(UiText.Get("StockOrPriceChanged"));
             db.Muugitabel.Add(new Muuk { Aeg = DateTime.Now, ToodeId = original.Id,
                 Toodenimetus = original.Toodenimetus, Kogus = line.Quantity, Hind = line.Product.Price, Summa = line.Total });
         }

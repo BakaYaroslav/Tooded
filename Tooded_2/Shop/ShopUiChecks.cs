@@ -23,7 +23,13 @@ internal static class ShopUiChecks
     }
     public static void Run()
     {
-        T.SetLanguage("et");
+        string saved = Properties.Settings.Default.UserLanguage;
+        try { RunChecks(); }
+        finally { LanguageManager.ChangeLanguage(saved); }
+    }
+    private static void RunChecks()
+    {
+        LanguageManager.ChangeLanguage("et-EE", save: false);
         using (var db = new AppDbContext())
         {
             Require(!db.Database.HasPendingModelChanges(), "EF snapshot differs from the runtime model");
@@ -38,7 +44,7 @@ internal static class ShopUiChecks
         Require(Descendants(form).OfType<PictureBox>().All(p => p.Image != null), "A catalog product is missing its local photograph");
         using (var bitmap = new Bitmap(form.Width, form.Height))
         { form.DrawToBitmap(bitmap, form.ClientRectangle); bitmap.Save("ui-checks/home-et.png"); }
-        Descendants(form).OfType<Button>().Single(b => b.Text == T.Category("computers")).PerformClick();
+        Descendants(form).OfType<Button>().Single(b => b.Text == UiText.Category("computers")).PerformClick();
         var gpu = Descendants(form).OfType<CheckedListBox>().Single(list => list.Items.Cast<object>().Any(i => i.ToString() == "RTX 4070 Laptop GPU"));
         gpu.SetItemChecked(Enumerable.Range(0, gpu.Items.Count).Single(i => gpu.Items[i].ToString() == "RTX 4070 Laptop GPU"), true);
         PumpUntil(() => Descendants(form).OfType<ProductListItem>().Count() == 1);
@@ -115,7 +121,61 @@ internal static class ShopUiChecks
             Require(MailSettings.Load(temporarySettings).Password == dummy, "Windows-protected mail settings cannot be read");
         }
         finally { if (File.Exists(temporarySettings)) File.Delete(temporarySettings); }
-        form.Close(); T.SetLanguage("et");
-        Console.WriteLine("PASS Windows form rendering, GPU filter, Estonian-only forms and EF migration model");
+        CheckLanguageSwitching(form, store, selected, config, rows);
+        form.Close(); LanguageManager.ChangeLanguage("et-EE", save: false);
+        Console.WriteLine("PASS Windows rendering, GPU filter, RESX language switching, Settings persistence and EF migration model");
     }
+    private static void CheckLanguageSwitching(PoodForm form, IShopStore store, ShopProduct selected,
+        ShopConfiguration config, Toode[] productRows)
+    {
+        var language = Descendants(form).OfType<ComboBox>().Single(c => c.Name == "comboLanguage");
+        var search = Descendants(form).OfType<TextBox>().Single(t => t.Name == "search");
+        search.Text = "ASUS";
+        var price = Descendants(form).OfType<NumericUpDown>().First(); price.Value = 100;
+        var cart = new ShoppingCart(); cart.Add(selected, 1);
+        using var basket = new CartForm(cart, store);
+        basket.Show(); Application.DoEvents();
+        var email = Descendants(basket).OfType<TextBox>().Single(t => t.AccessibleName == "order-email");
+        email.Text = "buyer@example.com";
+        using var login = new LoginForm(); login.Show(); Application.DoEvents();
+        var username = Descendants(login).OfType<TextBox>().Single(t => t.Name == "kasutajaEntry"); username.Text = "unchanged-user";
+        var offer = new Promotion { Title = new("Mu enda pealkiri"), Category = selected.Details.Category,
+            ProductKeys = selected.Details.SourceKey, Percent = 15 };
+        using var editor = new PromotionEditorForm(offer, productRows, config); editor.Show(); Application.DoEvents();
+        var title = Descendants(editor).OfType<TextBox>().First(t => t.Parent is FlowLayoutPanel); title.Text = "Unsaved promotion";
+        var percentage = Descendants(editor).OfType<NumericUpDown>().First(); percentage.Value = 17.5m;
+        var targets = Descendants(editor).OfType<CheckedListBox>().Single(t => t.AccessibleName == "promotion-products");
+        int targetCount = targets.CheckedItems.Count;
+        for (int i = 0; i < 3; i++)
+        {
+            language.SelectedIndex = 1; Application.DoEvents();
+            Require(form.Visible && search.Text == "ASUS", "Language switching recreated the form or cleared search");
+            Require(Descendants(form).OfType<NumericUpDown>().First().Value == 100, "Language switching reset price filters");
+            Require(Descendants(form).OfType<ProductListItem>().Count() == 1, "Language switching reset the exact GPU filter");
+            Require(Descendants(form).OfType<Label>().Any(l => l.Text == "Graphics card"), "Dynamic GPU label did not switch to English");
+            Require(search.PlaceholderText.StartsWith("Search"), "Named form placeholder did not use English RESX");
+            Require(login.Text == "Sign in" && Descendants(login).OfType<Button>().Any(b => b.Text == "Register"), "Designer form captions did not use English RESX");
+            Require(username.Text == "unchanged-user" && email.Text == "buyer@example.com", "Language switching overwrote typed text");
+            Require(cart.Count == 1 && Descendants(basket).OfType<Button>().Any(b => b.Text == "Pay"), "Language switching changed basket data or missed Pay");
+            Require(title.Text == "Unsaved promotion" && percentage.Value == 17.5m && targets.CheckedItems.Count == targetCount,
+                "Language switching reset unsaved promotion edits or selected targets");
+            Require(Properties.Settings.Default.UserLanguage == "en-US", "Language selection was not saved in user settings");
+            using (var bitmap = new Bitmap(form.Width, form.Height))
+            { form.DrawToBitmap(bitmap, form.ClientRectangle); bitmap.Save("ui-checks/resx-shop-en.png"); }
+            if (i == 0)
+            {
+                using var probe = Process.Start(new ProcessStartInfo(Environment.ProcessPath!, "--language-settings-check en-US") { UseShellExecute = false });
+                Require(probe != null && probe.WaitForExit(15000) && probe.ExitCode == 0, "A fresh process did not load the saved language before startup");
+                using var reopened = new LoginForm(); reopened.Show(); Application.DoEvents();
+                Require(reopened.Text == "Sign in", "A newly opened form ignored the selected language"); reopened.Close();
+                using var settings = new MailSettingsForm(); settings.Show(); Application.DoEvents();
+                Require(Descendants(settings).OfType<Label>().Any(l => l.Text == "Sender Gmail address"), "Mail settings did not use English resources");
+                settings.Close();
+            }
+            language.SelectedIndex = 0; Application.DoEvents();
+            Require(login.Text == "Logi sisse" && Descendants(form).OfType<Label>().Any(l => l.Text == "Videokaart"), "Switching back to neutral Estonian resources failed");
+        }
+        editor.Close(); login.Close(); basket.Close();
+    }
+
 }

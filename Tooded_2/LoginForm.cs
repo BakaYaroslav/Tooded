@@ -1,7 +1,7 @@
 using Tooded_2.Shop;
 namespace Tooded_2
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : LocalizedForm
     {
         // Sisseloginud kasutaja roll, mida Program.cs loeb
         public string Roll { get; private set; } = "";
@@ -9,18 +9,23 @@ namespace Tooded_2
         public LoginForm()
         {
             InitializeComponent();
-            Shop67Ui.Translate(this);
+            ClientSize = new Size(ClientSize.Width, ClientSize.Height + 42);
+            var languageLabel = new Label { Name = "languageLabel", AutoSize = true, Location = new Point(30, 215) };
+            LanguageManager.Bind(languageLabel, "Text", () => UiText.Get("Language"));
+            var comboLanguage = LanguageManager.CreateSelector(); comboLanguage.Location = new Point(140, 211);
+            Controls.Add(languageLabel); Controls.Add(comboLanguage);
+
 
         }
 
-        // T.Legacy("Logi sisse"): kontrollib kasutajanime ja parooli
+        // Logi sisse: kontrollib kasutajanime ja parooli
         private void LoginBtn_Click(object? sender, EventArgs e)
         {
             string nimi = kasutajaEntry.Text.Trim();
 
             if (nimi == "" || paroolEntry.Text == "")
             {
-                MessageBox.Show(T.Legacy("Sisesta kasutajanimi ja parool!"));
+                MessageBox.Show(UiText.Get("EnterYourUsernameAndPassword"));
                 return;
             }
 
@@ -30,7 +35,7 @@ namespace Tooded_2
             // Sama veateade mõlemal juhul, et ei paljastaks, kas kasutaja on olemas
             if (kasutaja == null || !Parool.Kontrolli(paroolEntry.Text, kasutaja.ParoolHash))
             {
-                MessageBox.Show(T.Legacy("Vale kasutajanimi või parool!"));
+                MessageBox.Show(UiText.Get("IncorrectUsernameOrPassword"));
                 paroolEntry.Clear();
                 return;
             }
@@ -39,7 +44,7 @@ namespace Tooded_2
             DialogResult = DialogResult.OK;
         }
 
-        // T.Legacy("Registreeri"): avab registreerimise akna
+        // Registreeri: avab registreerimise akna
         private void RegistreeriBtn_Click(object? sender, EventArgs e)
         {
             using var reg = new RegistreeriForm();

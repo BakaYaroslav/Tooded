@@ -19,16 +19,7 @@ internal sealed class Shop67Logo : Control
 
 internal static class Shop67Ui
 {
-    public static void Translate(Control root)
-    {
-        if (root is not TextBoxBase && root is not ComboBox && root is not NumericUpDown)
-            root.Text = T.Legacy(T.Canonical(root.Text));
-        if (root is DataGridView grid)
-            foreach (DataGridViewColumn column in grid.Columns) column.HeaderText = T.Legacy(T.Canonical(column.HeaderText));
-        foreach (Control child in root.Controls) Translate(child);
-    }
-
-    public static Button Button(string text, Action click, bool primary = false)
+    public static Button Button(Func<string> text, Action click, bool primary = false)
     { var button = ShopStyle.Button(text, primary); button.Click += (_, _) => click(); return button; }
-    public static Label Label(string text, int size = 10, bool bold = false) => ShopStyle.Label(text, size, bold);
+    public static Label Label(Func<string> text, int size = 10, bool bold = false) => ShopStyle.Label(text, size, bold);
 }

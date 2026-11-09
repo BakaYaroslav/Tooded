@@ -12,7 +12,10 @@
     <Compile Include="../../Tooded_2/Shop/ShopCatalog.cs" Link="ShopCatalog.cs" />
     <Compile Include="../../Tooded_2/Shop/OnlineCatalog.cs" Link="OnlineCatalog.cs" />
     <Compile Include="../../Tooded_2/Shop/Shop67Model.cs" Link="Shop67Model.cs" />
-    <Compile Include="../../Tooded_2/Shop/T.cs" Link="T.cs" />
+    <Compile Include="../../Tooded_2/Shop/UiText.cs" Link="UiText.cs" />
+    <Compile Include="../../Tooded_2/Shop/DocumentCulture.cs" Link="DocumentCulture.cs" />
+    <EmbeddedResource Include="../../Tooded_2/Resources/UiText.resx" Link="Resources/UiText.resx" LogicalName="Tooded_2.Resources.UiText.resources" />
+    <EmbeddedResource Include="../../Tooded_2/Resources/UiText.en.resx" Link="Resources/UiText.en.resx" LogicalName="Tooded_2.Resources.UiText.en.resources" />
     <Compile Include="../../Tooded_2/Shop/TechCatalog.cs" Link="TechCatalog.cs" />
     <Compile Include="../../Tooded_2/Shop/CatalogRepair.cs" Link="CatalogRepair.cs" />
     <None Include="../../Tooded_2/Images/Products/*.png" Link="Images/Products/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />

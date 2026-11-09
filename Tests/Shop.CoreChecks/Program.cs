@@ -1,6 +1,10 @@
 using Tooded_2.Shop;
 
-T.SetLanguage("et");
+void SetLanguage(string code)
+{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(code);
+}
+SetLanguage("et-EE");
 int passed = 0;
 void Check(string name, Action test)
 {
@@ -203,7 +207,7 @@ Check("Configuration roundtrip preserves admin translations, visibility, source 
         ImportedKeys = new() { [product.Details.SourceKey] = 9 }, Promotions = TechCatalog.InitialPromotions() };
     var parsed = ShopConfiguration.Parse(ShopConfiguration.Serialize(config));
     Equal(false, parsed.Products[9].Visible); Equal(9, parsed.ImportedKeys[product.Details.SourceKey]);
-    Equal(config.Promotions[0].Title.Ru, parsed.Promotions[0].Title.Ru);
+    Equal(config.Promotions[0].Title.En, parsed.Promotions[0].Title.En);
 });
 Check("Unknown API specifications remain unknown instead of inventing a GPU or memory size", () =>
 {
@@ -211,24 +215,47 @@ Check("Unknown API specifications remain unknown instead of inventing a GPU or m
     Equal(1, products.Count); Equal(0, products[0].Details.Specs.Count);
     Equal(false, products[0].Details.ReferenceConfiguration); Equal("dummyjson:78", products[0].Details.SourceKey);
 });
-Check("Estonian-only mode ignores old language choices and needs no foreign translations", () =>
+Check("RESX selects Estonian and English without changing cart, product keys or filters", () =>
 {
-    var product = Product() with { Details = new ProductDetails { Category = "phones", Name = new("Telefon", "Телефон", "Phone") } };
+    var product = Product() with { Details = new ProductDetails { Category = "phones", Kind = "phone", Brand = "Apple", SourceKey = "model:test", Name = new("Telefon", "Phone") } };
     var cart = new ShoppingCart(); cart.Add(product, 2);
-    T.SetLanguage("ru"); Equal("et", T.Language); Equal("Telefon", product.DisplayName);
-    T.SetLanguage("en"); Equal("Telefonid", T.Category("phones")); Equal("Vali", T.L("Vali", "Выбрать", "Select"));
-    Equal("et-EE", System.Globalization.CultureInfo.CurrentCulture.Name);
-    new Promotion { Title = new("Ainult eestikeelne pealkiri") }.Validate();
-    Equal("", new LocalText("", "Русский текст", "English text").Value);
+    SetLanguage("en-US"); Equal("Phones", UiText.Category("phones")); Equal("Phone", product.DisplayName);
+    Equal("19.99 €", UiText.Money(product.Price)); Equal("en-US", System.Globalization.CultureInfo.CurrentCulture.Name);
+    SetLanguage("et-EE"); Equal("Telefonid", UiText.Category("phones")); Equal("Telefon", product.DisplayName);
+    Equal("19,99 €", UiText.Money(product.Price)); Equal("model:test", product.Details.SourceKey);
     Equal(2, cart.Count); Equal(39.98m, cart.Total);
+    Equal(true, new CatalogFilter { Category = "phones", Facets = new() { ["brand"] = new() { "Apple" } } }.Matches(product));
+    new Promotion { Title = new("Ainult eestikeelne pealkiri") }.Validate();
+});
+Check("Every neutral resource has an English entry and matching formatting placeholders", () =>
+{
+    var et = UiText.Resources.GetResourceSet(System.Globalization.CultureInfo.InvariantCulture, true, true)!;
+    var en = UiText.Resources.GetResourceSet(System.Globalization.CultureInfo.GetCultureInfo("en"), true, false)!;
+    Equal(true, en != null);
+    foreach (System.Collections.DictionaryEntry entry in et)
+    {
+        string key = (string)entry.Key; string? translated = en!.GetString(key);
+        Equal(true, !string.IsNullOrEmpty(translated));
+        string[] Slots(string value) => System.Text.RegularExpressions.Regex.Matches(value, @"(?<!\{)\{\d+(?:[^{}]*)\}")
+            .Select(m => m.Value).Order().ToArray();
+        Equal(string.Join(";", Slots((string)entry.Value!)), string.Join(";", Slots(translated!)));
+    }
+});
+Check("Order documents retain their checkout language after the UI culture changes", () =>
+{
+    SetLanguage("en-US"); var order = DemoOrder.Create(new[] { new CartLine(Product(), 1) });
+    SetLanguage("et-EE");
+    Equal(true, OrderEmail.Html(order).Contains("Payment successful!"));
+    Equal(true, OrderEmail.Subject(order).Contains("Order"));
+    Equal("et-EE", System.Globalization.CultureInfo.CurrentUICulture.Name);
 });
 Check("Invalid promotion dates, discounts and missing Estonian titles cannot be published", () =>
 {
-    var value = new Promotion { Title = new("ET", "RU", "EN") };
+    var value = new Promotion { Title = new("ET", "EN") };
     value.Validate();
     Reject(() => (value with { Percent = 95 }).Validate());
     Reject(() => (value with { Ends = value.Starts }).Validate());
-    Reject(() => (value with { Title = new("", "RU", "EN") }).Validate());
+    Reject(() => (value with { Title = new("", "EN") }).Validate());
 });
 
 
@@ -256,7 +283,7 @@ Check("Saved catalog repair archives invented models and mismatched source rows 
     {
         Products = new()
         {
-            [1] = real.Details with { Name = new("Backpack", "Backpack", "Backpack") },
+            [1] = real.Details with { Name = new("Backpack", "Backpack") },
             [2] = real.Details with { SourceKey = "ref:pc-4070", Brand = "shoping67", ReferenceConfiguration = true },
             [3] = real.Details with { SourceKey = "local:3" }
         },
@@ -274,7 +301,7 @@ Check("Promotion targeting rejects a phone in accessories and excludes hidden an
 {
     var catalog = TechCatalog.Reference();
     var phone = catalog.Single(p => p.Details.SourceKey == "dummyjson:123");
-    var promotion = new Promotion { Title = new("ET", "RU", "EN"), Category = "accessories", ProductKeys = phone.Details.SourceKey, Percent = 15 };
+    var promotion = new Promotion { Title = new("ET", "EN"), Category = "accessories", ProductKeys = phone.Details.SourceKey, Percent = 15 };
     Reject(() => PromotionTargets.Validate(promotion, catalog));
     var corrected = promotion with { Category = "phones" };
     PromotionTargets.Validate(corrected, catalog);

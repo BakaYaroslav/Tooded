@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+using Tooded_2.Shop;
+using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
 namespace Tooded_2
@@ -120,8 +121,8 @@ namespace Tooded_2
             if (laetud == null)
             {
                 vihje.SetToolTip(pilt, string.IsNullOrWhiteSpace(toode.Pilt)
-                    ? "Andmebaasis pole pilti määratud"
-                    : $"Pilti ei leitud: \"{toode.Pilt}\"\nKäivituskaust: {Application.StartupPath}");
+                    ? UiText.Get("NoImageIsAssignedInTheDatabase")
+                    : UiText.Format("ImageNotFound0ApplicationFolder1", toode.Pilt, Application.StartupPath));
             }
 
             SeoHover(this);
@@ -145,9 +146,9 @@ namespace Tooded_2
             lisaBtn.Enabled = saab;
             lisaBtn.BackColor = saab ? Aktsent : Color.Silver;
 
-            if (Toode.Kogus <= 0) laosLabel.Text = "Otsas";
-            else if (saab) laosLabel.Text = $"Laos: {saadaval} tk";
-            else laosLabel.Text = "Kõik on juba korvis";
+            if (Toode.Kogus <= 0) LanguageManager.Bind(laosLabel, "Text", () => UiText.Get("OutOfStock"));
+            else if (saab) LanguageManager.Bind(laosLabel, "Text", () => UiText.Format("InStock0Items", saadaval));
+            else LanguageManager.Bind(laosLabel, "Text", () => UiText.Get("AllAvailableItemsAreInTheBasket"));
 
             laosLabel.ForeColor = saab ? Color.DimGray : Color.Firebrick;
         }
@@ -278,7 +279,7 @@ namespace Tooded_2
                 Alignment = StringAlignment.Center,
                 LineAlignment = StringAlignment.Center
             };
-            g.DrawString("Pilt puudub", f, pintsel, new RectangleF(0, 0, 160, 110), formaat);
+            g.DrawString(UiText.Get("NoImage"), f, pintsel, new RectangleF(0, 0, 160, 110), formaat);
             return bmp;
         }
 

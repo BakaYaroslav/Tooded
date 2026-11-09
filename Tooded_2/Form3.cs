@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
+using Tooded_2.Shop;
+using System.ComponentModel;
 
 namespace Tooded_2
 {
-    public partial class Form3 : Form
+    public partial class Form3 : LocalizedForm
     {
         // Funktsioon, mis otsib tooteid andmebaasist (antakse Form2-st)
         private readonly Func<string, List<PoodToode>> otsiTooted;
@@ -41,7 +42,7 @@ namespace Tooded_2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Viga toodete laadimisel:\n" + ex.Message, "Pood",
+                MessageBox.Show(UiText.Get("UnableToLoadProducts") + ex.Message, UiText.Get("Shop"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -69,9 +70,9 @@ namespace Tooded_2
 
             tootedPanel.ResumeLayout();
 
-            leitudLabel.Text = tooted.Count == 0
-                ? "Midagi ei leitud"
-                : $"Leitud: {tooted.Count} toodet";
+            LanguageManager.Bind(leitudLabel, "Text", () => tooted.Count == 0
+                ? UiText.Get("NoProductsFound")
+                : UiText.Format("Found0Products", tooted.Count));
         }
 
         /// <summary>Laos olev kogus miinus see, mis on juba korvis.</summary>
@@ -132,7 +133,7 @@ namespace Tooded_2
 
         private void UuendaKokku()
         {
-            kokkuLabel.Text = $"Kokku: {Kokku:0.00} €";
+            LanguageManager.Bind(kokkuLabel, "Text", () => UiText.Format("Total0000", Kokku));
             maksaBtn.Enabled = korv.Count > 0;
             eemaldaBtn.Enabled = korv.Count > 0;
         }
@@ -148,20 +149,20 @@ namespace Tooded_2
         {
             if (korv.Count == 0)
             {
-                MessageBox.Show("Ostukorv on tühi.", "Pood");
+                MessageBox.Show(UiText.Get("YourBasketIsEmpty"), UiText.Get("Shop"));
                 return;
             }
 
             if (!EpostiSaatja.OnKorrektne(Email))
             {
-                MessageBox.Show("Sisesta korrektne e-posti aadress, kuhu tšekk saata.", "Pood",
+                MessageBox.Show(UiText.Get("EnterAValidEmailAddressForTheReceipt"), UiText.Get("Shop"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 epostEntry.Focus();
                 return;
             }
 
             var vastus = MessageBox.Show(
-                $"Kas maksta {Kokku:0.00} €?\nTšekk saadetakse aadressile {Email}", "Maksmine",
+                UiText.Format("Pay0000TheReceiptWillBeSentTo1", Kokku, Email), UiText.Get("Payment"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (vastus == DialogResult.Yes)

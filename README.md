@@ -1,6 +1,6 @@
 # shoping67
 
-Windows Forms teaching shop (.NET 10), with an original shoping67 wordmark, home offers, a technical catalog, Estonian-only interface, basket and demo checkout. Payment is simulated; no real money is charged and no goods are shipped. Order confirmation emails can be sent through the configured SMTP account.
+Windows Forms teaching shop (.NET 10), with an original shoping67 wordmark, home offers, a technical catalog, Estonian/English RESX interface, basket and demo checkout. Payment is simulated; no real money is charged and no goods are shipped. Order confirmation emails can be sent through the configured SMTP account.
 
 ## Windows startup
 
@@ -28,7 +28,7 @@ Categories:
 
 Filters use OR between selected values of one characteristic and AND across characteristics. `RTX 4070`, `RTX 4070 SUPER` and `RTX 4070 Laptop GPU` are distinct values. Search also checks specification values. Price limits, stock filter, sorting and reset are supported. Missing source specifications are displayed as “Not specified” and never guessed.
 
-Product details show Estonian text, specifications, current/old price, zoomable photo, quantity, Add to basket and Buy now. In the basket enter the recipient email address and press **Maksa**. There is no separate payment method/checkbox dialog. A successful checkout clears the basket, shows **Makse õnnestus!** and an estimated delivery date 14 calendar days after the order, and sends an Estonian confirmation email with a PDF receipt attachment. The message identifies this as a teaching-shop order. The basket is retained while browsing. Changing a price or an expiring promotion requires removing an outdated basket line and adding it again; stale discounted prices are rejected during checkout. The greatest matching discount applies; discounts do not stack or compound on refresh. In database mode completed demo orders reduce stock and appear in the existing sales report.
+Product details show localized interface text, specifications, current/old price, zoomable photo, quantity, Add to basket and Buy now. In the basket enter the recipient email address and press **Maksa**. There is no separate payment method/checkbox dialog. A successful checkout clears the basket, shows **Makse õnnestus!** and an estimated delivery date 14 calendar days after the order, and sends a confirmation email in the checkout language with a PDF receipt attachment. The message identifies this as a teaching-shop order. The basket is retained while browsing. Changing a price or an expiring promotion requires removing an outdated basket line and adding it again; stale discounted prices are rejected during checkout. The greatest matching discount applies; discounts do not stack or compound on refresh. In database mode completed demo orders reduce stock and appear in the existing sales report.
 
 ## Product sources and photographs
 
@@ -42,11 +42,11 @@ On the first SQL-backed shop opening after updating, catalog reconciliation arch
 
 ## Administration
 
-Sign in as administrator and click **Promotions and specifications** (ET: `Kampaaniad ja omadused`, RU: `Акции и характеристики`).
+Sign in as administrator and click **Promotions and specifications** (ET: `Kampaaniad ja omadused`, EN: `Promotions and specifications`).
 
 - Products tab: select a row and Edit, or double-click. **Kustuta toode** deletes the selected product from SQL Server after confirmation. Sales history remains; a saved source identity prevents automatic reimport. Product metadata is removed in the same transaction. Explicit promotions drop the deleted target and are disabled when their last selected product is deleted, so a targeted discount never silently becomes category-wide. Edit Estonian names/descriptions, category, device type, brand, ordinary price, stock, visibility, image URL/file, and specification values. Empty values mean unknown. An incompatible device type/category cannot be saved.
 - Promotions tab: Add, Edit or Delete. Set the Estonian title/description, optional HTTPS banner URL, discount 0–90%, start/end in the PC's local timezone, category, optional product selection, publication and display order. Enable **Entire selected category** to target all its visible products, or disable it and select individual products. The list shows only visible products in that category. Hidden/retired items and incompatible category selections cannot be saved; the editor shows the target count. Existing invalid offers must be corrected by choosing the category and current products again. 0% is a featured collection.
-- Reopen/refresh the storefront after saving. Product metadata and promotions are stored in SQL Server `ShopSettings`, independently of the internet cache. User language preference and downloaded files are stored under `%LOCALAPPDATA%\shoping67`.
+- Reopen/refresh the storefront after saving. Product metadata and promotions are stored in SQL Server `ShopSettings`, independently of the internet cache. Downloaded files are cached under `%LOCALAPPDATA%\shoping67`; the language preference is a .NET user setting (`Properties.Settings.Default.UserLanguage`).
 
 `--demo` uses its own in-memory inventory and introductory offers, without administrative database access; it never modifies SQL Server. Closing and reopening demo mode resets its stock. The normal SQL-backed mode is required to edit and persist promotions as administrator. A school PC reset can remove its local SQL data and cache; Git preserves source code, not the database. Persistent shared data requires a permanent SQL Server or database backup.
 
@@ -62,7 +62,11 @@ Email is attempted **after** checkout commits. If SMTP is missing or the mail ca
 
 ## Language
 
-The current interface is Estonian only. Language selectors have been removed from the storefront, login and administrator window. Old RU/EN preferences are ignored and prices/dates use `et-EE`. Product and promotion editors require only the Estonian name/title and description; existing foreign-language fields remain stored for compatibility but are neither shown nor required. Model names and exact technical values are preserved.
+The interface uses standard WinForms RESX localization. The neutral `.resx` files contain Estonian; `.en.resx` files supply English. Choose **Eesti** or **English** in the login window or shop header. `LanguageManager` sets both thread cultures, recursively calls `ComponentResourceManager.ApplyResources` on the open form and its named controls, and refreshes resource bindings for dynamic catalog/cart labels. Switching does not recreate the form or clear search, filters, cart quantities, email or unsaved editor fields.
+
+`Properties/Settings.settings` defines the user-scoped string **UserLanguage**, default **et-EE**. Selection changes call `Properties.Settings.Default.Save()`; `Program.Main` reads it and applies the culture before initializing forms. Supported values are **et-EE** and **en-US**. The old `T.L`/`T.Legacy` helper and Russian UI translations have been removed. See [LOCALIZATION.md](LOCALIZATION.md) for the assignment-to-code mapping.
+
+Interface captions, validation messages, confirmation emails and PDF labels come from resources. Product names, exact specifications and administrator-authored promotion text remain catalog data; an existing English content field is used if available, otherwise the authored Estonian content remains. Changing language does not manufacture translations or change stored product identities. Receipts and email retries retain the language selected at checkout.
 
 ## Validation
 
@@ -73,9 +77,9 @@ dotnet run --project Tests/Shop.CoreChecks
 dotnet run --project Tests/Shop.StorageChecks
 ```
 
-`.github/workflows/shoping67-checks.yml` runs the same Windows build and core checks. Checks cover basket and atomic stock rules, exact GPU matching, combined filters, date boundaries, targeted/overlapping discounts, no compounding, expired-price rejection, settings roundtrip, missing API specs and Estonian-only behavior and ignored legacy language preferences. These checks use local fixtures or fake HTTP responses, not external availability.
+`.github/workflows/shoping67-checks.yml` runs the same Windows build and core checks. Checks cover basket and atomic stock rules, exact GPU matching, combined filters, date boundaries, targeted/overlapping discounts, no compounding, expired-price rejection, settings roundtrip, missing API specs and Estonian/English resource parity, formatting and stable cart data across cultures. These checks use local fixtures or fake HTTP responses, not external availability.
 
-Windows manual checks: open demo, check the Estonian-only storefront and editors, filter ASUS RTX 4070 Laptop GPU + 16 GB, check no-result/reset flows, open/zoom a product, buy at the displayed discount. In normal mode, edit and reopen a promotion, schedule expiry, hide a product before checkout, reopen the application to check persistence, and check repeat import does not reset stock or duplicate products.
+Windows manual checks: open demo, switch Eesti → English → Eesti in the storefront and check open dialogs and unsaved editor data, filter ASUS RTX 4070 Laptop GPU + 16 GB, check no-result/reset flows, open/zoom a product, buy at the displayed discount. In normal mode, edit and reopen a promotion, schedule expiry, hide a product before checkout, reopen the application to check persistence, and check repeat import does not reset stock or duplicate products.
 
 The storage checks exercise the production delete service on an isolated SQLite relational database: actual row deletion, unchanged sales history, saved import suppression and promotion cleanup, repeated deletion and rollback when writing metadata fails. They never connect to the user’s LocalDB.
 

@@ -2,9 +2,9 @@ using System.Text.Json;
 
 namespace Tooded_2.Shop;
 
-public sealed record LocalText(string Et = "", string Ru = "", string En = "")
+public sealed record CatalogText(string Et = "", string En = "")
 {
-    public string Value => Et;
+    public string Value => System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "en" && !string.IsNullOrWhiteSpace(En) ? En : Et;
 }
 
 public sealed record ProductDetails
@@ -15,8 +15,8 @@ public sealed record ProductDetails
     public string Category { get; init; } = "";
     public string Kind { get; init; } = "";
     public string Brand { get; init; } = "";
-    public LocalText Name { get; init; } = new();
-    public LocalText Description { get; init; } = new();
+    public CatalogText Name { get; init; } = new();
+    public CatalogText Description { get; init; } = new();
     public Dictionary<string, string> Specs { get; init; } = new();
     public bool Visible { get; init; } = true;
     public bool ReferenceConfiguration { get; init; }
@@ -25,8 +25,8 @@ public sealed record ProductDetails
 public sealed record Promotion
 {
     public string Id { get; init; } = Guid.NewGuid().ToString("N");
-    public LocalText Title { get; init; } = new();
-    public LocalText Description { get; init; } = new();
+    public CatalogText Title { get; init; } = new();
+    public CatalogText Description { get; init; } = new();
     public string Category { get; init; } = "";
     public string ProductKeys { get; init; } = "";
     public decimal Percent { get; init; }
@@ -41,9 +41,9 @@ public sealed record Promotion
     public void Validate()
     {
         if (string.IsNullOrWhiteSpace(Title.Et))
-            throw new InvalidOperationException(T.L("Sisesta kampaania pealkiri.", "Введи заголовок на трёх языках.", "Enter a title in all three languages."));
+            throw new InvalidOperationException(UiText.Get("EnterAPromotionTitle"));
         if (Percent < 0 || Percent > 90 || Ends <= Starts || !CatalogRules.Categories.Prepend("").Contains(Category))
-            throw new InvalidOperationException(T.L("Kontrolli kuupäevi, kategooriat ja allahindlust (0–90%).", "Проверь даты, категорию и скидку (0–90%).", "Check dates, category and discount (0–90%)."));
+            throw new InvalidOperationException(UiText.Get("CheckDatesCategoryAndDiscount090"));
     }
 }
 
@@ -125,7 +125,7 @@ public static class PromotionTargets
         var eligible = Eligible(catalog, promotion.Category);
         var selected = promotion.ProductKeys.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
         if (eligible.Count == 0 || selected.Any(key => !eligible.Any(p => p.Details.SourceKey.Equals(key, StringComparison.OrdinalIgnoreCase))))
-            throw new InvalidOperationException(T.L("Vali valitud kategooria nähtavad tooted. Peidetud või kustutatud toodetele kampaaniat rakendada ei saa.", "Выберите действующие товары указанной категории. Скрытые товары и товары другой категории не подходят для этой акции.", "Select visible products from the chosen category. Hidden, missing or different-category products cannot be targeted."));
+            throw new InvalidOperationException(UiText.Get("SelectVisibleProductsFromTheChosenCategoryHiddenMissingOrDiffere"));
     }
 }
 

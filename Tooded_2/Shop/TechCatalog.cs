@@ -81,17 +81,17 @@ public static class TechCatalog
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
         return new(products, batches.Any(b => b.Count > 0)
-            ? T.L("Veebikataloog uuendatud. Hinnad ja tellimused on õppeotstarbelised.", "Интернет-каталог обновлён. Цены и заказы учебные.", "Online catalog updated. Prices and orders are for teaching.")
-            : T.L("Võrk pole saadaval. Kasutusel salvestatud ja kaasasolev kataloog.", "Сеть недоступна. Используется сохранённый и встроенный каталог.", "Network unavailable. Using cached and bundled products."));
+            ? "OnlineCatalogUpdatedPricesAndOrdersAreForTeaching"
+            : "NetworkUnavailableUsingCachedAndBundledProducts");
     }
 
     public static List<Promotion> InitialPromotions() => new()
     {
-        new Promotion { Title = new("Töölaud uuele tasemele", "Обнови свой рабочий стол", "Upgrade your desk"),
-            Description = new("Valitud arvutitarvikud −10%. Õppepoe avamispakkumine.", "Компьютерные аксессуары −10%. Учебная акция к открытию магазина.", "Computer accessories −10%. Teaching shop opening offer."),
+        new Promotion { Title = new("Töölaud uuele tasemele", "Upgrade your desk"),
+            Description = new("Valitud arvutitarvikud −10%. Õppepoe avamispakkumine.", "Computer accessories −10%. Teaching shop opening offer."),
             Category = "accessories", Percent = 10, Position = 0 },
-        new Promotion { Title = new("Leia oma järgmine arvuti", "Найди свой следующий компьютер", "Find your next computer"),
-            Description = new("Võrdle protsessorit, videokaarti ja mälu.", "Сравни процессоры, видеокарты и память.", "Compare processors, graphics cards and memory."),
+        new Promotion { Title = new("Leia oma järgmine arvuti", "Find your next computer"),
+            Description = new("Võrdle protsessorit, videokaarti ja mälu.", "Compare processors, graphics cards and memory."),
             Category = "computers", Percent = 0, Position = 1 }
     };
 }

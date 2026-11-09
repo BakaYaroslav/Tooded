@@ -1,9 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net10.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
+        <NeutralLanguage>et</NeutralLanguage>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>$(NoWarn);NU1902;NU1903</NoWarn>
@@ -34,4 +35,8 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Properties/Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
+    <Compile Update="Properties/Settings.Designer.cs" AutoGen="True" DesignTimeSharedInput="True" DependentUpon="Settings.settings" />
+  </ItemGroup>
 </Project>

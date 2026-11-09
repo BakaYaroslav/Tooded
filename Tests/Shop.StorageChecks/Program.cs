@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Tooded_2;
 using Tooded_2.Shop;
 
+System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("et-EE");
+
 void Require(bool condition, string message)
 { if (!condition) throw new Exception(message); }
 
@@ -112,6 +114,16 @@ using (var message = OrderMailMessage.Create(receiptOrder, new MailSettings { Se
     }
     finally { Directory.Delete(pickup, true); }
 }
+var englishOrder = receiptOrder with { CultureName = "en-US" };
+using (var parsed = UglyToad.PdfPig.PdfDocument.Open(OrderPdf.Create(englishOrder)))
+{
+    string text = parsed.GetPage(1).Text;
+    Require(text.Contains("PAID") && text.Contains("879.99") && text.Contains("Estimated delivery"), "English PDF did not use English resources/culture");
+}
+Require(OrderEmail.Html(englishOrder).Contains("Payment successful!") && OrderEmail.Html(englishOrder).Contains("879.99"), "English email did not use resource strings and numbers");
+Require(System.Globalization.CultureInfo.CurrentUICulture.Name != "en-US", "Document culture leaked into the interface");
+Console.WriteLine("PASS English PDF and email resources, amounts and isolated document culture");
+
 Console.WriteLine("PASS confirmation email contains an actual readable PDF attachment without sending live email");
 
 sealed class StorageContext(SqliteConnection connection) : AppDbContext
