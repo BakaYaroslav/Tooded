@@ -1,37 +1,23 @@
-# WinForms mitmekeelsus resx-failidega
+# Языки через стандартные ресурсы WinForms
 
-Rakenduses on ülesande järgi kaks keelt: **Eesti** (`et-EE`, vaikimisi) ja **English** (`en-US`).
+В программе три языка: **Eesti** (`et-EE`, по умолчанию), **English** (`en-US`) и **Русский** (`ru-RU`). Переключатель находится справа сверху в окне входа, магазине и окне администратора.
 
-## Ülesande ja koodi seos
-
-| Ülesande osa | Teostus |
+| Файл | Назначение |
 | --- | --- |
-| Vormi tõlgitavad omadused resx-failides | Näiteks `LoginForm.resx` ja `LoginForm.en.resx`; `InitializeComponent()` kasutab `ComponentResourceManager.ApplyResources`. Samad ressursipaarid on teistel vormidel. |
-| Eesti on vaikekeel | Neutraalsed `.resx`-failid sisaldavad eestikeelseid tekste, `.en.resx` sisaldab ingliskeelseid tekste. `NeutralLanguage` on `et`. |
-| `comboLanguage`: Eesti / English | `LanguageManager.CreateSelector()` loob nimega `comboLanguage` valiku sisselogimisaknas ja poe päises. |
-| `_keelLaetud` kaitse | Valiku algväärtustamisel ja teise avatud valiku sünkroonimisel ei käivitata uut keelevahetust. |
-| Kultuuri muutmine | `LanguageManager.ChangeLanguage()` määrab `Thread.CurrentThread.CurrentUICulture` ja `CurrentCulture`. Uued töötajad saavad sama vaikekultuuri. |
-| Rekursiivne ressursside rakendamine | `ApplyResourcesToControl()` läbib vormi kontrollipuu; `ApplyResources(form, "$this")` uuendab pealkirja. |
-| Keelevahetus ilma taaskäivitamiseta | `LocalizedForm` reageerib sündmusele ja rakendab ressursid olemasolevatele kontrollidele. Vormi ei looda uuesti. |
-| Keele salvestamine | `Properties/Settings.settings`: `UserLanguage`, `String`, `User`, `et-EE`. Muutus salvestatakse `Properties.Settings.Default.Save()` abil. |
-| Valitud keel järgmisel käivitamisel | `Program.Main()` kutsub `LanguageManager.Initialize()` enne `ApplicationConfiguration.Initialize()` ja vormide loomist. |
+| `Forms/LoginForm.resx` | Эстонские подписи формы входа. |
+| `Forms/LoginForm.en.resx` | Английские подписи. |
+| `Forms/LoginForm.ru.resx` | Русские подписи. Такие же наборы есть у других форм. |
+| `Resources/UiText*.resx` | Общие кнопки, ошибки, подписи PDF и шаблоны писем. |
+| `Localization/LanguageManager.cs` | Изменяет `CurrentUICulture` и `CurrentCulture`, применяет ресурсы к дереву контролов, сохраняет выбор. |
+| `Localization/LocalizedForm.cs` | Основа окон: при смене языка обновляет уже открытое окно. |
+| `Localization/UiText.cs` | Читает сообщения по понятным ключам, например `AddToBasket`, `CheckoutFailed`. |
+| `Properties/Settings.settings` | Пользовательская строка `UserLanguage`, значение по умолчанию `et-EE`. |
+| `Localization/DocumentCulture.cs` | Сохраняет язык оформленного заказа при повторном создании PDF или отправке письма. |
 
-## Staatilised ja dünaamilised tekstid
+Как в задании, используются `ComponentResourceManager.ApplyResources`, рекурсивный обход контролов и `ApplyResources(form, "$this")` для заголовка. `_keelLaetud` защищает ComboBox от ложных событий при загрузке. Новый выбор сохраняется через `Properties.Settings.Default.Save()`, а `Program.Main` восстанавливает его до создания окон.
 
-Designeriga loodud vormide tekstid on vastava vormi ressurssides ning kontrollidel on püsiv `Name`. Visual Studios saab vormi avada Design-vaates ning valida `Language = English`, et muuta selle keele ressursse; `(Default)` tähendab eesti keelt. Tekstimuudatused tuleb hoida `.resx`-failides, mitte kirjutada tagasi `*.Designer.cs` kõvakodeeritud tekstidena.
+Смена языка сохраняет корзину, поиск, фильтры, email и незавершённое редактирование. Динамические подписи карточек и сумм используют ресурсы через `LanguageManager.Bind`; это нужно потому, что карточки появляются во время работы, а не в Designer.
 
-Poekaardid, ostukorvi read, valideerimisteated ja tšekid luuakse jooksvalt. Nende sõnumid asuvad ühises paaris `Resources/UiText.resx` / `UiText.en.resx`, mida loeb .NET `ResourceManager`. `LanguageManager.Bind` jätab alles tekstiarvutuse, et näiteks kogused ja summad uuenevad uues keeles. See ei ole vana eestikeelse lähteteksti järgi tõlkimine: kasutatakse püsivaid ressursivõtmeid.
+Технические ключи (`phones`, `gpu`), названия моделей и данные базы от языка интерфейса не меняются. `Models/CatalogText` содержит переводы содержимого каталога; если перевод отсутствует, показывается исходный эстонский текст. Это не автоматический перевод пользовательского ввода.
 
-Ressurssidesse ei kirjutata kasutaja sisestatud `TextBox.Text`, valitud kategooria ID-d, laoseisu ega ostukorvi koguseid. Kategooriate ja omaduste tehnilised võtmed (`computers`, `gpu`, jne) jäävad mõlemas keeles samaks.
-
-Toodete nimed ja administraatori kirjutatud kampaaniate sisu on andmed, mitte vormi ressursid. Olemasolevat ingliskeelset sisu võib kuvada; selle puudumisel säilib eestikeelne sisu. Vana vene UI ja `T.cs` on eemaldatud. Varasemad JSON-andmed jäävad loetavaks ilma andmebaasi kustutamata.
-
-## Kontrollimine
-
-1. Ava pood või sisselogimine; vali **English**. Tekstid muutuvad kohe.
-2. Muuda otsingut, filtreid, ostukorvi ning sisesta e-post. Vaheta keelt mõlemas suunas: andmed säilivad.
-3. Sule ja ava programm: viimane keel taastub.
-4. Ava teine aken: see kasutab valitud keelt.
-5. PDF ja e-kiri kasutavad ostu kinnitamise ajal valitud keelt; hilisem kordussaatmine ei muuda tellimust.
-
-`Shop.CoreChecks` kontrollib mõlema ressurssikomplekti võtmeid ja kohatäiteid. `--ui-check` kontrollib avatud vormide keelevahetust, sisestatud andmete säilimist ning salvestatud keelt eraldi käivitatud protsessis. `Shop.StorageChecks` loeb eesti- ja ingliskeelseid PDF-tšekke sõltumatu PDF-lugejaga. Testid ei saada päris e-kirju.
+Для проверки: переключить Eesti → English → Русский → Eesti, закрыть программу и открыть снова. Автоматические проверки дополнительно проверяют русский PDF с кириллицей, формат сумм, положение переключателя и сохранённый язык в отдельном процессе.

@@ -1,0 +1,658 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="0Available" xml:space="preserve">
+    <value>В наличии {0} шт.</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Действует</value>
+  </data>
+  <data name="AddedToBasket" xml:space="preserve">
+    <value>Добавлено в корзину</value>
+  </data>
+  <data name="AddPromotion" xml:space="preserve">
+    <value>Добавить акцию</value>
+  </data>
+  <data name="AddToBasket" xml:space="preserve">
+    <value>В корзину</value>
+  </data>
+  <data name="AllAvailableItemsAreInYourBasket" xml:space="preserve">
+    <value>Всё доступное количество уже в корзине</value>
+  </data>
+  <data name="AllItemsInBasket" xml:space="preserve">
+    <value>Всё доступное количество уже в корзине</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>Все товары</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="ASpecificationIsMissingOrDuplicated" xml:space="preserve">
+    <value>Характеристика не выбрана или повторяется.</value>
+  </data>
+  <data name="AVisibleProductMustHaveAnImage" xml:space="preserve">
+    <value>Для товара в витрине нужно изображение.</value>
+  </data>
+  <data name="BannerImageHTTPSURLOptional" xml:space="preserve">
+    <value>HTTPS-адрес баннера (необязательно)</value>
+  </data>
+  <data name="Basket" xml:space="preserve">
+    <value>Корзина</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Бренд</value>
+  </data>
+  <data name="Buttons" xml:space="preserve">
+    <value>Количество кнопок</value>
+  </data>
+  <data name="BuyNow" xml:space="preserve">
+    <value>Купить сейчас</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="CheckDatesCategoryAndDiscount090" xml:space="preserve">
+    <value>Проверь даты, категорию и скидку (0–90%).</value>
+  </data>
+  <data name="MailSettingsInvalid" xml:space="preserve">
+    <value>Проверьте адрес Gmail отправителя и пароль приложения. При необходимости сохраните настройки почты ещё раз.</value>
+  </data>
+  <data name="ClearFilters" xml:space="preserve">
+    <value>Сбросить фильтры</value>
+  </data>
+  <data name="ClickTheImageToEnlarge" xml:space="preserve">
+    <value>Нажмите на изображение для увеличения</value>
+  </data>
+  <data name="ComputerAccessories" xml:space="preserve">
+    <value>Компьютерные аксессуары</value>
+  </data>
+  <data name="ConfirmingYourOrderAndSendingEmail" xml:space="preserve">
+    <value>Подтверждение заказа и отправка письма…</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Подключение</value>
+  </data>
+  <data name="ContinueShopping" xml:space="preserve">
+    <value>Продолжить покупки</value>
+  </data>
+  <data name="CurrentlyOutOfStock" xml:space="preserve">
+    <value>Сейчас нет в наличии</value>
+  </data>
+  <data name="CustomerEmail" xml:space="preserve">
+    <value>Email покупателя: </value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Дата: </value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteProduct" xml:space="preserve">
+    <value>Удалить товар</value>
+  </data>
+  <data name="DeleteProductConfirmation" xml:space="preserve">
+    <value>Удалить товар «{0}» из базы данных?
+
+Он не появится снова при автоматическом импорте. История продаж сохранится.</value>
+  </data>
+  <data name="DeleteThisPromotion" xml:space="preserve">
+    <value>Удалить акцию?</value>
+  </data>
+  <data name="DemoCatalogStatus" xml:space="preserve">
+    <value>Учебный каталог · Остатки восстанавливаются после перезапуска программы.</value>
+  </data>
+  <data name="PaymentNotice" xml:space="preserve">
+    <value>Учебная оплата — деньги не списываются. Подтверждение заказа отправляется на почту.</value>
+  </data>
+  <data name="DEMOPAYMENTNoMoneyWasCharged" xml:space="preserve">
+    <value>УЧЕБНАЯ ОПЛАТА · Деньги не списаны.</value>
+  </data>
+  <data name="DemoPaymentNotice" xml:space="preserve">
+    <value>Только учебная оплата. Деньги не списываются, данные карты не запрашиваются, товары не отправляются.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DesktopPC" xml:space="preserve">
+    <value>ПК</value>
+  </data>
+  <data name="DeviceType" xml:space="preserve">
+    <value>Тип устройства</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Скидка %</value>
+  </data>
+  <data name="Discount0CollectionWithoutDiscount" xml:space="preserve">
+    <value>Скидка % (0 = подборка без скидки)</value>
+  </data>
+  <data name="DisplayOrder" xml:space="preserve">
+    <value>Порядок показа</value>
+  </data>
+  <data name="Drivers" xml:space="preserve">
+    <value>Динамики</value>
+  </data>
+  <data name="EditSelectedProduct" xml:space="preserve">
+    <value>Изменить выбранный товар</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email: </value>
+  </data>
+  <data name="EmailSettings" xml:space="preserve">
+    <value>Настройки почты</value>
+  </data>
+  <data name="EmptyBasket" xml:space="preserve">
+    <value>Очистить корзину</value>
+  </data>
+  <data name="Ends" xml:space="preserve">
+    <value>Действует до </value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Окончание</value>
+  </data>
+  <data name="EnterAProductName" xml:space="preserve">
+    <value>Введите название товара.</value>
+  </data>
+  <data name="EnterAPromotionTitle" xml:space="preserve">
+    <value>Введите заголовок акции.</value>
+  </data>
+  <data name="ProductModelInvalid" xml:space="preserve">
+    <value>Укажите реальную модель, производителя и подходящую категорию.</value>
+  </data>
+  <data name="EnterAValidEmailAddress" xml:space="preserve">
+    <value>Введите корректный адрес электронной почты.</value>
+  </data>
+  <data name="MailSettingsHelp" xml:space="preserve">
+    <value>Введите адрес Gmail, с которого магазин отправляет подтверждения заказов. Подключение настраивается автоматически.</value>
+  </data>
+  <data name="EnterYourUsernameAndPassword" xml:space="preserve">
+    <value>Введите имя пользователя и пароль!</value>
+  </data>
+  <data name="EntireSelectedCategory" xml:space="preserve">
+    <value>Вся выбранная категория</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка: </value>
+  </data>
+  <data name="EstimatedDelivery" xml:space="preserve">
+    <value>Ожидаемая доставка: {0:dd.MM.yyyy} (примерно через две недели)</value>
+  </data>
+  <data name="EstimatedDeliveryLine" xml:space="preserve">
+    <value>Ожидаемая доставка: {0:dd.MM.yyyy} (примерно через две недели).</value>
+  </data>
+  <data name="ExploreOffer" xml:space="preserve">
+    <value>Посмотреть предложение →</value>
+  </data>
+  <data name="ExploreOurThreeCategories" xml:space="preserve">
+    <value>Выбери свою категорию</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="FromTheCatalog" xml:space="preserve">
+    <value>Товары из каталога</value>
+  </data>
+  <data name="GmailAppPassword" xml:space="preserve">
+    <value>Пароль приложения Gmail</value>
+  </data>
+  <data name="GraphicsCard" xml:space="preserve">
+    <value>Видеокарта</value>
+  </data>
+  <data name="Headphones" xml:space="preserve">
+    <value>Наушники</value>
+  </data>
+  <data name="HomeAndOffers" xml:space="preserve">
+    <value>Главная и акции</value>
+  </data>
+  <data name="ImageHTTPSURLOrLocalFile" xml:space="preserve">
+    <value>HTTPS-адрес фото или локальный файл</value>
+  </data>
+  <data name="IncorrectUsernameOrPassword" xml:space="preserve">
+    <value>Неверное имя пользователя или пароль!</value>
+  </data>
+  <data name="InStock0InBasket1" xml:space="preserve">
+    <value>В наличии {0} шт. · В корзине {1}</value>
+  </data>
+  <data name="InStockOnly" xml:space="preserve">
+    <value>Только в наличии</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>шт.</value>
+  </data>
+  <data name="Keyboard" xml:space="preserve">
+    <value>Клавиатура</value>
+  </data>
+  <data name="KeyboardLayout" xml:space="preserve">
+    <value>Раскладка</value>
+  </data>
+  <data name="Laptop" xml:space="preserve">
+    <value>Ноутбук</value>
+  </data>
+  <data name="LaptopsPCs" xml:space="preserve">
+    <value>Ноутбуки / ПК</value>
+  </data>
+  <data name="LatestOffers" xml:space="preserve">
+    <value>Предложения и акции</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Загрузка…</value>
+  </data>
+  <data name="LoadingOnlineCatalog" xml:space="preserve">
+    <value>Загружаю интернет-каталог…</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>Управление</value>
+  </data>
+  <data name="Microphone" xml:space="preserve">
+    <value>Микрофон</value>
+  </data>
+  <data name="Mouse" xml:space="preserve">
+    <value>Мышь</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="NameAZ" xml:space="preserve">
+    <value>Название: А–Я</value>
+  </data>
+  <data name="CatalogOfflineStatus" xml:space="preserve">
+    <value>Сеть недоступна. Используется сохранённый и встроенный каталог.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>Нет изображения</value>
+  </data>
+  <data name="NoMatchingProductsAdjustYourFilters" xml:space="preserve">
+    <value>Подходящих товаров нет. Измените фильтры.</value>
+  </data>
+  <data name="NoOrderIsAvailable" xml:space="preserve">
+    <value>Нет доступного заказа.</value>
+  </data>
+  <data name="NoActivePromotions" xml:space="preserve">
+    <value>Сейчас нет действующих акций. Посмотрите каталог.</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Не указано</value>
+  </data>
+  <data name="OffersAndPromotions" xml:space="preserve">
+    <value>Предложения и акции</value>
+  </data>
+  <data name="CatalogOnlineStatus" xml:space="preserve">
+    <value>Интернет-каталог обновлён. Цены и заказы учебные.</value>
+  </data>
+  <data name="OperatingSystem" xml:space="preserve">
+    <value>Операционная система</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Заказ</value>
+  </data>
+  <data name="OrderConfirmationDetails" xml:space="preserve">
+    <value>Заказ {0} принят и обрабатывается.
+Ожидаемая доставка: {1:dd.MM.yyyy} — примерно через две недели.
+Учебный заказ: деньги не списываются, товары не отправляются.</value>
+  </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Номер заказа: </value>
+  </data>
+  <data name="OrSelectIndividualProducts" xml:space="preserve">
+    <value>Или выберите отдельные товары</value>
+  </data>
+  <data name="OutOfStock" xml:space="preserve">
+    <value>Нет в наличии</value>
+  </data>
+  <data name="PAIDDemoPaymentSuccessful" xml:space="preserve">
+    <value>ОПЛАЧЕНО — учебная оплата прошла успешно</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Оплатить</value>
+  </data>
+  <data name="PaymentMethodDemoPayment" xml:space="preserve">
+    <value>Способ оплаты: учебная оплата</value>
+  </data>
+  <data name="EmailDeliveryFailed" xml:space="preserve">
+    <value>Оплата прошла успешно, но письмо не отправлено. Можно повторить отправку.</value>
+  </data>
+  <data name="PaymentSuccessful" xml:space="preserve">
+    <value>Оплата прошла успешно!</value>
+  </data>
+  <data name="ReceiptSubject" xml:space="preserve">
+    <value>Оплата прошла успешно · Подтверждение учебной оплаты</value>
+  </data>
+  <data name="PaymentSuccessfulShoping67" xml:space="preserve">
+    <value>Оплата прошла успешно · shoping67</value>
+  </data>
+  <data name="PDFFilePdfPdf" xml:space="preserve">
+    <value>Файл PDF (*.pdf)|*.pdf</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Phones" xml:space="preserve">
+    <value>Телефоны</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="PriceFromTo" xml:space="preserve">
+    <value>Цена (€): от / до</value>
+  </data>
+  <data name="PriceHighToLow" xml:space="preserve">
+    <value>Цена по убыванию</value>
+  </data>
+  <data name="PriceLowToHigh" xml:space="preserve">
+    <value>Цена по возрастанию</value>
+  </data>
+  <data name="Processor" xml:space="preserve">
+    <value>Процессор</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Товар</value>
+  </data>
+  <data name="Product01InStock" xml:space="preserve">
+    <value>Товар «{0}»: в наличии {1} шт.</value>
+  </data>
+  <data name="ProductCode" xml:space="preserve">
+    <value>Код товара</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Описание товара</value>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>Данные товара</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Товар не найден!</value>
+  </data>
+  <data name="ProductsAndSpecifications" xml:space="preserve">
+    <value>Товары и характеристики</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>Акция</value>
+  </data>
+  <data name="PromotionAppliesTo0Products" xml:space="preserve">
+    <value>Акция применяется к товарам: {0}.</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>Опубликовано</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="RAM" xml:space="preserve">
+    <value>Оперативная память</value>
+  </data>
+  <data name="RECEIPTPAYMENTCONFIRMATION" xml:space="preserve">
+    <value>ЧЕК / ПОДТВЕРЖДЕНИЕ ОПЛАТЫ</value>
+  </data>
+  <data name="Recommended" xml:space="preserve">
+    <value>Рекомендуемые</value>
+  </data>
+  <data name="ReferenceConfiguration" xml:space="preserve">
+    <value> · Пример конфигурации</value>
+  </data>
+  <data name="ReferenceConfigurationDemoPrice" xml:space="preserve">
+    <value>Пример конфигурации · демоцена</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="RegistrationSucceeded" xml:space="preserve">
+    <value>Регистрация завершена! Теперь можно войти.</value>
+  </data>
+  <data name="RegularPrice" xml:space="preserve">
+    <value>Обычная цена (€)</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Убрать</value>
+  </data>
+  <data name="ResendEmail" xml:space="preserve">
+    <value>Отправить письмо снова</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="SavePDFReceipt" xml:space="preserve">
+    <value>Сохранить PDF-чек</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Сохранение</value>
+  </data>
+  <data name="Screen" xml:space="preserve">
+    <value>Экран</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Название, модель или характеристика…</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Выберите товар в таблице.</value>
+  </data>
+  <data name="SelectAtLeastOneProduct" xml:space="preserve">
+    <value>Выберите хотя бы один товар.</value>
+  </data>
+  <data name="PromotionSelectionRequired" xml:space="preserve">
+    <value>Выберите хотя бы один товар или включите всю категорию.</value>
+  </data>
+  <data name="PromotionSelectionHelp" xml:space="preserve">
+    <value>Выберите товары или всю категорию. Ранее выбранные позиции могли быть скрыты или относиться к другой категории.</value>
+  </data>
+  <data name="PromotionTargetInvalid" xml:space="preserve">
+    <value>Выберите действующие товары указанной категории. Скрытые товары и товары другой категории не подходят для этой акции.</value>
+  </data>
+  <data name="SenderGmailAddress" xml:space="preserve">
+    <value>Gmail отправителя</value>
+  </data>
+  <data name="SendingConfirmation" xml:space="preserve">
+    <value>Отправка подтверждения…</value>
+  </data>
+  <data name="SendingEmail" xml:space="preserve">
+    <value>Отправка письма…</value>
+  </data>
+  <data name="Sensor" xml:space="preserve">
+    <value>Сенсор</value>
+  </data>
+  <data name="DatabaseCatalogStatus" xml:space="preserve">
+    <value>Каталог магазина · Учебные заказы уменьшают остатки и учитываются в продажах.</value>
+  </data>
+  <data name="Shoping67DEMOORDER" xml:space="preserve">
+    <value>shoping67 · УЧЕБНЫЙ ЗАКАЗ</value>
+  </data>
+  <data name="Shoping67Order0IsBeingProcessed" xml:space="preserve">
+    <value>shoping67 · Заказ {0} обрабатывается</value>
+  </data>
+  <data name="Shoping67Receipt" xml:space="preserve">
+    <value>shoping67 · Чек </value>
+  </data>
+  <data name="ShowInShop" xml:space="preserve">
+    <value>Показывать в магазине</value>
+  </data>
+  <data name="Sold0Revenue1" xml:space="preserve">
+    <value>Продано: {0} шт. | Выручка: {1}</value>
+  </data>
+  <data name="Specification" xml:space="preserve">
+    <value>Характеристика</value>
+  </data>
+  <data name="SpecificationsEmptyValueUnknown" xml:space="preserve">
+    <value>Характеристики · пустое значение = неизвестно</value>
+  </data>
+  <data name="StartEndLocalTime" xml:space="preserve">
+    <value>Начало / окончание (местное время)</value>
+  </data>
+  <data name="Starts" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Остаток</value>
+  </data>
+  <data name="StockChanged" xml:space="preserve">
+    <value>Наличие изменилось. Обновите каталог и корзину.</value>
+  </data>
+  <data name="StockOrPriceChanged" xml:space="preserve">
+    <value>Наличие или цена изменились.</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>Накопитель</value>
+  </data>
+  <data name="Switches" xml:space="preserve">
+    <value>Переключатели</value>
+  </data>
+  <data name="Tactile" xml:space="preserve">
+    <value>Тактильные</value>
+  </data>
+  <data name="ReceiptDisclaimer" xml:space="preserve">
+    <value>Учебный заказ. Деньги не списываются, товары не отправляются.</value>
+  </data>
+  <data name="StoreDisclaimer" xml:space="preserve">
+    <value>Учебный магазин · Реальные модели, демонстрационные цены и остатки.</value>
+  </data>
+  <data name="ThankYouForYourPurchase" xml:space="preserve">
+    <value>Спасибо за покупку!</value>
+  </data>
+  <data name="DuplicateCartLines" xml:space="preserve">
+    <value>В корзине есть повторяющиеся строки товаров.</value>
+  </data>
+  <data name="ProductCategoryMismatch" xml:space="preserve">
+    <value>Тип устройства не соответствует категории.</value>
+  </data>
+  <data name="TheOrderConfirmationWasSentTo" xml:space="preserve">
+    <value>Подтверждение заказа отправлено на </value>
+  </data>
+  <data name="OrderNotConfirmed" xml:space="preserve">
+    <value>Заказ не подтверждён. Корзина сохранена.</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Пароль должен содержать хотя бы 4 символа!</value>
+  </data>
+  <data name="ThePasswordsDoNotMatch" xml:space="preserve">
+    <value>Пароли не совпадают!</value>
+  </data>
+  <data name="PriceChanged" xml:space="preserve">
+    <value>Цена или скидка изменилась. Добавьте товар в корзину заново.</value>
+  </data>
+  <data name="TheProductHasAlreadyBeenDeleted" xml:space="preserve">
+    <value>Этот товар уже удалён.</value>
+  </data>
+  <data name="TheProductPriceCannotBeNegative" xml:space="preserve">
+    <value>Цена товара не может быть отрицательной.</value>
+  </data>
+  <data name="UsernameTooShort" xml:space="preserve">
+    <value>Имя пользователя должно содержать хотя бы 3 символа!</value>
+  </data>
+  <data name="ThisIsADemoOrderNoGoodsAreShipped" xml:space="preserve">
+    <value>Это учебный заказ. Товары не отправляются.</value>
+  </data>
+  <data name="ThisOrderHasAlreadyBeenPaid" xml:space="preserve">
+    <value>Этот заказ уже оплачен.</value>
+  </data>
+  <data name="ThisUsernameAlreadyExists" xml:space="preserve">
+    <value>Такое имя пользователя уже занято!</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="TOTAL" xml:space="preserve">
+    <value>ИТОГО</value>
+  </data>
+  <data name="Total0Items1" xml:space="preserve">
+    <value>Итого ({0} шт.): {1}</value>
+  </data>
+  <data name="TOTALPAID" xml:space="preserve">
+    <value>ИТОГО ОПЛАЧЕНО</value>
+  </data>
+  <data name="CheckoutFailed" xml:space="preserve">
+    <value>Не удалось подтвердить заказ. Проверьте подключение и попробуйте снова. Корзина сохранена.</value>
+  </data>
+  <data name="ProductDeleteFailed" xml:space="preserve">
+    <value>Не удалось удалить товар. Проверьте подключение к базе и попробуйте снова.</value>
+  </data>
+  <data name="UnableToLoadCatalog" xml:space="preserve">
+    <value>Не удалось загрузить каталог. </value>
+  </data>
+  <data name="FileSaveFailed" xml:space="preserve">
+    <value>Не удалось сохранить файл. Выберите другую папку.</value>
+  </data>
+  <data name="MailPasswordHelp" xml:space="preserve">
+    <value>Используйте пароль приложения, созданный в аккаунте Google, а не обычный пароль. Сохранённый пароль шифруется для этого пользователя Windows.</value>
+  </data>
+  <data name="UseAnHTTPSURL" xml:space="preserve">
+    <value>Укажите HTTPS-адрес.</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Visible" xml:space="preserve">
+    <value>Показывать</value>
+  </data>
+  <data name="Wired" xml:space="preserve">
+    <value>Проводное</value>
+  </data>
+  <data name="Wireless" xml:space="preserve">
+    <value>Беспроводное</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="YourBasket" xml:space="preserve">
+    <value>Ваша корзина</value>
+  </data>
+  <data name="YourBasketIsEmpty" xml:space="preserve">
+    <value>Корзина пуста.</value>
+  </data>
+  <data name="EmptyBasketHelp" xml:space="preserve">
+    <value>Корзина пуста. Выберите товары в каталоге.</value>
+  </data>
+  <data name="YourEmail" xml:space="preserve">
+    <value>Ваша почта</value>
+  </data>
+  <data name="YourOrderConfirmationIsBelow" xml:space="preserve">
+    <value>Подтверждение заказа находится ниже.</value>
+  </data>
+  <data name="OrderAccepted" xml:space="preserve">
+    <value>Ваш заказ принят и обрабатывается.</value>
+  </data>
+  <data name="OrderAlreadyProcessing" xml:space="preserve">
+    <value>Заказ уже обрабатывается. Подождите.</value>
+  </data>
+  <data name="YourOrderIsBeingProcessed" xml:space="preserve">
+    <value>Ваш заказ обрабатывается.</value>
+  </data>
+  <data name="LanguageSaveFailed" xml:space="preserve">
+    <value>Язык изменён, но сохранить выбор не удалось.</value>
+  </data>
+  <data name="OrderEmailHtml" xml:space="preserve">
+    <value>&lt;!doctype html&gt;&lt;html lang="ru"&gt;&lt;body style="font-family:Arial,sans-serif;color:#18222d"&gt;&lt;h1&gt;shoping67&lt;/h1&gt;&lt;h2&gt;Оплата прошла успешно!&lt;/h2&gt;&lt;p&gt;Здравствуйте!&lt;/p&gt;&lt;p&gt;Ваш заказ &lt;strong&gt;{0}&lt;/strong&gt; принят и обрабатывается.&lt;/p&gt;&lt;p&gt;Ожидаемая дата доставки: &lt;strong&gt;{1}&lt;/strong&gt; — примерно через две недели.&lt;/p&gt;&lt;table cellpadding="8"&gt;&lt;tr&gt;&lt;th&gt;Товар&lt;/th&gt;&lt;th&gt;Количество&lt;/th&gt;&lt;th&gt;Сумма&lt;/th&gt;&lt;/tr&gt;{2}&lt;/table&gt;&lt;p&gt;&lt;strong&gt;Итого: {3}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;PDF-чек и подтверждение оплаты приложены к письму.&lt;/p&gt;&lt;p&gt;Спасибо за заказ!&lt;/p&gt;&lt;hr&gt;&lt;p style="color:#5c6975;font-size:12px"&gt;Учебный заказ. Оплата имитируется, деньги не списываются, товары не отправляются.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</value>
+  </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>ваша@почта.рф</value>
+  </data>
+  <data name="AddProduct" xml:space="preserve">
+    <value>Добавить товар</value>
+  </data>
+  <data name="OpenShop" xml:space="preserve">
+    <value>Открыть магазин</value>
+  </data>
+  <data name="InvalidPriceOrStock" xml:space="preserve">
+    <value>Проверьте цену и количество.</value>
+  </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>Выбрать изображение</value>
+  </data>
+</root>

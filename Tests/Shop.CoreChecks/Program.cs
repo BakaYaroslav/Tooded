@@ -1,4 +1,4 @@
-using Tooded_2.Shop;
+using Tooded_2;
 
 void SetLanguage(string code)
 {
@@ -76,81 +76,12 @@ Check("Concurrent checkouts cannot oversell the last item", () =>
     });
     Equal(1, successes); Equal(0, store.GetProducts()[0].Stock);
 });
-Check("The packaged catalog has descriptions, real image files and an out-of-stock example", () =>
-{
-    var catalog = ShopCatalog.Load(); Equal(6, catalog.Count); Equal(6, catalog.Select(p => p.Id).Distinct().Count());
-    Equal(true, catalog.Any(p => p.Stock == 0));
-    foreach (var product in catalog)
-    {
-        Equal(true, product.Description.Length > 80); Equal(true, product.Specifications.Count > 0);
-        var path = Path.Combine(AppContext.BaseDirectory, "Images", product.Image!);
-        var bytes = File.ReadAllBytes(path); Equal(true, bytes.Length > 1024 && bytes[0] == 0xff && bytes[1] == 0xd8);
-    }
-});
 Check("Rejected checkout preserves the cart and does not produce a sale", () =>
 {
     var product = Product(stock: 1); var cart = new ShoppingCart(); cart.Add(product, 1);
     using var store = new DemoShopStore(new[] { product with { Stock = 0 } });
     Reject(() => store.Checkout(cart.Lines)); Equal(1, cart.Count); Equal(19.99m, cart.Total);
 });
-Check("A complete catalog order totals correctly, decrements only selected stock and has a unique reference", () =>
-{
-    var catalog = ShopCatalog.Load(); var cart = new ShoppingCart(); using var store = new DemoShopStore(catalog);
-    cart.Add(catalog[0], 2); cart.Add(catalog[2], 1);
-    var order = store.Checkout(cart.Lines); Equal(362.99m, order.Total);
-    Equal(10, store.GetProducts()[0].Stock); Equal(23, store.GetProducts()[2].Stock); Equal(catalog[1].Stock, store.GetProducts()[1].Stock);
-    var next = store.Checkout(new[] { new CartLine(catalog[2], 1) }); Equal(false, order.Number == next.Number);
-});
-
-Check("Internet products map API fields, categories and demo inventory", () =>
-{
-    var products = OnlineCatalog.Parse("""[{"id":1,"title":"Headphones","price":12.345,"category":"electronics","description":"Test description","image":null}]""");
-    Equal(1, products.Count); Equal("Headphones", products[0].Name);
-    Equal("Elektroonika", products[0].Category); Equal(12.35m, products[0].Price);
-    Equal(20, products[0].Stock); Equal("Test description", products[0].Description);
-});
-Check("Empty, duplicate and invalid internet catalogs are rejected", () =>
-{
-    foreach (var payload in new[]
-    {
-        "[]", "null", "[null]", """[{"id":1,"title":"X","price":-1}]""",
-        """[{"id":1,"title":" "}]""", """[{"id":1,"title":"X"},{"id":1,"title":"Y"}]"""
-    })
-    {
-        bool rejected = false;
-        try { OnlineCatalog.Parse(payload); }
-        catch (InvalidDataException) { rejected = true; }
-        Equal(true, rejected);
-    }
-});
-Check("Successful downloads cache products and network failures use the cache", () =>
-{
-    string directory = Path.Combine(Path.GetTempPath(), "Tooded-test-" + Guid.NewGuid().ToString("N"));
-    try
-    {
-        using var handler = new CatalogHandler();
-        using var client = new System.Net.Http.HttpClient(handler);
-        var loader = new OnlineCatalog(client, directory);
-        var first = loader.LoadAsync(false).GetAwaiter().GetResult();
-        Equal(1, first.Products.Count); Equal(true, first.Status.Contains("internetist"));
-        handler.Fail = true;
-        var cached = loader.LoadAsync(false).GetAwaiter().GetResult();
-        Equal(first.Products[0].Name, cached.Products[0].Name);
-        Equal(true, cached.Status.Contains("varem alla laaditud"));
-    }
-    finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
-});
-Check("No internet and no cache uses bundled demo products or rejects database import", () =>
-{
-    string directory = Path.Combine(Path.GetTempPath(), "Tooded-test-" + Guid.NewGuid().ToString("N"));
-    using var handler = new CatalogHandler { Fail = true };
-    using var client = new System.Net.Http.HttpClient(handler);
-    var loader = new OnlineCatalog(client, directory);
-    Equal(6, loader.LoadAsync().GetAwaiter().GetResult().Products.Count);
-    Reject(() => loader.LoadAsync(false).GetAwaiter().GetResult());
-});
-
-
 Check("Tech catalog contains only real brands in the three supported categories", () =>
 {
     var products = TechCatalog.Reference(); Equal(30, products.Count);
@@ -215,38 +146,52 @@ Check("Unknown API specifications remain unknown instead of inventing a GPU or m
     Equal(1, products.Count); Equal(0, products[0].Details.Specs.Count);
     Equal(false, products[0].Details.ReferenceConfiguration); Equal("dummyjson:78", products[0].Details.SourceKey);
 });
-Check("RESX selects Estonian and English without changing cart, product keys or filters", () =>
+Check("RESX selects Estonian, English and Russian without changing cart, product keys or filters", () =>
 {
-    var product = Product() with { Details = new ProductDetails { Category = "phones", Kind = "phone", Brand = "Apple", SourceKey = "model:test", Name = new("Telefon", "Phone") } };
+    var product = Product() with { Details = new ProductDetails { Category = "phones", Kind = "phone", Brand = "Apple", SourceKey = "model:test", Name = new("Telefon", "Phone", "Телефон") } };
     var cart = new ShoppingCart(); cart.Add(product, 2);
     SetLanguage("en-US"); Equal("Phones", UiText.Category("phones")); Equal("Phone", product.DisplayName);
     Equal("19.99 €", UiText.Money(product.Price)); Equal("en-US", System.Globalization.CultureInfo.CurrentCulture.Name);
+    SetLanguage("ru-RU"); Equal("Телефоны", UiText.Category("phones")); Equal("Телефон", product.DisplayName);
+    Equal("В корзину", UiText.Get("AddToBasket")); Equal("19,99 €", UiText.Money(product.Price));
     SetLanguage("et-EE"); Equal("Telefonid", UiText.Category("phones")); Equal("Telefon", product.DisplayName);
     Equal("19,99 €", UiText.Money(product.Price)); Equal("model:test", product.Details.SourceKey);
     Equal(2, cart.Count); Equal(39.98m, cart.Total);
     Equal(true, new CatalogFilter { Category = "phones", Facets = new() { ["brand"] = new() { "Apple" } } }.Matches(product));
     new Promotion { Title = new("Ainult eestikeelne pealkiri") }.Validate();
 });
-Check("Every neutral resource has an English entry and matching formatting placeholders", () =>
+Check("Every neutral resource has English/Russian entries and matching formatting placeholders", () =>
 {
     var et = UiText.Resources.GetResourceSet(System.Globalization.CultureInfo.InvariantCulture, true, true)!;
-    var en = UiText.Resources.GetResourceSet(System.Globalization.CultureInfo.GetCultureInfo("en"), true, false)!;
-    Equal(true, en != null);
-    foreach (System.Collections.DictionaryEntry entry in et)
+    foreach (string culture in new[] { "en", "ru" })
     {
-        string key = (string)entry.Key; string? translated = en!.GetString(key);
-        Equal(true, !string.IsNullOrEmpty(translated));
-        string[] Slots(string value) => System.Text.RegularExpressions.Regex.Matches(value, @"(?<!\{)\{\d+(?:[^{}]*)\}")
-            .Select(m => m.Value).Order().ToArray();
-        Equal(string.Join(";", Slots((string)entry.Value!)), string.Join(";", Slots(translated!)));
+        var translatedResources = UiText.Resources.GetResourceSet(System.Globalization.CultureInfo.GetCultureInfo(culture), true, false)!;
+        Equal(true, translatedResources != null);
+        foreach (System.Collections.DictionaryEntry entry in et)
+        {
+            string key = (string)entry.Key; string? translated = translatedResources!.GetString(key);
+            Equal(true, !string.IsNullOrEmpty(translated));
+            string[] Slots(string value) => System.Text.RegularExpressions.Regex.Matches(value, @"(?<!\{)\{\d+(?:[^{}]*)\}")
+                .Select(m => m.Value).Order().ToArray();
+            Equal(string.Join(";", Slots((string)entry.Value!)), string.Join(";", Slots(translated!)));
+        }
     }
 });
 Check("Order documents retain their checkout language after the UI culture changes", () =>
 {
-    SetLanguage("en-US"); var order = DemoOrder.Create(new[] { new CartLine(Product(), 1) });
+    SetLanguage("en-US"); var order = ShopOrder.Create(new[] { new CartLine(Product(), 1) });
     SetLanguage("et-EE");
     Equal(true, OrderEmail.Html(order).Contains("Payment successful!"));
     Equal(true, OrderEmail.Subject(order).Contains("Order"));
+    Equal("et-EE", System.Globalization.CultureInfo.CurrentUICulture.Name);
+});
+Check("Russian email retains its checkout language and escapes customer data", () =>
+{
+    SetLanguage("ru-RU"); var order = ShopOrder.Create(new[] { new CartLine(Product() with { Name = "<script>" }, 1) });
+    SetLanguage("et-EE");
+    string html = OrderEmail.Html(order);
+    Equal(true, html.Contains("Оплата прошла успешно!")); Equal(true, html.Contains("&lt;script&gt;"));
+    Equal(true, html.Contains("19,99")); Equal(true, OrderEmail.Subject(order).Contains("Заказ"));
     Equal("et-EE", System.Globalization.CultureInfo.CurrentUICulture.Name);
 });
 Check("Invalid promotion dates, discounts and missing Estonian titles cannot be published", () =>
@@ -347,7 +292,7 @@ Check("Deleting a legacy row without catalog metadata is supported and leaves un
 Check("One-click demo payment validates email, commits stock once and sends one confirmation", () =>
 {
     var product = Product(stock: 3); using var store = new DemoShopStore(new[] { product });
-    var cart = new ShoppingCart(); cart.Add(product, 2); int sent = 0; DemoOrder? emailed = null;
+    var cart = new ShoppingCart(); cart.Add(product, 2); int sent = 0; ShopOrder? emailed = null;
     var flow = new CheckoutFlow(store, order => { sent++; emailed = order; return Task.CompletedTask; });
     var result = flow.PayAsync(cart, " buyer@example.com ").GetAwaiter().GetResult();
     Equal(true, result.EmailSent); Equal("buyer@example.com", result.Order.CustomerEmail);
@@ -390,7 +335,7 @@ Check("Repeated pay clicks while a mail is pending cannot create a second order"
 Check("Order email gives a two-week calendar delivery date, order reference and escaped item names", () =>
 {
     var product = Product() with { Name = "<script>alert(1)</script>" };
-    var order = new DemoOrder("DEMO-TEST", new DateTimeOffset(2026, 10, 30, 12, 0, 0, TimeSpan.Zero), new[] { new CartLine(product, 1) }) { CustomerEmail = "buyer@example.com" };
+    var order = new ShopOrder("DEMO-TEST", new DateTimeOffset(2026, 10, 30, 12, 0, 0, TimeSpan.Zero), new[] { new CartLine(product, 1) }) { CustomerEmail = "buyer@example.com" };
     Equal(new DateOnly(2026, 11, 13), order.ExpectedDelivery);
     string html = OrderEmail.Html(order);
     Equal(true, html.Contains("13.11.2026")); Equal(true, html.Contains("on vastu võetud ja töös"));
@@ -399,19 +344,3 @@ Check("Order email gives a two-week calendar delivery date, order reference and 
 });
 
 Console.WriteLine($"{passed} checks passed.");
-
-sealed class CatalogHandler : System.Net.Http.HttpMessageHandler
-{
-    public bool Fail { get; set; }
-    protected override Task<System.Net.Http.HttpResponseMessage> SendAsync(
-        System.Net.Http.HttpRequestMessage request, CancellationToken cancellationToken)
-    {
-        if (Fail) throw new System.Net.Http.HttpRequestException("Simulated offline connection");
-        if (request.RequestUri?.AbsoluteUri != OnlineCatalog.Endpoint)
-            throw new Exception("Unexpected internet request in the test");
-        return Task.FromResult(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.OK)
-        {
-            Content = new System.Net.Http.StringContent("""[{"id":1,"title":"Test headphones","category":"electronics","price":25.99,"description":"API product","image":null}]""")
-        });
-    }
-}

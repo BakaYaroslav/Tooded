@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <data name="pealkiriLabel.Text" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="kasutajaLabel.Text" xml:space="preserve">
+    <value>Username:</value>
+  </data>
+  <data name="paroolLabel.Text" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="loginBtn.Text" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="registreeriBtn.Text" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+</root>
