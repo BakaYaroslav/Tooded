@@ -8,5 +8,5 @@ public static class ShopCatalog
         JsonSerializer.Deserialize<List<ShopProduct>>(
             File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Catalog", "products.json")),
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
-        ?? throw new InvalidDataException("Tootekataloog on tühi või vigane.");
+        ?? throw new InvalidDataException(UiText.Get("TheProductCatalogIsEmptyOrInvalid"));
 }

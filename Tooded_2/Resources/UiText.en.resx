@@ -1,0 +1,823 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="0Available" xml:space="preserve">
+    <value>{0} available</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddCategory" xml:space="preserve">
+    <value>Add category</value>
+  </data>
+  <data name="AddedToBasket" xml:space="preserve">
+    <value>Added to basket</value>
+  </data>
+  <data name="AddPromotion" xml:space="preserve">
+    <value>Add promotion</value>
+  </data>
+  <data name="AddToBasket" xml:space="preserve">
+    <value>Add to basket</value>
+  </data>
+  <data name="AllAvailableItemsAreInTheBasket" xml:space="preserve">
+    <value>All available items are in the basket</value>
+  </data>
+  <data name="AllAvailableItemsAreInYourBasket" xml:space="preserve">
+    <value>All available items are in your basket</value>
+  </data>
+  <data name="AllAvailableItemsAreInYourBasket_2155B9" xml:space="preserve">
+    <value>All available items are in your basket</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>All products</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="ASpecificationIsMissingOrDuplicated" xml:space="preserve">
+    <value>A specification is missing or duplicated.</value>
+  </data>
+  <data name="AVisibleProductMustHaveAnImage" xml:space="preserve">
+    <value>A visible product must have an image.</value>
+  </data>
+  <data name="BannerImageHTTPSURLOptional" xml:space="preserve">
+    <value>Banner image HTTPS URL (optional)</value>
+  </data>
+  <data name="Basket" xml:space="preserve">
+    <value>Basket</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Buttons" xml:space="preserve">
+    <value>Buttons</value>
+  </data>
+  <data name="BuyNow" xml:space="preserve">
+    <value>Buy now</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories: </value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CheckDatesCategoryAndDiscount090" xml:space="preserve">
+    <value>Check dates, category and discount (0–90%).</value>
+  </data>
+  <data name="CheckTheSenderGmailAddressAndAppPasswordSaveTheEmailSettingsAgai" xml:space="preserve">
+    <value>Check the sender Gmail address and app password. Save the email settings again if needed.</value>
+  </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>Choose image</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ClearFilters" xml:space="preserve">
+    <value>Clear filters</value>
+  </data>
+  <data name="ClickTheImageToEnlarge" xml:space="preserve">
+    <value>Click the image to enlarge</value>
+  </data>
+  <data name="ComputerAccessories" xml:space="preserve">
+    <value>Computer accessories</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ConfirmingYourOrderAndSendingEmail" xml:space="preserve">
+    <value>Confirming your order and sending email…</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password:</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Connection</value>
+  </data>
+  <data name="ContinueShopping" xml:space="preserve">
+    <value>Continue shopping</value>
+  </data>
+  <data name="CurrentlyOutOfStock" xml:space="preserve">
+    <value>Currently out of stock</value>
+  </data>
+  <data name="CustomerEmail" xml:space="preserve">
+    <value>Customer email: </value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Date_2186D9" xml:space="preserve">
+    <value>Date: </value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Delete category</value>
+  </data>
+  <data name="DeleteProduct" xml:space="preserve">
+    <value>Delete product</value>
+  </data>
+  <data name="DeleteProduct0FromTheDatabaseAutomaticImportWillNotRestoreItExis" xml:space="preserve">
+    <value>Delete product “{0}” from the database?
+
+Automatic import will not restore it. Existing sales history will be retained.</value>
+  </data>
+  <data name="DeleteThisProduct" xml:space="preserve">
+    <value>Delete this product?</value>
+  </data>
+  <data name="DeleteThisPromotion" xml:space="preserve">
+    <value>Delete this promotion?</value>
+  </data>
+  <data name="DemoCatalogStockResetsWhenTheApplicationIsReopened" xml:space="preserve">
+    <value>Demo catalog · Stock resets when the application is reopened.</value>
+  </data>
+  <data name="DemoPaymentNoMoneyIsChargedTheOrderConfirmationIsSentByEmail" xml:space="preserve">
+    <value>Demo payment — no money is charged. The order confirmation is sent by email.</value>
+  </data>
+  <data name="DEMOPAYMENTNoMoneyWasCharged" xml:space="preserve">
+    <value>DEMO PAYMENT · No money was charged.</value>
+  </data>
+  <data name="DemoPaymentOnlyNoRealMoneyIsChargedNoCardDetailsAreRequestedAndN" xml:space="preserve">
+    <value>Demo payment only. No real money is charged, no card details are requested and no goods are shipped.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DesktopPC" xml:space="preserve">
+    <value>Desktop PC</value>
+  </data>
+  <data name="DeviceType" xml:space="preserve">
+    <value>Device type</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount %</value>
+  </data>
+  <data name="Discount0CollectionWithoutDiscount" xml:space="preserve">
+    <value>Discount % (0 = collection without discount)</value>
+  </data>
+  <data name="DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="Drivers" xml:space="preserve">
+    <value>Drivers</value>
+  </data>
+  <data name="EditSelectedProduct" xml:space="preserve">
+    <value>Edit selected product</value>
+  </data>
+  <data name="Electronics" xml:space="preserve">
+    <value>Electronics</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email: </value>
+  </data>
+  <data name="EmailSettings" xml:space="preserve">
+    <value>Email settings</value>
+  </data>
+  <data name="EmptyBasket" xml:space="preserve">
+    <value>Empty basket</value>
+  </data>
+  <data name="Ends" xml:space="preserve">
+    <value>Ends </value>
+  </data>
+  <data name="Ends_C1B494" xml:space="preserve">
+    <value>Ends</value>
+  </data>
+  <data name="EnterAProductName" xml:space="preserve">
+    <value>Enter a product name.</value>
+  </data>
+  <data name="EnterAProductName_512E8F" xml:space="preserve">
+    <value>Enter a product name!</value>
+  </data>
+  <data name="EnterAPromotionTitle" xml:space="preserve">
+    <value>Enter a promotion title.</value>
+  </data>
+  <data name="EnterARealProductModelManufacturerAndMatchingCategory" xml:space="preserve">
+    <value>Enter a real product model, manufacturer and matching category.</value>
+  </data>
+  <data name="EnterAValidEmailAddress" xml:space="preserve">
+    <value>Enter a valid email address.</value>
+  </data>
+  <data name="EnterAValidEmailAddressForTheReceipt" xml:space="preserve">
+    <value>Enter a valid email address for the receipt.</value>
+  </data>
+  <data name="EnterTheCategoryNameInTheCategoryField" xml:space="preserve">
+    <value>Enter the category name in the category field!</value>
+  </data>
+  <data name="EnterTheGmailAddressUsedToSendOrderConfirmationsConnectionSettin" xml:space="preserve">
+    <value>Enter the Gmail address used to send order confirmations. Connection settings are automatic.</value>
+  </data>
+  <data name="EnterYourUsernameAndPassword" xml:space="preserve">
+    <value>Enter your username and password!</value>
+  </data>
+  <data name="EntireSelectedCategory" xml:space="preserve">
+    <value>Entire selected category</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error: </value>
+  </data>
+  <data name="EstimatedDelivery0DdMMYyyyInAboutTwoWeeks" xml:space="preserve">
+    <value>Estimated delivery: {0:dd.MM.yyyy} (in about two weeks)</value>
+  </data>
+  <data name="EstimatedDelivery0DdMMYyyyInAboutTwoWeeks_1A8403" xml:space="preserve">
+    <value>Estimated delivery: {0:dd.MM.yyyy} (in about two weeks).</value>
+  </data>
+  <data name="ExploreOffer" xml:space="preserve">
+    <value>Explore offer →</value>
+  </data>
+  <data name="ExploreOurThreeCategories" xml:space="preserve">
+    <value>Explore our three categories</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="Found0Products" xml:space="preserve">
+    <value>Found: {0} products</value>
+  </data>
+  <data name="FromTheCatalog" xml:space="preserve">
+    <value>From the catalog</value>
+  </data>
+  <data name="GmailAppPassword" xml:space="preserve">
+    <value>Gmail app password</value>
+  </data>
+  <data name="GraphicsCard" xml:space="preserve">
+    <value>Graphics card</value>
+  </data>
+  <data name="Headphones" xml:space="preserve">
+    <value>Headphones</value>
+  </data>
+  <data name="HomeAndOffers" xml:space="preserve">
+    <value>Home and offers</value>
+  </data>
+  <data name="ImageHTTPSURLOrLocalFile" xml:space="preserve">
+    <value>Image HTTPS URL or local file</value>
+  </data>
+  <data name="ImageNotFound0ApplicationFolder1" xml:space="preserve">
+    <value>Image not found: "{0}"
+Application folder: {1}</value>
+  </data>
+  <data name="IncorrectUsernameOrPassword" xml:space="preserve">
+    <value>Incorrect username or password!</value>
+  </data>
+  <data name="InStock" xml:space="preserve">
+    <value>In stock</value>
+  </data>
+  <data name="InStock0InBasket1" xml:space="preserve">
+    <value>In stock: {0} · In basket: {1}</value>
+  </data>
+  <data name="InStock0Items" xml:space="preserve">
+    <value>In stock: {0} items</value>
+  </data>
+  <data name="InStockOnly" xml:space="preserve">
+    <value>In stock only</value>
+  </data>
+  <data name="InternetUnavailableUsingThePreviouslyDownloadedCatalog" xml:space="preserve">
+    <value>Internet unavailable · Using the previously downloaded catalog.</value>
+  </data>
+  <data name="InternetUnavailableUsingTheSixBundledExampleProducts" xml:space="preserve">
+    <value>Internet unavailable · Using the six bundled example products.</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>item</value>
+  </data>
+  <data name="Jewellery" xml:space="preserve">
+    <value>Jewellery</value>
+  </data>
+  <data name="Keyboard" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="KeyboardLayout" xml:space="preserve">
+    <value>Keyboard layout</value>
+  </data>
+  <data name="Laptop" xml:space="preserve">
+    <value>Laptop</value>
+  </data>
+  <data name="LaptopsPCs" xml:space="preserve">
+    <value>Laptops / PCs</value>
+  </data>
+  <data name="LatestOffers" xml:space="preserve">
+    <value>Latest offers</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading…</value>
+  </data>
+  <data name="LoadingOnlineCatalog" xml:space="preserve">
+    <value>Loading online catalog…</value>
+  </data>
+  <data name="LoadingOnlineCatalog_2CA001" xml:space="preserve">
+    <value>Loading online catalog…</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="MenSClothing" xml:space="preserve">
+    <value>Men's clothing</value>
+  </data>
+  <data name="Microphone" xml:space="preserve">
+    <value>Microphone</value>
+  </data>
+  <data name="Mouse" xml:space="preserve">
+    <value>Mouse</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameAZ" xml:space="preserve">
+    <value>Name: A–Z</value>
+  </data>
+  <data name="NameExampleCom" xml:space="preserve">
+    <value>name@example.com</value>
+  </data>
+  <data name="NetworkUnavailableUsingCachedAndBundledProducts" xml:space="preserve">
+    <value>Network unavailable. Using cached and bundled products.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>No image</value>
+  </data>
+  <data name="NoImageIsAssignedInTheDatabase" xml:space="preserve">
+    <value>No image is assigned in the database</value>
+  </data>
+  <data name="NoMatchingProductsAdjustYourFilters" xml:space="preserve">
+    <value>No matching products. Adjust your filters.</value>
+  </data>
+  <data name="NoOrderIsAvailable" xml:space="preserve">
+    <value>No order is available.</value>
+  </data>
+  <data name="NoProductsFound" xml:space="preserve">
+    <value>No products found</value>
+  </data>
+  <data name="NoPromotionsAreActiveExploreTheCatalog" xml:space="preserve">
+    <value>No promotions are active. Explore the catalog.</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="OffersAndPromotions" xml:space="preserve">
+    <value>Offers and promotions</value>
+  </data>
+  <data name="OnlineCatalogUpdatedPricesAndOrdersAreForTeaching" xml:space="preserve">
+    <value>Online catalog updated. Prices and orders are for teaching.</value>
+  </data>
+  <data name="OperatingSystem" xml:space="preserve">
+    <value>Operating system</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Order0HasBeenReceivedAndIsBeingProcessedEstimatedDelivery1DdMMYy" xml:space="preserve">
+    <value>Order {0} has been received and is being processed.
+Estimated delivery: {1:dd.MM.yyyy} — in about two weeks.
+Demo order: no real money is charged and no goods are shipped.</value>
+  </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Order number: </value>
+  </data>
+  <data name="OrSelectIndividualProducts" xml:space="preserve">
+    <value>Or select individual products</value>
+  </data>
+  <data name="OtherProducts" xml:space="preserve">
+    <value>Other products</value>
+  </data>
+  <data name="OutOfStock" xml:space="preserve">
+    <value>Out of stock</value>
+  </data>
+  <data name="PAIDDemoPaymentSuccessful" xml:space="preserve">
+    <value>PAID — demo payment successful</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pay</value>
+  </data>
+  <data name="Pay0000TheReceiptWillBeSentTo1" xml:space="preserve">
+    <value>Pay {0:0.00} €?
+The receipt will be sent to {1}</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="PaymentMethodDemoPayment" xml:space="preserve">
+    <value>Payment method: demo payment</value>
+  </data>
+  <data name="PaymentSucceededButTheConfirmationEmailCouldNotBeSentYouCanRetry" xml:space="preserve">
+    <value>Payment succeeded, but the confirmation email could not be sent. You can retry sending it.</value>
+  </data>
+  <data name="PaymentSuccessful" xml:space="preserve">
+    <value>Payment successful!</value>
+  </data>
+  <data name="PaymentSuccessfulDemoPaymentConfirmation" xml:space="preserve">
+    <value>Payment successful · Demo payment confirmation</value>
+  </data>
+  <data name="PaymentSuccessfulShoping67" xml:space="preserve">
+    <value>Payment successful · shoping67</value>
+  </data>
+  <data name="PDFFilePdfPdf" xml:space="preserve">
+    <value>PDF file (*.pdf)|*.pdf</value>
+  </data>
+  <data name="PDFFilePdfU007cPdf" xml:space="preserve">
+    <value>PDF file (*.pdf)\u007c*.pdf</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Phones" xml:space="preserve">
+    <value>Phones</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Price_B0AE32" xml:space="preserve">
+    <value>Price: </value>
+  </data>
+  <data name="PriceFromTo" xml:space="preserve">
+    <value>Price (€): from / to</value>
+  </data>
+  <data name="PriceHighToLow" xml:space="preserve">
+    <value>Price: high to low</value>
+  </data>
+  <data name="PriceLowToHigh" xml:space="preserve">
+    <value>Price: low to high</value>
+  </data>
+  <data name="PriceMustBeANumber" xml:space="preserve">
+    <value>Price must be a number!</value>
+  </data>
+  <data name="Processor" xml:space="preserve">
+    <value>Processor</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Product01InStock" xml:space="preserve">
+    <value>Product {0}: {1} in stock.</value>
+  </data>
+  <data name="ProductCode" xml:space="preserve">
+    <value>Product code</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Product description</value>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>Product details</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Product name: </value>
+  </data>
+  <data name="ProductNameOrCategory" xml:space="preserve">
+    <value>Product name or category...</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product not found!</value>
+  </data>
+  <data name="ProductsAndSpecifications" xml:space="preserve">
+    <value>Products and specifications</value>
+  </data>
+  <data name="ProductsLoadedOnlineFakeStoreAPITeachingPricesAndExampleStock" xml:space="preserve">
+    <value>Products loaded online · Fake Store API · Teaching prices and example stock.</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>Promotion</value>
+  </data>
+  <data name="PromotionAppliesTo0Products" xml:space="preserve">
+    <value>Promotion applies to {0} products.</value>
+  </data>
+  <data name="PromotionsAndSpecifications" xml:space="preserve">
+    <value>Promotions and specifications</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity: </value>
+  </data>
+  <data name="Quantity_E89F2B" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="QuantityMustBeAnInteger" xml:space="preserve">
+    <value>Quantity must be an integer!</value>
+  </data>
+  <data name="RAM" xml:space="preserve">
+    <value>RAM</value>
+  </data>
+  <data name="RECEIPTPAYMENTCONFIRMATION" xml:space="preserve">
+    <value>RECEIPT / PAYMENT CONFIRMATION</value>
+  </data>
+  <data name="Recommended" xml:space="preserve">
+    <value>Recommended</value>
+  </data>
+  <data name="ReferenceConfiguration" xml:space="preserve">
+    <value> · Reference configuration</value>
+  </data>
+  <data name="ReferenceConfigurationDemoPrice" xml:space="preserve">
+    <value>Reference configuration · demo price</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="RegistrationSuccessfulYouCanNowSignIn" xml:space="preserve">
+    <value>Registration successful! You can now sign in.</value>
+  </data>
+  <data name="RegularPrice" xml:space="preserve">
+    <value>Regular price (€)</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ResendEmail" xml:space="preserve">
+    <value>Resend email</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SavePDFReceipt" xml:space="preserve">
+    <value>Save PDF receipt</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving</value>
+  </data>
+  <data name="Screen" xml:space="preserve">
+    <value>Screen</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchProducts" xml:space="preserve">
+    <value>Search products:</value>
+  </data>
+  <data name="SearchProductsModelsOrSpecifications" xml:space="preserve">
+    <value>Search products, models or specifications…</value>
+  </data>
+  <data name="SelectACategory" xml:space="preserve">
+    <value>Select a category!</value>
+  </data>
+  <data name="SelectAProductInTheTable" xml:space="preserve">
+    <value>Select a product in the table!</value>
+  </data>
+  <data name="SelectAProductInTheTable_C673E3" xml:space="preserve">
+    <value>Select a product in the table.</value>
+  </data>
+  <data name="SelectAtLeastOneProduct" xml:space="preserve">
+    <value>Select at least one product.</value>
+  </data>
+  <data name="SelectAtLeastOneProductOrEnableTheEntireCategory" xml:space="preserve">
+    <value>Select at least one product or enable the entire category.</value>
+  </data>
+  <data name="SelectProductsOrTheEntireCategoryPreviousSelectionsMayBeHiddenOr" xml:space="preserve">
+    <value>Select products or the entire category. Previous selections may be hidden or in another category.</value>
+  </data>
+  <data name="SelectVisibleProductsFromTheChosenCategoryHiddenMissingOrDiffere" xml:space="preserve">
+    <value>Select visible products from the chosen category. Hidden, missing or different-category products cannot be targeted.</value>
+  </data>
+  <data name="SenderGmailAddress" xml:space="preserve">
+    <value>Sender Gmail address</value>
+  </data>
+  <data name="SendingConfirmation" xml:space="preserve">
+    <value>Sending confirmation…</value>
+  </data>
+  <data name="SendingEmail" xml:space="preserve">
+    <value>Sending email…</value>
+  </data>
+  <data name="Sensor" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="Shop" xml:space="preserve">
+    <value>Shop</value>
+  </data>
+  <data name="ShopCatalogDemoOrdersReduceStockAndAppearInSales" xml:space="preserve">
+    <value>Shop catalog · Demo orders reduce stock and appear in sales.</value>
+  </data>
+  <data name="Shoping67DEMOORDER" xml:space="preserve">
+    <value>shoping67 · DEMO ORDER</value>
+  </data>
+  <data name="Shoping67Order0IsBeingProcessed" xml:space="preserve">
+    <value>shoping67 · Order {0} is being processed</value>
+  </data>
+  <data name="Shoping67Receipt" xml:space="preserve">
+    <value>shoping67 · Receipt </value>
+  </data>
+  <data name="ShowInShop" xml:space="preserve">
+    <value>Show in shop</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="SignIn_777709" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Sold0Items" xml:space="preserve">
+    <value>Sold: 0 items</value>
+  </data>
+  <data name="Sold0Revenue1" xml:space="preserve">
+    <value>Sold: {0} | Revenue: {1}</value>
+  </data>
+  <data name="Specification" xml:space="preserve">
+    <value>Specification</value>
+  </data>
+  <data name="SpecificationsEmptyValueUnknown" xml:space="preserve">
+    <value>Specifications · empty value = unknown</value>
+  </data>
+  <data name="StartEndLocalTime" xml:space="preserve">
+    <value>Start / end (local time)</value>
+  </data>
+  <data name="Starts" xml:space="preserve">
+    <value>Starts</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="StockChangedRefreshTheCatalogAndBasket" xml:space="preserve">
+    <value>Stock changed. Refresh the catalog and basket.</value>
+  </data>
+  <data name="StockOrPriceChanged" xml:space="preserve">
+    <value>Stock or price changed.</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="Switches" xml:space="preserve">
+    <value>Switches</value>
+  </data>
+  <data name="Tactile" xml:space="preserve">
+    <value>Tactile</value>
+  </data>
+  <data name="TeachingShopDemoOrderNoRealMoneyIsChargedAndNoGoodsAreShipped" xml:space="preserve">
+    <value>Teaching shop demo order. No real money is charged and no goods are shipped.</value>
+  </data>
+  <data name="TeachingShopRealModelsIllustrativePricesAndInventory" xml:space="preserve">
+    <value>Teaching shop · Real models, illustrative prices and inventory.</value>
+  </data>
+  <data name="ThankYouForYourPurchase" xml:space="preserve">
+    <value>Thank you for your purchase!</value>
+  </data>
+  <data name="TheBasketContainsDuplicateProductLines" xml:space="preserve">
+    <value>The basket contains duplicate product lines.</value>
+  </data>
+  <data name="TheCatalogIsStillLoading" xml:space="preserve">
+    <value>The catalog is still loading.</value>
+  </data>
+  <data name="TheDeviceTypeDoesNotMatchTheCategory" xml:space="preserve">
+    <value>The device type does not match the category.</value>
+  </data>
+  <data name="TheOnlineCatalogIsEmptyOrInvalid" xml:space="preserve">
+    <value>The online catalog is empty or invalid.</value>
+  </data>
+  <data name="TheOrderConfirmationWasSentTo" xml:space="preserve">
+    <value>The order confirmation was sent to </value>
+  </data>
+  <data name="TheOrderWasNotConfirmedYourBasketIsRetained" xml:space="preserve">
+    <value>The order was not confirmed. Your basket is retained.</value>
+  </data>
+  <data name="ThePasswordMustContainAtLeast4Characters" xml:space="preserve">
+    <value>The password must contain at least 4 characters!</value>
+  </data>
+  <data name="ThePasswordsDoNotMatch" xml:space="preserve">
+    <value>The passwords do not match!</value>
+  </data>
+  <data name="ThePriceOrPromotionChangedAddTheProductToYourBasketAgain" xml:space="preserve">
+    <value>The price or promotion changed. Add the product to your basket again.</value>
+  </data>
+  <data name="TheProductCatalogIsEmptyOrInvalid" xml:space="preserve">
+    <value>The product catalog is empty or invalid.</value>
+  </data>
+  <data name="TheProductHasAlreadyBeenDeleted" xml:space="preserve">
+    <value>The product has already been deleted.</value>
+  </data>
+  <data name="TheProductPriceCannotBeNegative" xml:space="preserve">
+    <value>The product price cannot be negative.</value>
+  </data>
+  <data name="TheUsernameMustContainAtLeast3Characters" xml:space="preserve">
+    <value>The username must contain at least 3 characters!</value>
+  </data>
+  <data name="ThisCategoryAlreadyExists" xml:space="preserve">
+    <value>This category already exists!</value>
+  </data>
+  <data name="ThisCategoryContainsProductsAndCannotBeDeleted" xml:space="preserve">
+    <value>This category contains products and cannot be deleted!</value>
+  </data>
+  <data name="ThisIsADemoOrderNoGoodsAreShipped" xml:space="preserve">
+    <value>This is a demo order. No goods are shipped.</value>
+  </data>
+  <data name="ThisOrderHasAlreadyBeenPaid" xml:space="preserve">
+    <value>This order has already been paid.</value>
+  </data>
+  <data name="ThisUsernameAlreadyExists" xml:space="preserve">
+    <value>This username already exists!</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TOTAL" xml:space="preserve">
+    <value>TOTAL</value>
+  </data>
+  <data name="Total0000" xml:space="preserve">
+    <value>Total: {0:0.00} €</value>
+  </data>
+  <data name="Total0Items1" xml:space="preserve">
+    <value>Total ({0} items): {1}</value>
+  </data>
+  <data name="TOTALPAID" xml:space="preserve">
+    <value>TOTAL PAID</value>
+  </data>
+  <data name="UnableToConfirmYourOrderCheckTheConnectionAndTryAgainYourBasketI" xml:space="preserve">
+    <value>Unable to confirm your order. Check the connection and try again. Your basket is retained.</value>
+  </data>
+  <data name="UnableToDeleteTheProductCheckTheDatabaseConnectionAndTryAgain" xml:space="preserve">
+    <value>Unable to delete the product. Check the database connection and try again.</value>
+  </data>
+  <data name="UnableToLoadCatalog" xml:space="preserve">
+    <value>Unable to load catalog. </value>
+  </data>
+  <data name="UnableToLoadOnlineProductsCheckTheInternetConnectionAndPressRefr" xml:space="preserve">
+    <value>Unable to load online products. Check the internet connection and press Refresh.</value>
+  </data>
+  <data name="UnableToLoadProducts" xml:space="preserve">
+    <value>Unable to load products:
+</value>
+  </data>
+  <data name="UnableToSaveTheFileChooseAnotherLocation" xml:space="preserve">
+    <value>Unable to save the file. Choose another location.</value>
+  </data>
+  <data name="UseAnAppPasswordCreatedInYourGoogleAccountRatherThanYourNormalPa" xml:space="preserve">
+    <value>Use an app password created in your Google account, rather than your normal password. The saved password is encrypted for this Windows user.</value>
+  </data>
+  <data name="UseAnHTTPSURL" xml:space="preserve">
+    <value>Use an HTTPS URL.</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username:</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Visible" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="Wired" xml:space="preserve">
+    <value>Wired</value>
+  </data>
+  <data name="Wireless" xml:space="preserve">
+    <value>Wireless</value>
+  </data>
+  <data name="WomenSClothing" xml:space="preserve">
+    <value>Women's clothing</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YourBasket" xml:space="preserve">
+    <value>Your basket</value>
+  </data>
+  <data name="YourBasketIsEmpty" xml:space="preserve">
+    <value>Your basket is empty.</value>
+  </data>
+  <data name="YourBasketIsEmptyFindSomethingYouLikeInTheCatalog" xml:space="preserve">
+    <value>Your basket is empty. Find something you like in the catalog.</value>
+  </data>
+  <data name="YourEmail" xml:space="preserve">
+    <value>Your email</value>
+  </data>
+  <data name="YourEmailForTheReceipt" xml:space="preserve">
+    <value>Your email (for the receipt):</value>
+  </data>
+  <data name="YourOrderConfirmationIsBelow" xml:space="preserve">
+    <value>Your order confirmation is below.</value>
+  </data>
+  <data name="YourOrderHasBeenReceivedAndIsBeingProcessed" xml:space="preserve">
+    <value>Your order has been received and is being processed.</value>
+  </data>
+  <data name="YourOrderIsAlreadyBeingProcessedPleaseWait" xml:space="preserve">
+    <value>Your order is already being processed. Please wait.</value>
+  </data>
+  <data name="YourOrderIsBeingProcessed" xml:space="preserve">
+    <value>Your order is being processed.</value>
+  </data>
+  <data name="LanguageSaveFailed" xml:space="preserve">
+    <value>The language changed, but your preference could not be saved.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="OrderEmailHtml" xml:space="preserve">
+    <value>&lt;!doctype html&gt;&lt;html lang="en"&gt;&lt;body style="font-family:Arial,sans-serif;color:#18222d"&gt;&lt;h1&gt;shoping67&lt;/h1&gt;&lt;h2&gt;Payment successful!&lt;/h2&gt;&lt;p&gt;Hello!&lt;/p&gt;&lt;p&gt;Your order &lt;strong&gt;{0}&lt;/strong&gt; has been received and is being processed.&lt;/p&gt;&lt;p&gt;Estimated delivery date: &lt;strong&gt;{1}&lt;/strong&gt; — in about two weeks.&lt;/p&gt;&lt;table cellpadding="8"&gt;&lt;tr&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Quantity&lt;/th&gt;&lt;th&gt;Amount&lt;/th&gt;&lt;/tr&gt;{2}&lt;/table&gt;&lt;p&gt;&lt;strong&gt;Total: {3}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Your PDF receipt and payment confirmation are attached.&lt;/p&gt;&lt;p&gt;Thank you for your order!&lt;/p&gt;&lt;hr&gt;&lt;p style="color:#5c6975;font-size:12px"&gt;Teaching shop demo order. Payment is simulated, no real money is charged and no goods are shipped.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</value>
+  </data>
+</root>

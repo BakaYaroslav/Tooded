@@ -18,6 +18,7 @@ namespace Tooded_2
 
         private void InitializeComponent()
         {
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             components = new System.ComponentModel.Container();
             pealkiriLabel = new Label();
             kasutajaLabel = new Label();
@@ -27,78 +28,78 @@ namespace Tooded_2
             loginBtn = new Button();
             registreeriBtn = new Button();
             SuspendLayout();
-            // 
+            //
             // pealkiriLabel
-            // 
+            //
             pealkiriLabel.AutoSize = true;
             pealkiriLabel.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             pealkiriLabel.Location = new Point(110, 20);
             pealkiriLabel.Name = "pealkiriLabel";
             pealkiriLabel.Size = new Size(130, 30);
             pealkiriLabel.TabIndex = 0;
-            pealkiriLabel.Text = T.Legacy("Sisselogimine");
-            // 
+            resources.ApplyResources(pealkiriLabel, "pealkiriLabel");
+            //
             // kasutajaLabel
-            // 
+            //
             kasutajaLabel.AutoSize = true;
             kasutajaLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             kasutajaLabel.Location = new Point(30, 78);
             kasutajaLabel.Name = "kasutajaLabel";
             kasutajaLabel.Size = new Size(90, 19);
             kasutajaLabel.TabIndex = 1;
-            kasutajaLabel.Text = T.Legacy("Kasutajanimi:");
-            // 
+            resources.ApplyResources(kasutajaLabel, "kasutajaLabel");
+            //
             // kasutajaEntry
-            // 
+            //
             kasutajaEntry.Font = new Font("Segoe UI", 10F);
             kasutajaEntry.Location = new Point(140, 75);
             kasutajaEntry.Name = "kasutajaEntry";
             kasutajaEntry.Size = new Size(180, 25);
             kasutajaEntry.TabIndex = 2;
-            // 
+            //
             // paroolLabel
-            // 
+            //
             paroolLabel.AutoSize = true;
             paroolLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             paroolLabel.Location = new Point(30, 118);
             paroolLabel.Name = "paroolLabel";
             paroolLabel.Size = new Size(60, 19);
             paroolLabel.TabIndex = 3;
-            paroolLabel.Text = T.Legacy("Parool:");
-            // 
+            resources.ApplyResources(paroolLabel, "paroolLabel");
+            //
             // paroolEntry
-            // 
+            //
             paroolEntry.Font = new Font("Segoe UI", 10F);
             paroolEntry.Location = new Point(140, 115);
             paroolEntry.Name = "paroolEntry";
             paroolEntry.Size = new Size(180, 25);
             paroolEntry.TabIndex = 4;
             paroolEntry.UseSystemPasswordChar = true;
-            // 
+            //
             // loginBtn
-            // 
+            //
             loginBtn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             loginBtn.Location = new Point(30, 165);
             loginBtn.Name = "loginBtn";
             loginBtn.Size = new Size(140, 36);
             loginBtn.TabIndex = 5;
-            loginBtn.Text = T.Legacy("Logi sisse");
+            resources.ApplyResources(loginBtn, "loginBtn");
             loginBtn.UseVisualStyleBackColor = true;
             loginBtn.Click += LoginBtn_Click;
-            // 
+            //
             // registreeriBtn
-            // 
+            //
             registreeriBtn.Font = new Font("Segoe UI", 10F);
             registreeriBtn.Location = new Point(180, 165);
             registreeriBtn.Name = "registreeriBtn";
             registreeriBtn.Size = new Size(140, 36);
             registreeriBtn.TabIndex = 6;
-            registreeriBtn.Text = T.Legacy("Registreeri");
+            resources.ApplyResources(registreeriBtn, "registreeriBtn");
             registreeriBtn.UseVisualStyleBackColor = true;
             registreeriBtn.Click += RegistreeriBtn_Click;
-            // 
+            //
             // LoginForm
-            // 
+            //
             AcceptButton = loginBtn;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -115,7 +116,7 @@ namespace Tooded_2
             MinimizeBox = false;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = T.Legacy("Logi sisse");
+            resources.ApplyResources(this, "$this");
             ResumeLayout(false);
             PerformLayout();
         }

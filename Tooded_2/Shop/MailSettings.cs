@@ -40,7 +40,7 @@ public sealed class MailSettings
     {
         if (string.IsNullOrWhiteSpace(Host) || Host.Contains('\r') || Host.Contains('\n') || Port < 1 || Port > 65535
             || !OrderEmail.ValidAddress(SenderEmail) || string.IsNullOrWhiteSpace(Password))
-            throw new InvalidOperationException("Kontrolli saatja Gmaili aadressi ja rakenduse parooli. Vajadusel salvesta e-posti seaded uuesti.");
+            throw new InvalidOperationException(UiText.Get("CheckTheSenderGmailAddressAndAppPasswordSaveTheEmailSettingsAgai"));
     }
     public void Save(string? path = null)
     {
@@ -57,15 +57,15 @@ public sealed class MailSettings
 internal sealed class MailSettingsForm : ShopEditorForm
 {
     private readonly TextBox address, password;
-    public MailSettingsForm() : base("E-posti seaded")
+    public MailSettingsForm() : base(() => UiText.Get("EmailSettings"))
     {
         Size = new Size(820, 480); MinimumSize = new Size(700, 430);
         var settings = MailSettings.Load();
-        var help = ShopStyle.Label("Sisesta Gmaili aadress, millelt pood tellimuste kinnitusi saadab. Ühenduse seadistame automaatselt.", 11);
+        var help = ShopStyle.Label(()=>UiText.Get("EnterTheGmailAddressUsedToSendOrderConfirmationsConnectionSettin"), 11);
         help.MaximumSize = new Size(710, 0); Fields.Controls.Add(help);
-        address = TextField("Saatja Gmaili aadress", settings.SenderEmail); address.AccessibleName = "mail-sender";
-        password = TextField("Gmaili rakenduse parool", settings.Password); password.UseSystemPasswordChar = true; password.AccessibleName = "mail-password";
-        var hint = ShopStyle.Label("Kasuta Google'i kontol loodud rakenduse parooli, mitte oma tavalist parooli. Salvestatud parool jääb selle Windowsi kasutaja jaoks krüpteerituks.", 10);
+        address = TextField(()=>UiText.Get("SenderGmailAddress"), settings.SenderEmail); address.AccessibleName = "mail-sender";
+        password = TextField(()=>UiText.Get("GmailAppPassword"), settings.Password); password.UseSystemPasswordChar = true; password.AccessibleName = "mail-password";
+        var hint = ShopStyle.Label(()=>UiText.Get("UseAnAppPasswordCreatedInYourGoogleAccountRatherThanYourNormalPa"), 10);
         hint.MaximumSize = new Size(710, 0); Fields.Controls.Add(hint);
     }
     protected override void Save() => new MailSettings

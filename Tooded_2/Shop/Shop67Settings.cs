@@ -40,7 +40,7 @@ public static class Shop67Settings
 
     public static ProductDetails Details(ShopConfiguration config, Toode product) => config.Products.GetValueOrDefault(product.Id) ?? new ProductDetails
     {
-        Name = new(product.Toodenimetus, product.Toodenimetus, product.Toodenimetus),
+        Name = new(product.Toodenimetus, product.Toodenimetus),
         // Legacy products stay in the admin list until assigned to a supported category.
         Visible = false
     };

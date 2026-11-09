@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <data name="$this.Text" xml:space="preserve">
+    <value>shoping67</value>
+  </data>
+  <data name="homeButton.Text" xml:space="preserve">
+    <value>Home and offers</value>
+  </data>
+  <data name="refreshButton.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="search.PlaceholderText" xml:space="preserve">
+    <value>Search products, models or specifications…</value>
+  </data>
+  <data name="search.AccessibleName" xml:space="preserve">
+    <value>Search</value>
+  </data>
+</root>

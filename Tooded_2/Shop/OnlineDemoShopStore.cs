@@ -5,7 +5,8 @@ public sealed class OnlineDemoShopStore : IShopStore
 {
     private DemoShopStore? inner;
     public bool IsDemoCatalog => true;
-    public string CatalogStatus { get; private set; } = "Veebikataloogi laadimine…";
+    private string? catalogStatusKey;
+    public string CatalogStatus => catalogStatusKey == null ? "shoping67" : UiText.Get(catalogStatusKey);
 
     public IReadOnlyList<ShopProduct> GetProducts()
     {
@@ -14,7 +15,7 @@ public sealed class OnlineDemoShopStore : IShopStore
         {
             var result = TechCatalog.LoadAsync().GetAwaiter().GetResult();
             inner = new DemoShopStore(result.Products, TechCatalog.InitialPromotions());
-            CatalogStatus = result.Status;
+            catalogStatusKey = result.StatusKey;
         }
         return inner.GetProducts();
     }
@@ -22,7 +23,7 @@ public sealed class OnlineDemoShopStore : IShopStore
     public IReadOnlyList<Promotion> GetPromotions() => inner?.GetPromotions() ?? Array.Empty<Promotion>();
 
     public DemoOrder Checkout(IReadOnlyList<CartLine> lines) =>
-        (inner ?? throw new InvalidOperationException("Kataloogi alles laaditakse.")).Checkout(lines);
+        (inner ?? throw new InvalidOperationException(UiText.Get("TheCatalogIsStillLoading"))).Checkout(lines);
 
     public void Dispose() => inner?.Dispose();
 }

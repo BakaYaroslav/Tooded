@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>shoping67 · Haldus</value>
+  </data>
+  <data name="productPage.Text" xml:space="preserve">
+    <value>Tooted ja omadused</value>
+  </data>
+  <data name="offerPage.Text" xml:space="preserve">
+    <value>Pakkumised ja kampaaniad</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
+  </metadata>
+</root>

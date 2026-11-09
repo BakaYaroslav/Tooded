@@ -9,25 +9,24 @@ internal static class ShopStyle
     public static readonly Color Green = Color.FromArgb(0, 117, 76);
     public static readonly Color Line = Color.FromArgb(225, 229, 232);
 
-    public static Label Label(string text, float size = 10, bool bold = false) => new()
-    {
-        Text = text, AutoSize = true, ForeColor = Ink,
+    public static Label Label(Func<string> text, float size = 10, bool bold = false) => LanguageManager.Bind(new Label
+    { AutoSize = true, ForeColor = Ink,
         Font = new Font("Segoe UI", size, bold ? FontStyle.Bold : FontStyle.Regular),
         Margin = new Padding(0, 0, 0, 12)
-    };
+    }, "Text", text);
 
-    public static Button Button(string text, bool primary = false)
+    public static Button Button(Func<string> text, bool primary = false)
     {
         var button = new Button
         {
-            Text = text, AutoSize = false, Size = new Size(180, 38), FlatStyle = FlatStyle.Flat,
+            AutoSize = false, Size = new Size(180, 38), FlatStyle = FlatStyle.Flat,
             BackColor = primary ? Yellow : Color.White, ForeColor = Ink,
             Font = new Font("Segoe UI", 10, FontStyle.Regular), Cursor = Cursors.Hand,
             Margin = new Padding(0, 0, 8, 10), UseVisualStyleBackColor = false
         };
         button.FlatAppearance.BorderColor = primary ? Yellow : Line;
         button.FlatAppearance.BorderSize = 1;
-        return button;
+        return LanguageManager.Bind(button, "Text", text);
     }
 
     public static FlowLayoutPanel Stack() => new()

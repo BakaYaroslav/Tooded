@@ -1,3 +1,4 @@
+using Tooded_2.Shop;
 using Microsoft.EntityFrameworkCore;
 
 namespace Tooded_2
@@ -7,8 +8,14 @@ namespace Tooded_2
         [STAThread]
         static void Main(string[] args)
         {
+            LanguageManager.Initialize();
             ApplicationConfiguration.Initialize();
-            Shop.T.SetLanguage(Shop.T.Language);
+
+            if (args.Length == 2 && args[0] == "--language-settings-check")
+            {
+                Environment.ExitCode = LanguageManager.Language == args[1] ? 0 : 1;
+                return;
+            }
 
             if (args.Contains("--bundle-catalog-images", StringComparer.OrdinalIgnoreCase))
             {

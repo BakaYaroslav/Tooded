@@ -85,7 +85,7 @@ internal static class ShopImages
         picture.Paint += (_, e) =>
         {
             if (picture.Image == null)
-                TextRenderer.DrawText(e.Graphics, T.Legacy("Pilt puudub"), SystemFonts.MessageBoxFont, picture.ClientRectangle,
+                TextRenderer.DrawText(e.Graphics, UiText.Get("NoImage"), SystemFonts.MessageBoxFont, picture.ClientRectangle,
                     ShopStyle.Muted, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         };
         picture.Disposed += (_, _) => picture.Image?.Dispose();

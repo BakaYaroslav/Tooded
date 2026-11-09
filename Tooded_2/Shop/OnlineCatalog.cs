@@ -5,7 +5,10 @@ using System.Text.Json;
 
 namespace Tooded_2.Shop;
 
-public sealed record CatalogDownload(IReadOnlyList<ShopProduct> Products, string Status);
+public sealed record CatalogDownload(IReadOnlyList<ShopProduct> Products, string StatusKey)
+{
+    public string Status => UiText.Get(StatusKey);
+}
 
 /// <summary>Public teaching catalog. Prices and stock are for the demo shop only.</summary>
 public sealed class OnlineCatalog
@@ -48,7 +51,7 @@ public sealed class OnlineCatalog
             || rows.Any(p => p == null || p.Id <= 0 || string.IsNullOrWhiteSpace(p.Title)
                 || p.Price < 0 || p.Price > 1000000)
             || rows.Select(p => p.Id).Distinct().Count() != rows.Count)
-            throw new InvalidDataException("Veebikataloog on tühi või vigane.");
+            throw new InvalidDataException(UiText.Get("TheOnlineCatalogIsEmptyOrInvalid"));
 
         return rows.Select(p => new ShopProduct
         {
@@ -90,18 +93,18 @@ public sealed class OnlineCatalog
                 finally { if (File.Exists(temporary)) File.Delete(temporary); }
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
-            return new(downloaded, "Tooted laaditud internetist · Fake Store API · Õppehinnad ja näidislaoseis.");
+            return new(downloaded, "ProductsLoadedOnlineFakeStoreAPITeachingPricesAndExampleStock");
         }
         catch (Exception ex) when (ex is HttpRequestException or OperationCanceledException
             or JsonException or InvalidDataException)
         {
             var cached = ReadCache();
             if (cached.Count > 0)
-                return new(cached, "Internet pole saadaval · Kasutusel varem alla laaditud kataloog.");
+                return new(cached, "InternetUnavailableUsingThePreviouslyDownloadedCatalog");
             if (allowBundledFallback)
-                return new(ShopCatalog.Load(), "Internet pole saadaval · Kasutusel kuus kaasasolevat näidistoodet.");
+                return new(ShopCatalog.Load(), "InternetUnavailableUsingTheSixBundledExampleProducts");
             throw new InvalidOperationException(
-                "Veebitooteid ei saanud laadida. Kontrolli internetiühendust ja vajuta „Uuenda”.", ex);
+                UiText.Get("UnableToLoadOnlineProductsCheckTheInternetConnectionAndPressRefr"), ex);
         }
     }
 
@@ -129,9 +132,9 @@ public sealed class OnlineCatalog
 
     private static string CategoryName(string? category) => category switch
     {
-        "electronics" => "Elektroonika", "jewelery" => "Ehted",
-        "men's clothing" => "Meesteriided", "women's clothing" => "Naisteriided",
-        _ => string.IsNullOrWhiteSpace(category) ? "Muud tooted" : category
+        "electronics" => UiText.Get("Electronics"), "jewelery" => UiText.Get("Jewellery"),
+        "men's clothing" => UiText.Get("MenSClothing"), "women's clothing" => UiText.Get("WomenSClothing"),
+        _ => string.IsNullOrWhiteSpace(category) ? UiText.Get("OtherProducts") : category
     };
 
     private sealed class ApiProduct

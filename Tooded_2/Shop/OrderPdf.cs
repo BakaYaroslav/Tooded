@@ -18,13 +18,14 @@ public static class OrderPdf
     }
     public static byte[] Create(DemoOrder order)
     {
+        using var culture = new DocumentCulture(order.CultureName);
         lock (gate)
         {
             if (!fontsReady) { GlobalFontSettings.FontResolver = new ReceiptFonts(); fontsReady = true; }
             using var document = new PdfDocument();
-            document.Info.Title = "shoping67 · Ostutšekk " + order.Number;
+            document.Info.Title = UiText.Get("Shoping67Receipt") + order.Number;
             document.Info.Author = "shoping67";
-            document.Info.Subject = "Makse õnnestus · Näidismakse kinnitus";
+            document.Info.Subject = UiText.Get("PaymentSuccessfulDemoPaymentConfirmation");
             var options = new XPdfFontOptions(PdfFontEncoding.Unicode);
             var normal = new XFont("shoping67-receipt", 10, XFontStyle.Regular, options);
             var small = new XFont("shoping67-receipt", 8, XFontStyle.Regular, options);
@@ -36,7 +37,7 @@ public static class OrderPdf
             var muted = new XSolidBrush(XColor.FromArgb(92, 105, 117));
             PdfPage? page = null; XGraphics? graphics = null; double y = 0;
             const double margin = 40;
-            string Money(decimal value) => value.ToString("0.00", CultureInfo.GetCultureInfo("et-EE")) + " €";
+            string Money(decimal value) => value.ToString("0.00", CultureInfo.CurrentCulture) + " €";
             void Text(string value, XFont font, XBrush brush, double x, double top, double width, bool right = false) =>
                 graphics!.DrawString(value, font, brush, new XRect(x, top, width, 20), right ? XStringFormats.TopRight : XStringFormats.TopLeft);
             void NewPage()
@@ -45,21 +46,21 @@ public static class OrderPdf
                 graphics = XGraphics.FromPdfPage(page);
                 Text("shoping67", title, navy, margin, 32, 400);
                 graphics.DrawLine(new XPen(XColor.FromArgb(255, 166, 35), 3), margin, 67, 174, 67);
-                Text("OSTUTŠEKK / MAKSEKINNITUS", bold, navy, margin, 83, 515);
-                Text("MAKSTUD — näidismakse õnnestus", bold, green, margin, 105, 515);
-                Text("Tellimuse nr: " + order.Number, normal, navy, margin, 130, 515);
-                Text("Kuupäev: " + order.Created.LocalDateTime.ToString("dd.MM.yyyy HH:mm", CultureInfo.GetCultureInfo("et-EE")), normal, navy, margin, 147, 515);
+                Text(UiText.Get("RECEIPTPAYMENTCONFIRMATION"), bold, navy, margin, 83, 515);
+                Text(UiText.Get("PAIDDemoPaymentSuccessful"), bold, green, margin, 105, 515);
+                Text(UiText.Get("OrderNumber") + order.Number, normal, navy, margin, 130, 515);
+                Text(UiText.Get("Date_2186D9") + order.Created.LocalDateTime.ToString("dd.MM.yyyy HH:mm", CultureInfo.CurrentCulture), normal, navy, margin, 147, 515);
                 y = 164;
                 if (order.CustomerEmail.Length > 0)
-                    foreach (string line in Wrap("Maksja e-post: " + order.CustomerEmail, normal, 515, graphics))
+                    foreach (string line in Wrap(UiText.Get("CustomerEmail") + order.CustomerEmail, normal, 515, graphics))
                     { Text(line, normal, navy, margin, y, 515); y += 15; }
-                Text("Tellimus on vastu võetud ja töös.", normal, navy, margin, y + 2, 515); y += 20;
-                Text($"Eeldatav tarne: {order.ExpectedDelivery:dd.MM.yyyy} (umbes kahe nädala pärast)", normal, navy, margin, y, 515); y += 32;
+                Text(UiText.Get("YourOrderHasBeenReceivedAndIsBeingProcessed"), normal, navy, margin, y + 2, 515); y += 20;
+                Text(UiText.Format("EstimatedDelivery0DdMMYyyyInAboutTwoWeeks", order.ExpectedDelivery), normal, navy, margin, y, 515); y += 32;
                 graphics.DrawRectangle(new XSolidBrush(XColor.FromArgb(244, 246, 248)), margin, y - 4, 515, 25);
-                Text("Toode", bold, navy, margin + 6, y, 265);
-                Text("Kogus", bold, navy, 309, y, 44, true);
-                Text("Hind", bold, navy, 363, y, 82, true);
-                Text("Summa", bold, navy, 455, y, 94, true); y += 28;
+                Text(UiText.Get("Product"), bold, navy, margin + 6, y, 265);
+                Text(UiText.Get("Quantity_E89F2B"), bold, navy, 309, y, 44, true);
+                Text(UiText.Get("Price"), bold, navy, 363, y, 82, true);
+                Text(UiText.Get("Amount"), bold, navy, 455, y, 94, true); y += 28;
             }
             void Space(double needed) { if (page == null || y + needed > page.Height.Point - 90) NewPage(); }
             try
@@ -82,17 +83,17 @@ public static class OrderPdf
                     y += 6; graphics!.DrawLine(XPens.LightGray, margin, y, 555, y); y += 4;
                 }
                 Space(100); y += 10;
-                Text("KOKKU TASUTUD", totalFont, navy, margin + 6, y, 290);
+                Text(UiText.Get("TOTALPAID"), totalFont, navy, margin + 6, y, 290);
                 Text(Money(order.Total), totalFont, green, 350, y, 199, true); y += 30;
-                Text("Makseviis: näidismakse", normal, navy, margin + 6, y, 515); y += 21;
-                Text("Aitäh ostu eest!", bold, navy, margin + 6, y, 515);
+                Text(UiText.Get("PaymentMethodDemoPayment"), normal, navy, margin + 6, y, 515); y += 21;
+                Text(UiText.Get("ThankYouForYourPurchase"), bold, navy, margin + 6, y, 515);
                 graphics!.Dispose(); graphics = null;
                 for (int i = 0; i < document.PageCount; i++)
                 {
                     page = document.Pages[i]; graphics = XGraphics.FromPdfPage(page, XGraphicsPdfPageOptions.Append);
                     double footer = page.Height.Point - 60;
                     graphics.DrawLine(XPens.LightGray, margin, footer - 8, 555, footer - 8);
-                    Text("Õppepoe näidistellimus. Päris raha ei võeta ja kaupa ei saadeta.", small, muted, margin, footer, 515);
+                    Text(UiText.Get("TeachingShopDemoOrderNoRealMoneyIsChargedAndNoGoodsAreShipped"), small, muted, margin, footer, 515);
                     Text("shoping67 · " + order.Number, small, muted, margin, footer + 16, 400);
                     Text($"{i + 1} / {document.PageCount}", small, muted, 460, footer + 16, 95, true);
                     graphics.Dispose(); graphics = null;
@@ -133,7 +134,7 @@ public static class OrderMailMessage
 {
     public static MailMessage Create(DemoOrder order, MailSettings settings)
     {
-        if (!OrderEmail.ValidAddress(order.CustomerEmail)) throw new InvalidOperationException("Sisesta korrektne e-posti aadress.");
+        if (!OrderEmail.ValidAddress(order.CustomerEmail)) throw new InvalidOperationException(UiText.Get("EnterAValidEmailAddress"));
         byte[] pdf = OrderPdf.Create(order);
         var message = new MailMessage
         {
