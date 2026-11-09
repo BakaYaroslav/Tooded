@@ -1,7 +1,7 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Tooded_2;
-using Tooded_2.Shop;
+using Tooded_2;
 
 System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("et-EE");
 
@@ -26,37 +26,37 @@ using (var db = new StorageContext(connection))
         Products = new() { [deletedId] = new ProductDetails { SourceKey = sourceKey, Category = "computers", Kind = "laptop", Brand = "Apple" } },
         ImportedKeys = new() { [sourceKey] = deletedId },
         Promotions = new() { new Promotion { Id = "targeted", ProductKeys = sourceKey, Percent = 10 }, new Promotion { Id = "category", Category = "computers", Percent = 5 } } };
-    Shop67Settings.Save(db, config);
+    ShopSettingsStore.Save(db, config);
 }
 using (var db = new StorageContext(connection))
-    Require(Shop67Settings.DeleteProduct(db, deletedId), "Delete did not find the product");
+    Require(ShopSettingsStore.DeleteProduct(db, deletedId), "Delete did not find the product");
 using (var db = new StorageContext(connection))
 {
     Require(!db.Toodetabel.Any(p => p.Id == deletedId), "Product was not removed from the relational database");
     Require(db.Toodetabel.Any(p => p.Id == retainedId), "An unrelated product was removed");
     Require(db.Muugitabel.Single().ToodeId == deletedId, "Historical sale was deleted or changed");
-    var config = Shop67Settings.Load(db);
+    var config = ShopSettingsStore.Load(db);
     Require(!config.Products.ContainsKey(deletedId), "Product metadata survived deletion");
     Require(config.ImportedKeys.GetValueOrDefault(sourceKey) == deletedId, "Deleted import identity was lost");
     Require(!config.Promotions.Single(p => p.Id == "targeted").Enabled, "Empty targeted discount remained enabled");
     Require(config.Promotions.Single(p => p.Id == "category").Enabled, "Category-wide promotion was changed");
-    Require(!Shop67Settings.DeleteProduct(db, deletedId), "A repeated delete should be a no-op");
+    Require(!ShopSettingsStore.DeleteProduct(db, deletedId), "A repeated delete should be a no-op");
 }
 Console.WriteLine("PASS relational deletion, import suppression, promotion cleanup and retained sales history");
 
 using (var db = new StorageContext(connection))
 {
-    var config = Shop67Settings.Load(db);
+    var config = ShopSettingsStore.Load(db);
     config.Products[retainedId] = new ProductDetails { SourceKey = "model:retained", Category = "computers", Kind = "laptop", Brand = "Dell" };
     config.ImportedKeys["model:retained"] = retainedId;
-    Shop67Settings.Save(db, config);
+    ShopSettingsStore.Save(db, config);
     db.Database.ExecuteSqlRaw("CREATE TRIGGER RejectSettingsUpdate BEFORE UPDATE ON ShopSettings BEGIN SELECT RAISE(ABORT, 'simulated settings write failure'); END;");
 }
 bool failed = false;
 try
 {
     using var db = new StorageContext(connection);
-    Shop67Settings.DeleteProduct(db, retainedId);
+    ShopSettingsStore.DeleteProduct(db, retainedId);
 }
 catch (DbUpdateException) { failed = true; }
 using (var db = new StorageContext(connection))
@@ -64,13 +64,13 @@ using (var db = new StorageContext(connection))
     Require(failed, "Expected the simulated settings write to fail");
     Require(db.Toodetabel.Any(p => p.Id == retainedId), "Failed delete did not roll back the product row");
     Require(db.Muugitabel.Count() == 1, "Rollback changed sales history");
-    Require(Shop67Settings.Load(db).Products.ContainsKey(retainedId), "Failed delete did not roll back product metadata");
+    Require(ShopSettingsStore.Load(db).Products.ContainsKey(retainedId), "Failed delete did not roll back product metadata");
 }
 Console.WriteLine("PASS failed metadata write rolls back product deletion atomically");
 
 
 var receiptProduct = new ShopProduct { Id = 1, Name = "Kõrvaklapid Õ Ä Ö Ü", Price = 879.99m, Stock = 3 };
-var receiptOrder = new DemoOrder("DEMO-RECEIPT", new DateTimeOffset(2026, 10, 30, 12, 0, 0, TimeSpan.Zero),
+var receiptOrder = new ShopOrder("DEMO-RECEIPT", new DateTimeOffset(2026, 10, 30, 12, 0, 0, TimeSpan.Zero),
     new[] { new CartLine(receiptProduct, 1) }) { CustomerEmail = "buyer@example.com" };
 byte[] receipt = OrderPdf.Create(receiptOrder);
 Require(receipt.Length > 1000 && System.Text.Encoding.ASCII.GetString(receipt, 0, 5) == "%PDF-", "Receipt is not a PDF file");
@@ -125,6 +125,34 @@ Require(System.Globalization.CultureInfo.CurrentUICulture.Name != "en-US", "Docu
 Console.WriteLine("PASS English PDF and email resources, amounts and isolated document culture");
 
 Console.WriteLine("PASS confirmation email contains an actual readable PDF attachment without sending live email");
+
+var russianOrder = receiptOrder with { CultureName = "ru-RU" };
+using (var parsed = UglyToad.PdfPig.PdfDocument.Open(OrderPdf.Create(russianOrder)))
+{
+    string text = parsed.GetPage(1).Text;
+    Require(text.Contains("ОПЛАЧЕНО") && text.Contains("879,99") && text.Contains("Ожидаемая доставка"), "Russian PDF lost Cyrillic text, paid amount or delivery date");
+}
+Require(OrderEmail.Html(russianOrder).Contains("Оплата прошла успешно!"), "Russian email resources are missing");
+Console.WriteLine("PASS Russian email and PDF receipt with readable Cyrillic text");
+
+using var productConnection = new SqliteConnection("Data Source=:memory:");
+productConnection.Open();
+using (var db = new StorageContext(productConnection))
+{
+    db.Database.EnsureCreated();
+    var details = new ProductDetails { Name = new("Test mouse"), Category = "accessories", Kind = "mouse", Brand = "Logitech", Visible = true };
+    int id = ProductService.Save(db, null, details, 29.99m, 4, "Products/logitech-g305.png");
+    Require(id > 0 && db.Toodetabel.Single().Kogus == 4, "Unified admin cannot add a product");
+    string source = ShopSettingsStore.Load(db).Products[id].SourceKey;
+    Require(source == "local:" + id, "New product metadata has no stable identity");
+    ProductService.Save(db, id, details with { SourceKey = source, Specs = new() { ["connection"] = "wireless" } }, 19.99m, 6, "Products/logitech-g305.png");
+    Require(db.Toodetabel.Count() == 1 && db.Toodetabel.Single().Kogus == 6, "Editing a product inserted a duplicate or lost stock");
+    Require(ShopSettingsStore.Load(db).Products[id].Specs["connection"] == "wireless", "Product specifications were not saved");
+    bool rejected = false;
+    try { ProductService.Save(db, null, details, -1, 1, "image.png"); } catch (InvalidOperationException) { rejected = true; }
+    Require(rejected && db.Toodetabel.Count() == 1, "Invalid product was not rejected before saving");
+}
+Console.WriteLine("PASS unified administrator adds and edits products with stable metadata and validation");
 
 sealed class StorageContext(SqliteConnection connection) : AppDbContext
 {

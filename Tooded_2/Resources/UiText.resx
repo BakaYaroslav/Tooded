@@ -12,12 +12,6 @@
   <data name="Active" xml:space="preserve">
     <value>Aktiivne</value>
   </data>
-  <data name="Add" xml:space="preserve">
-    <value>Lisa</value>
-  </data>
-  <data name="AddCategory" xml:space="preserve">
-    <value>Lisa kategooriad</value>
-  </data>
   <data name="AddedToBasket" xml:space="preserve">
     <value>Lisatud ostukorvi</value>
   </data>
@@ -27,13 +21,10 @@
   <data name="AddToBasket" xml:space="preserve">
     <value>Lisa ostukorvi</value>
   </data>
-  <data name="AllAvailableItemsAreInTheBasket" xml:space="preserve">
-    <value>Kõik on juba korvis</value>
-  </data>
   <data name="AllAvailableItemsAreInYourBasket" xml:space="preserve">
     <value>Kõik on ostukorvis</value>
   </data>
-  <data name="AllAvailableItemsAreInYourBasket_2155B9" xml:space="preserve">
+  <data name="AllItemsInBasket" xml:space="preserve">
     <value>Kõik on korvis</value>
   </data>
   <data name="AllProducts" xml:space="preserve">
@@ -66,23 +57,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>Tühista</value>
   </data>
-  <data name="Categories" xml:space="preserve">
-    <value>Kategooriad: </value>
-  </data>
   <data name="Category" xml:space="preserve">
     <value>Kategooria</value>
   </data>
   <data name="CheckDatesCategoryAndDiscount090" xml:space="preserve">
     <value>Kontrolli kuupäevi, kategooriat ja allahindlust (0–90%).</value>
   </data>
-  <data name="CheckTheSenderGmailAddressAndAppPasswordSaveTheEmailSettingsAgai" xml:space="preserve">
+  <data name="MailSettingsInvalid" xml:space="preserve">
     <value>Kontrolli saatja Gmaili aadressi ja rakenduse parooli. Vajadusel salvesta e-posti seaded uuesti.</value>
-  </data>
-  <data name="ChooseImage" xml:space="preserve">
-    <value>Otsi pilt</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Puhasta</value>
   </data>
   <data name="ClearFilters" xml:space="preserve">
     <value>Puhasta filtrid</value>
@@ -93,14 +75,8 @@
   <data name="ComputerAccessories" xml:space="preserve">
     <value>Arvutitarvikud</value>
   </data>
-  <data name="Confirmation" xml:space="preserve">
-    <value>Kinnitus</value>
-  </data>
   <data name="ConfirmingYourOrderAndSendingEmail" xml:space="preserve">
     <value>Tellimuse kinnitamine ja e-kirja saatmine…</value>
-  </data>
-  <data name="ConfirmPassword" xml:space="preserve">
-    <value>Korda parooli:</value>
   </data>
   <data name="Connection" xml:space="preserve">
     <value>Ühendus</value>
@@ -117,39 +93,33 @@
   <data name="Date" xml:space="preserve">
     <value>Kuupäev</value>
   </data>
-  <data name="Date_2186D9" xml:space="preserve">
+  <data name="DateLabel" xml:space="preserve">
     <value>Kuupäev: </value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Kustuta</value>
   </data>
-  <data name="DeleteCategory" xml:space="preserve">
-    <value>Kustuta kategooriad</value>
-  </data>
   <data name="DeleteProduct" xml:space="preserve">
     <value>Kustuta toode</value>
   </data>
-  <data name="DeleteProduct0FromTheDatabaseAutomaticImportWillNotRestoreItExis" xml:space="preserve">
+  <data name="DeleteProductConfirmation" xml:space="preserve">
     <value>Kas kustutada toode „{0}” andmebaasist?
 
 Toode ei tule automaatse impordiga tagasi. Senised müügiandmed säilivad.</value>
   </data>
-  <data name="DeleteThisProduct" xml:space="preserve">
-    <value>Kas kustutada toode?</value>
-  </data>
   <data name="DeleteThisPromotion" xml:space="preserve">
     <value>Kustuta kampaania?</value>
   </data>
-  <data name="DemoCatalogStockResetsWhenTheApplicationIsReopened" xml:space="preserve">
+  <data name="DemoCatalogStatus" xml:space="preserve">
     <value>Näidiskataloog · Laoseis taastub rakenduse uuesti avamisel.</value>
   </data>
-  <data name="DemoPaymentNoMoneyIsChargedTheOrderConfirmationIsSentByEmail" xml:space="preserve">
+  <data name="PaymentNotice" xml:space="preserve">
     <value>Näidismakse — raha ei võeta. Tellimuse kinnitus saadetakse e-postile.</value>
   </data>
   <data name="DEMOPAYMENTNoMoneyWasCharged" xml:space="preserve">
     <value>TASUTUD DEMOMAKSEGA · Raha ei võetud.</value>
   </data>
-  <data name="DemoPaymentOnlyNoRealMoneyIsChargedNoCardDetailsAreRequestedAndN" xml:space="preserve">
+  <data name="DemoPaymentNotice" xml:space="preserve">
     <value>Ainult demomakse. Päris raha ei võeta, kaardiandmeid ei küsita ja kaupu ei saadeta.</value>
   </data>
   <data name="Description" xml:space="preserve">
@@ -176,9 +146,6 @@ Toode ei tule automaatse impordiga tagasi. Senised müügiandmed säilivad.</val
   <data name="EditSelectedProduct" xml:space="preserve">
     <value>Muuda valitud toodet</value>
   </data>
-  <data name="Electronics" xml:space="preserve">
-    <value>Elektroonika</value>
-  </data>
   <data name="Email" xml:space="preserve">
     <value>E-post: </value>
   </data>
@@ -191,31 +158,22 @@ Toode ei tule automaatse impordiga tagasi. Senised müügiandmed säilivad.</val
   <data name="Ends" xml:space="preserve">
     <value>Kehtib kuni </value>
   </data>
-  <data name="Ends_C1B494" xml:space="preserve">
+  <data name="EndDate" xml:space="preserve">
     <value>Lõpp</value>
   </data>
   <data name="EnterAProductName" xml:space="preserve">
     <value>Sisesta toote nimetus.</value>
   </data>
-  <data name="EnterAProductName_512E8F" xml:space="preserve">
-    <value>Sisesta toote nimetus!</value>
-  </data>
   <data name="EnterAPromotionTitle" xml:space="preserve">
     <value>Sisesta kampaania pealkiri.</value>
   </data>
-  <data name="EnterARealProductModelManufacturerAndMatchingCategory" xml:space="preserve">
+  <data name="ProductModelInvalid" xml:space="preserve">
     <value>Kontrolli tegelikku tootemudelit, kaubamärki ja kategooriat.</value>
   </data>
   <data name="EnterAValidEmailAddress" xml:space="preserve">
     <value>Sisesta korrektne e-posti aadress.</value>
   </data>
-  <data name="EnterAValidEmailAddressForTheReceipt" xml:space="preserve">
-    <value>Sisesta korrektne e-posti aadress, kuhu tšekk saata.</value>
-  </data>
-  <data name="EnterTheCategoryNameInTheCategoryField" xml:space="preserve">
-    <value>Kirjuta kategooria nimi kategooria lahtrisse!</value>
-  </data>
-  <data name="EnterTheGmailAddressUsedToSendOrderConfirmationsConnectionSettin" xml:space="preserve">
+  <data name="MailSettingsHelp" xml:space="preserve">
     <value>Sisesta Gmaili aadress, millelt pood tellimuste kinnitusi saadab. Ühenduse seadistame automaatselt.</value>
   </data>
   <data name="EnterYourUsernameAndPassword" xml:space="preserve">
@@ -227,10 +185,10 @@ Toode ei tule automaatse impordiga tagasi. Senised müügiandmed säilivad.</val
   <data name="Error" xml:space="preserve">
     <value>Viga: </value>
   </data>
-  <data name="EstimatedDelivery0DdMMYyyyInAboutTwoWeeks" xml:space="preserve">
+  <data name="EstimatedDelivery" xml:space="preserve">
     <value>Eeldatav tarne: {0:dd.MM.yyyy} (umbes kahe nädala pärast)</value>
   </data>
-  <data name="EstimatedDelivery0DdMMYyyyInAboutTwoWeeks_1A8403" xml:space="preserve">
+  <data name="EstimatedDeliveryLine" xml:space="preserve">
     <value>Eeldatav tarne: {0:dd.MM.yyyy} (umbes kahe nädala pärast).</value>
   </data>
   <data name="ExploreOffer" xml:space="preserve">
@@ -241,9 +199,6 @@ Toode ei tule automaatse impordiga tagasi. Senised müügiandmed säilivad.</val
   </data>
   <data name="Filters" xml:space="preserve">
     <value>Filtrid</value>
-  </data>
-  <data name="Found0Products" xml:space="preserve">
-    <value>Leitud: {0} toodet</value>
   </data>
   <data name="FromTheCatalog" xml:space="preserve">
     <value>Valik kataloogist</value>
@@ -263,36 +218,17 @@ Toode ei tule automaatse impordiga tagasi. Senised müügiandmed säilivad.</val
   <data name="ImageHTTPSURLOrLocalFile" xml:space="preserve">
     <value>Pildi HTTPS-aadress või kohalik fail</value>
   </data>
-  <data name="ImageNotFound0ApplicationFolder1" xml:space="preserve">
-    <value>Pilti ei leitud: "{0}"
-Käivituskaust: {1}</value>
-  </data>
   <data name="IncorrectUsernameOrPassword" xml:space="preserve">
     <value>Vale kasutajanimi või parool!</value>
-  </data>
-  <data name="InStock" xml:space="preserve">
-    <value>Laos</value>
   </data>
   <data name="InStock0InBasket1" xml:space="preserve">
     <value>Laos {0} tk · Korvis {1}</value>
   </data>
-  <data name="InStock0Items" xml:space="preserve">
-    <value>Laos: {0} tk</value>
-  </data>
   <data name="InStockOnly" xml:space="preserve">
     <value>Ainult laos</value>
   </data>
-  <data name="InternetUnavailableUsingThePreviouslyDownloadedCatalog" xml:space="preserve">
-    <value>Internet pole saadaval · Kasutusel varem alla laaditud kataloog.</value>
-  </data>
-  <data name="InternetUnavailableUsingTheSixBundledExampleProducts" xml:space="preserve">
-    <value>Internet pole saadaval · Kasutusel kuus kaasasolevat näidistoodet.</value>
-  </data>
   <data name="Item" xml:space="preserve">
     <value>tk</value>
-  </data>
-  <data name="Jewellery" xml:space="preserve">
-    <value>Ehted</value>
   </data>
   <data name="Keyboard" xml:space="preserve">
     <value>Klaviatuur</value>
@@ -315,14 +251,8 @@ Käivituskaust: {1}</value>
   <data name="LoadingOnlineCatalog" xml:space="preserve">
     <value>Laadin veebikataloogi…</value>
   </data>
-  <data name="LoadingOnlineCatalog_2CA001" xml:space="preserve">
-    <value>Veebikataloogi laadimine…</value>
-  </data>
   <data name="Management" xml:space="preserve">
     <value>Haldus</value>
-  </data>
-  <data name="MenSClothing" xml:space="preserve">
-    <value>Meesteriided</value>
   </data>
   <data name="Microphone" xml:space="preserve">
     <value>Mikrofon</value>
@@ -336,10 +266,7 @@ Käivituskaust: {1}</value>
   <data name="NameAZ" xml:space="preserve">
     <value>Nimi: A–Z</value>
   </data>
-  <data name="NameExampleCom" xml:space="preserve">
-    <value>nimi@näide.ee</value>
-  </data>
-  <data name="NetworkUnavailableUsingCachedAndBundledProducts" xml:space="preserve">
+  <data name="CatalogOfflineStatus" xml:space="preserve">
     <value>Võrk pole saadaval. Kasutusel salvestatud ja kaasasolev kataloog.</value>
   </data>
   <data name="No" xml:space="preserve">
@@ -348,19 +275,13 @@ Käivituskaust: {1}</value>
   <data name="NoImage" xml:space="preserve">
     <value>Pilt puudub</value>
   </data>
-  <data name="NoImageIsAssignedInTheDatabase" xml:space="preserve">
-    <value>Andmebaasis pole pilti määratud</value>
-  </data>
   <data name="NoMatchingProductsAdjustYourFilters" xml:space="preserve">
     <value>Sobivaid tooteid ei leitud. Muuda filtreid.</value>
   </data>
   <data name="NoOrderIsAvailable" xml:space="preserve">
     <value>Tellimus puudub.</value>
   </data>
-  <data name="NoProductsFound" xml:space="preserve">
-    <value>Midagi ei leitud</value>
-  </data>
-  <data name="NoPromotionsAreActiveExploreTheCatalog" xml:space="preserve">
+  <data name="NoActivePromotions" xml:space="preserve">
     <value>Aktiivseid kampaaniaid praegu pole. Vaata kataloogi.</value>
   </data>
   <data name="NotSpecified" xml:space="preserve">
@@ -369,7 +290,7 @@ Käivituskaust: {1}</value>
   <data name="OffersAndPromotions" xml:space="preserve">
     <value>Pakkumised ja kampaaniad</value>
   </data>
-  <data name="OnlineCatalogUpdatedPricesAndOrdersAreForTeaching" xml:space="preserve">
+  <data name="CatalogOnlineStatus" xml:space="preserve">
     <value>Veebikataloog uuendatud. Hinnad ja tellimused on õppeotstarbelised.</value>
   </data>
   <data name="OperatingSystem" xml:space="preserve">
@@ -378,7 +299,7 @@ Käivituskaust: {1}</value>
   <data name="Order" xml:space="preserve">
     <value>Tellimus</value>
   </data>
-  <data name="Order0HasBeenReceivedAndIsBeingProcessedEstimatedDelivery1DdMMYy" xml:space="preserve">
+  <data name="OrderConfirmationDetails" xml:space="preserve">
     <value>Tellimus {0} on vastu võetud ja töös.
 Eeldatav tarne: {1:dd.MM.yyyy} — umbes kahe nädala pärast.
 Näidistellimus: päris raha ei võeta ja kaupa ei saadeta.</value>
@@ -389,38 +310,25 @@ Näidistellimus: päris raha ei võeta ja kaupa ei saadeta.</value>
   <data name="OrSelectIndividualProducts" xml:space="preserve">
     <value>Või vali üksikud tooted</value>
   </data>
-  <data name="OtherProducts" xml:space="preserve">
-    <value>Muud tooted</value>
-  </data>
   <data name="OutOfStock" xml:space="preserve">
     <value>Otsas</value>
   </data>
   <data name="PAIDDemoPaymentSuccessful" xml:space="preserve">
     <value>MAKSTUD — näidismakse õnnestus</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Parool:</value>
-  </data>
   <data name="Pay" xml:space="preserve">
     <value>Maksa</value>
-  </data>
-  <data name="Pay0000TheReceiptWillBeSentTo1" xml:space="preserve">
-    <value>Kas maksta {0:0.00} €?
-Tšekk saadetakse aadressile {1}</value>
-  </data>
-  <data name="Payment" xml:space="preserve">
-    <value>Maksmine</value>
   </data>
   <data name="PaymentMethodDemoPayment" xml:space="preserve">
     <value>Makseviis: näidismakse</value>
   </data>
-  <data name="PaymentSucceededButTheConfirmationEmailCouldNotBeSentYouCanRetry" xml:space="preserve">
+  <data name="EmailDeliveryFailed" xml:space="preserve">
     <value>Makse õnnestus, kuid kinnituskirja ei saanud saata. Saad saatmist uuesti proovida.</value>
   </data>
   <data name="PaymentSuccessful" xml:space="preserve">
     <value>Makse õnnestus!</value>
   </data>
-  <data name="PaymentSuccessfulDemoPaymentConfirmation" xml:space="preserve">
+  <data name="ReceiptSubject" xml:space="preserve">
     <value>Makse õnnestus · Näidismakse kinnitus</value>
   </data>
   <data name="PaymentSuccessfulShoping67" xml:space="preserve">
@@ -428,9 +336,6 @@ Tšekk saadetakse aadressile {1}</value>
   </data>
   <data name="PDFFilePdfPdf" xml:space="preserve">
     <value>PDF-fail (*.pdf)|*.pdf</value>
-  </data>
-  <data name="PDFFilePdfU007cPdf" xml:space="preserve">
-    <value>PDF-fail (*.pdf)\u007c*.pdf</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Telefon</value>
@@ -441,9 +346,6 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="Price" xml:space="preserve">
     <value>Hind</value>
   </data>
-  <data name="Price_B0AE32" xml:space="preserve">
-    <value>Hind: </value>
-  </data>
   <data name="PriceFromTo" xml:space="preserve">
     <value>Hind (€): alates / kuni</value>
   </data>
@@ -452,9 +354,6 @@ Tšekk saadetakse aadressile {1}</value>
   </data>
   <data name="PriceLowToHigh" xml:space="preserve">
     <value>Hind: odavamad enne</value>
-  </data>
-  <data name="PriceMustBeANumber" xml:space="preserve">
-    <value>Hind peab olema arv!</value>
   </data>
   <data name="Processor" xml:space="preserve">
     <value>Protsessor</value>
@@ -474,20 +373,11 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="ProductDetails" xml:space="preserve">
     <value>Toote andmed</value>
   </data>
-  <data name="ProductName" xml:space="preserve">
-    <value>Toode nimetus: </value>
-  </data>
-  <data name="ProductNameOrCategory" xml:space="preserve">
-    <value>Toote nimi või kategooria...</value>
-  </data>
   <data name="ProductNotFound" xml:space="preserve">
     <value>Toodet ei leitud!</value>
   </data>
   <data name="ProductsAndSpecifications" xml:space="preserve">
     <value>Tooted ja omadused</value>
-  </data>
-  <data name="ProductsLoadedOnlineFakeStoreAPITeachingPricesAndExampleStock" xml:space="preserve">
-    <value>Tooted laaditud internetist · Fake Store API · Õppehinnad ja näidislaoseis.</value>
   </data>
   <data name="Promotion" xml:space="preserve">
     <value>Kampaania</value>
@@ -495,20 +385,11 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="PromotionAppliesTo0Products" xml:space="preserve">
     <value>Kampaania kehtib {0} tootele.</value>
   </data>
-  <data name="PromotionsAndSpecifications" xml:space="preserve">
-    <value>Kampaaniad ja omadused</value>
-  </data>
   <data name="Published" xml:space="preserve">
     <value>Avaldatud</value>
   </data>
   <data name="Quantity" xml:space="preserve">
-    <value>Kogus: </value>
-  </data>
-  <data name="Quantity_E89F2B" xml:space="preserve">
     <value>Kogus</value>
-  </data>
-  <data name="QuantityMustBeAnInteger" xml:space="preserve">
-    <value>Kogus peab olema täisarv!</value>
   </data>
   <data name="RAM" xml:space="preserve">
     <value>Muutmälu</value>
@@ -531,10 +412,7 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="Register" xml:space="preserve">
     <value>Registreeri</value>
   </data>
-  <data name="Registration" xml:space="preserve">
-    <value>Registreerimine</value>
-  </data>
-  <data name="RegistrationSuccessfulYouCanNowSignIn" xml:space="preserve">
+  <data name="RegistrationSucceeded" xml:space="preserve">
     <value>Registreerimine õnnestus! Nüüd saad sisse logida.</value>
   </data>
   <data name="RegularPrice" xml:space="preserve">
@@ -561,31 +439,22 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="Search" xml:space="preserve">
     <value>Otsing</value>
   </data>
-  <data name="SearchProducts" xml:space="preserve">
-    <value>Otsi toodet:</value>
-  </data>
-  <data name="SearchProductsModelsOrSpecifications" xml:space="preserve">
+  <data name="SearchPlaceholder" xml:space="preserve">
     <value>Otsi toodet, mudelit või omadust…</value>
   </data>
-  <data name="SelectACategory" xml:space="preserve">
-    <value>Vali kategooria!</value>
-  </data>
-  <data name="SelectAProductInTheTable" xml:space="preserve">
-    <value>Vali tabelist toode!</value>
-  </data>
-  <data name="SelectAProductInTheTable_C673E3" xml:space="preserve">
+  <data name="SelectProduct" xml:space="preserve">
     <value>Vali tabelist toode.</value>
   </data>
   <data name="SelectAtLeastOneProduct" xml:space="preserve">
     <value>Vali vähemalt üks toode.</value>
   </data>
-  <data name="SelectAtLeastOneProductOrEnableTheEntireCategory" xml:space="preserve">
+  <data name="PromotionSelectionRequired" xml:space="preserve">
     <value>Vali vähemalt üks toode või kogu kategooria.</value>
   </data>
-  <data name="SelectProductsOrTheEntireCategoryPreviousSelectionsMayBeHiddenOr" xml:space="preserve">
+  <data name="PromotionSelectionHelp" xml:space="preserve">
     <value>Vali tooted või kogu kategooria. Varasem valik võib olla peidetud või teises kategoorias.</value>
   </data>
-  <data name="SelectVisibleProductsFromTheChosenCategoryHiddenMissingOrDiffere" xml:space="preserve">
+  <data name="PromotionTargetInvalid" xml:space="preserve">
     <value>Vali valitud kategooria nähtavad tooted. Peidetud või kustutatud toodetele kampaaniat rakendada ei saa.</value>
   </data>
   <data name="SenderGmailAddress" xml:space="preserve">
@@ -600,10 +469,7 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="Sensor" xml:space="preserve">
     <value>Andur</value>
   </data>
-  <data name="Shop" xml:space="preserve">
-    <value>Pood</value>
-  </data>
-  <data name="ShopCatalogDemoOrdersReduceStockAndAppearInSales" xml:space="preserve">
+  <data name="DatabaseCatalogStatus" xml:space="preserve">
     <value>Poe kataloog · Demotellimused vähendavad laoseisu ja kajastuvad müügis.</value>
   </data>
   <data name="Shoping67DEMOORDER" xml:space="preserve">
@@ -617,15 +483,6 @@ Tšekk saadetakse aadressile {1}</value>
   </data>
   <data name="ShowInShop" xml:space="preserve">
     <value>Näita poes</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Sisselogimine</value>
-  </data>
-  <data name="SignIn_777709" xml:space="preserve">
-    <value>Logi sisse</value>
-  </data>
-  <data name="Sold0Items" xml:space="preserve">
-    <value>Müüdud: 0 tk</value>
   </data>
   <data name="Sold0Revenue1" xml:space="preserve">
     <value>Müüdud: {0} tk | Tulu kokku: {1}</value>
@@ -645,7 +502,7 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="Stock" xml:space="preserve">
     <value>Laoseis</value>
   </data>
-  <data name="StockChangedRefreshTheCatalogAndBasket" xml:space="preserve">
+  <data name="StockChanged" xml:space="preserve">
     <value>Laoseis muutus. Uuenda kataloogi ja ostukorvi.</value>
   </data>
   <data name="StockOrPriceChanged" xml:space="preserve">
@@ -660,44 +517,35 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="Tactile" xml:space="preserve">
     <value>Taktiilsed</value>
   </data>
-  <data name="TeachingShopDemoOrderNoRealMoneyIsChargedAndNoGoodsAreShipped" xml:space="preserve">
+  <data name="ReceiptDisclaimer" xml:space="preserve">
     <value>Õppepoe näidistellimus. Päris raha ei võeta ja kaupa ei saadeta.</value>
   </data>
-  <data name="TeachingShopRealModelsIllustrativePricesAndInventory" xml:space="preserve">
+  <data name="StoreDisclaimer" xml:space="preserve">
     <value>Õppepood · Tegelikud tootemudelid, näitlik hind ja laoseis.</value>
   </data>
   <data name="ThankYouForYourPurchase" xml:space="preserve">
     <value>Aitäh ostu eest!</value>
   </data>
-  <data name="TheBasketContainsDuplicateProductLines" xml:space="preserve">
+  <data name="DuplicateCartLines" xml:space="preserve">
     <value>Ostukorvis on korduvad tooteread.</value>
   </data>
-  <data name="TheCatalogIsStillLoading" xml:space="preserve">
-    <value>Kataloogi alles laaditakse.</value>
-  </data>
-  <data name="TheDeviceTypeDoesNotMatchTheCategory" xml:space="preserve">
+  <data name="ProductCategoryMismatch" xml:space="preserve">
     <value>Seadme tüüp ei sobi kategooriaga.</value>
-  </data>
-  <data name="TheOnlineCatalogIsEmptyOrInvalid" xml:space="preserve">
-    <value>Veebikataloog on tühi või vigane.</value>
   </data>
   <data name="TheOrderConfirmationWasSentTo" xml:space="preserve">
     <value>Tellimuse kinnitus on saadetud aadressile </value>
   </data>
-  <data name="TheOrderWasNotConfirmedYourBasketIsRetained" xml:space="preserve">
+  <data name="OrderNotConfirmed" xml:space="preserve">
     <value>Tellimust ei kinnitatud. Ostukorv on alles.</value>
   </data>
-  <data name="ThePasswordMustContainAtLeast4Characters" xml:space="preserve">
+  <data name="PasswordTooShort" xml:space="preserve">
     <value>Parool peab olema vähemalt 4 märki!</value>
   </data>
   <data name="ThePasswordsDoNotMatch" xml:space="preserve">
     <value>Paroolid ei ühti!</value>
   </data>
-  <data name="ThePriceOrPromotionChangedAddTheProductToYourBasketAgain" xml:space="preserve">
+  <data name="PriceChanged" xml:space="preserve">
     <value>Hind või soodustus muutus. Lisa toode uuesti korvi.</value>
-  </data>
-  <data name="TheProductCatalogIsEmptyOrInvalid" xml:space="preserve">
-    <value>Tootekataloog on tühi või vigane.</value>
   </data>
   <data name="TheProductHasAlreadyBeenDeleted" xml:space="preserve">
     <value>Toode on juba kustutatud.</value>
@@ -705,14 +553,8 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="TheProductPriceCannotBeNegative" xml:space="preserve">
     <value>Toote hind ei saa olla negatiivne.</value>
   </data>
-  <data name="TheUsernameMustContainAtLeast3Characters" xml:space="preserve">
+  <data name="UsernameTooShort" xml:space="preserve">
     <value>Kasutajanimi peab olema vähemalt 3 märki!</value>
-  </data>
-  <data name="ThisCategoryAlreadyExists" xml:space="preserve">
-    <value>Selline kategooria on juba olemas!</value>
-  </data>
-  <data name="ThisCategoryContainsProductsAndCannotBeDeleted" xml:space="preserve">
-    <value>Kategooriat ei saa kustutada, selles on tooteid!</value>
   </data>
   <data name="ThisIsADemoOrderNoGoodsAreShipped" xml:space="preserve">
     <value>Tegemist on õppemängu tellimusega. Kaupu ei saadeta.</value>
@@ -729,42 +571,29 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="TOTAL" xml:space="preserve">
     <value>KOKKU</value>
   </data>
-  <data name="Total0000" xml:space="preserve">
-    <value>Kokku: {0:0.00} €</value>
-  </data>
   <data name="Total0Items1" xml:space="preserve">
     <value>Kokku ({0} tk): {1}</value>
   </data>
   <data name="TOTALPAID" xml:space="preserve">
     <value>KOKKU TASUTUD</value>
   </data>
-  <data name="UnableToConfirmYourOrderCheckTheConnectionAndTryAgainYourBasketI" xml:space="preserve">
+  <data name="CheckoutFailed" xml:space="preserve">
     <value>Tellimust ei saanud kinnitada. Kontrolli ühendust ja proovi uuesti. Ostukorv on alles.</value>
   </data>
-  <data name="UnableToDeleteTheProductCheckTheDatabaseConnectionAndTryAgain" xml:space="preserve">
+  <data name="ProductDeleteFailed" xml:space="preserve">
     <value>Toodet ei saanud kustutada. Kontrolli andmebaasiühendust ja proovi uuesti.</value>
   </data>
   <data name="UnableToLoadCatalog" xml:space="preserve">
     <value>Kataloogi ei saanud laadida. </value>
   </data>
-  <data name="UnableToLoadOnlineProductsCheckTheInternetConnectionAndPressRefr" xml:space="preserve">
-    <value>Veebitooteid ei saanud laadida. Kontrolli internetiühendust ja vajuta „Uuenda”.</value>
-  </data>
-  <data name="UnableToLoadProducts" xml:space="preserve">
-    <value>Viga toodete laadimisel:
-</value>
-  </data>
-  <data name="UnableToSaveTheFileChooseAnotherLocation" xml:space="preserve">
+  <data name="FileSaveFailed" xml:space="preserve">
     <value>Faili ei saanud salvestada. Vali teine asukoht.</value>
   </data>
-  <data name="UseAnAppPasswordCreatedInYourGoogleAccountRatherThanYourNormalPa" xml:space="preserve">
+  <data name="MailPasswordHelp" xml:space="preserve">
     <value>Kasuta Google'i kontol loodud rakenduse parooli, mitte oma tavalist parooli. Salvestatud parool jääb selle Windowsi kasutaja jaoks krüpteerituks.</value>
   </data>
   <data name="UseAnHTTPSURL" xml:space="preserve">
     <value>Kasuta HTTPS-aadressi.</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>Kasutajanimi:</value>
   </data>
   <data name="Value" xml:space="preserve">
     <value>Väärtus</value>
@@ -778,9 +607,6 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="Wireless" xml:space="preserve">
     <value>Juhtmevaba</value>
   </data>
-  <data name="WomenSClothing" xml:space="preserve">
-    <value>Naisteriided</value>
-  </data>
   <data name="Yes" xml:space="preserve">
     <value>Jah</value>
   </data>
@@ -790,22 +616,19 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="YourBasketIsEmpty" xml:space="preserve">
     <value>Ostukorv on tühi.</value>
   </data>
-  <data name="YourBasketIsEmptyFindSomethingYouLikeInTheCatalog" xml:space="preserve">
+  <data name="EmptyBasketHelp" xml:space="preserve">
     <value>Ostukorv on tühi. Leia kataloogist midagi meelepärast.</value>
   </data>
   <data name="YourEmail" xml:space="preserve">
     <value>Sinu e-post</value>
   </data>
-  <data name="YourEmailForTheReceipt" xml:space="preserve">
-    <value>Teie e-post (tšeki jaoks):</value>
-  </data>
   <data name="YourOrderConfirmationIsBelow" xml:space="preserve">
     <value>Tellimuse kinnitus on allpool.</value>
   </data>
-  <data name="YourOrderHasBeenReceivedAndIsBeingProcessed" xml:space="preserve">
+  <data name="OrderAccepted" xml:space="preserve">
     <value>Tellimus on vastu võetud ja töös.</value>
   </data>
-  <data name="YourOrderIsAlreadyBeingProcessedPleaseWait" xml:space="preserve">
+  <data name="OrderAlreadyProcessing" xml:space="preserve">
     <value>Tellimust juba töödeldakse. Palun oota.</value>
   </data>
   <data name="YourOrderIsBeingProcessed" xml:space="preserve">
@@ -814,22 +637,22 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="LanguageSaveFailed" xml:space="preserve">
     <value>Keelevalik rakendus, kuid seda ei saanud salvestada.</value>
   </data>
-  <data name="Language" xml:space="preserve">
-    <value>Keel</value>
-  </data>
   <data name="OrderEmailHtml" xml:space="preserve">
     <value>&lt;!doctype html&gt;&lt;html lang="et"&gt;&lt;body style="font-family:Arial,sans-serif;color:#18222d"&gt;&lt;h1&gt;shoping67&lt;/h1&gt;&lt;h2&gt;Makse õnnestus!&lt;/h2&gt;&lt;p&gt;Tere!&lt;/p&gt;&lt;p&gt;Teie tellimus &lt;strong&gt;{0}&lt;/strong&gt; on vastu võetud ja töös.&lt;/p&gt;&lt;p&gt;Eeldatav tarnekuupäev: &lt;strong&gt;{1}&lt;/strong&gt; — umbes kahe nädala pärast.&lt;/p&gt;&lt;table cellpadding="8"&gt;&lt;tr&gt;&lt;th&gt;Toode&lt;/th&gt;&lt;th&gt;Kogus&lt;/th&gt;&lt;th&gt;Summa&lt;/th&gt;&lt;/tr&gt;{2}&lt;/table&gt;&lt;p&gt;&lt;strong&gt;Kokku: {3}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;PDF-vormis ostutšekk ja maksekinnitus on kirja manuses.&lt;/p&gt;&lt;p&gt;Aitäh tellimuse eest!&lt;/p&gt;&lt;hr&gt;&lt;p style="color:#5c6975;font-size:12px"&gt;Õppepoe näidistellimus. Makse on simuleeritud, päris raha ei võeta ja kaupa ei saadeta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</value>
   </data>
   <data name="EmailPlaceholder" xml:space="preserve">
     <value>sinu@epost.ee</value>
   </data>
-  <data name="AddToBasketShort" xml:space="preserve">
-    <value>Lisa korvi</value>
+  <data name="AddProduct" xml:space="preserve">
+    <value>Lisa toode</value>
   </data>
-  <data name="Uncategorized" xml:space="preserve">
-    <value>Kategooriata</value>
+  <data name="OpenShop" xml:space="preserve">
+    <value>Ava pood</value>
   </data>
-  <data name="Image" xml:space="preserve">
-    <value>Pilt</value>
+  <data name="InvalidPriceOrStock" xml:space="preserve">
+    <value>Kontrolli hinda ja laoseisu.</value>
+  </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>Vali pilt</value>
   </data>
 </root>

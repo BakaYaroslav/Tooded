@@ -6,21 +6,21 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../Tooded_2/Shop/ShopProduct.cs" Link="ShopProduct.cs" />
-    <Compile Include="../../Tooded_2/Shop/OrderEmail.cs" Link="OrderEmail.cs" />
-    <Compile Include="../../Tooded_2/Shop/DemoShopStore.cs" Link="DemoShopStore.cs" />
-    <Compile Include="../../Tooded_2/Shop/ShopCatalog.cs" Link="ShopCatalog.cs" />
-    <Compile Include="../../Tooded_2/Shop/OnlineCatalog.cs" Link="OnlineCatalog.cs" />
-    <Compile Include="../../Tooded_2/Shop/Shop67Model.cs" Link="Shop67Model.cs" />
-    <Compile Include="../../Tooded_2/Shop/UiText.cs" Link="UiText.cs" />
-    <Compile Include="../../Tooded_2/Shop/DocumentCulture.cs" Link="DocumentCulture.cs" />
+    <Compile Include="../../Tooded_2/Models/*.cs" Exclude="../../Tooded_2/Models/Toode.cs;../../Tooded_2/Models/Kategooria.cs;../../Tooded_2/Models/Kasutaja.cs;../../Tooded_2/Models/Muuk.cs;../../Tooded_2/Models/ShopSetting.cs" Link="Models/%(Filename)%(Extension)" />
+    <Compile Include="../../Tooded_2/Services/DemoShopStore.cs" Link="DemoShopStore.cs" />
+    <Compile Include="../../Tooded_2/Services/OrderEmail.cs" Link="OrderEmail.cs" />
+    <Compile Include="../../Tooded_2/Services/CheckoutFlow.cs" Link="CheckoutFlow.cs" />
+    <Compile Include="../../Tooded_2/Services/OrderValidation.cs" Link="OrderValidation.cs" />
+    <Compile Include="../../Tooded_2/Services/Catalog*.cs" Link="%(Filename)%(Extension)" />
+    <Compile Include="../../Tooded_2/Services/Promotion*.cs" Link="%(Filename)%(Extension)" />
+    <Compile Include="../../Tooded_2/Services/ProductRemoval.cs" Link="ProductRemoval.cs" />
+    <Compile Include="../../Tooded_2/Services/TechCatalog.cs" Link="TechCatalog.cs" />
+    <Compile Include="../../Tooded_2/Localization/UiText.cs" Link="UiText.cs" />
+    <Compile Include="../../Tooded_2/Localization/DocumentCulture.cs" Link="DocumentCulture.cs" />
     <EmbeddedResource Include="../../Tooded_2/Resources/UiText.resx" Link="Resources/UiText.resx" LogicalName="Tooded_2.Resources.UiText.resources" />
     <EmbeddedResource Include="../../Tooded_2/Resources/UiText.en.resx" Link="Resources/UiText.en.resx" LogicalName="Tooded_2.Resources.UiText.en.resources" />
-    <Compile Include="../../Tooded_2/Shop/TechCatalog.cs" Link="TechCatalog.cs" />
-    <Compile Include="../../Tooded_2/Shop/CatalogRepair.cs" Link="CatalogRepair.cs" />
+    <EmbeddedResource Include="../../Tooded_2/Resources/UiText.ru.resx" Link="Resources/UiText.ru.resx" LogicalName="Tooded_2.Resources.UiText.ru.resources" />
     <None Include="../../Tooded_2/Images/Products/*.png" Link="Images/Products/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../Tooded_2/Catalog/tech-products.json" Link="Catalog/tech-products.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="../../Tooded_2/Catalog/products.json" Link="Catalog/products.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="../../Tooded_2/Images/Catalog/*.jpg" Link="Images/Catalog/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
