@@ -152,8 +152,13 @@ internal abstract class ShopEditorForm : LocalizedForm
         field.Tag = value;
         return new[] { field };
     }
-    protected static CatalogText Read(TextBox[] fields) =>
-        (fields[0].Tag as CatalogText ?? new()) with { Et = fields[0].Text.Trim() };
+    protected static CatalogText Read(TextBox[] fields)
+    {
+        var original = fields[0].Tag as CatalogText ?? new();
+        string edited = fields[0].Text.Trim();
+        // Do not show an obsolete English title after the administrator changes its authored content.
+        return edited == original.Et ? original : new CatalogText(edited);
+    }
     protected NumericUpDown Number(Func<string> label, decimal value, decimal maximum, int decimals = 0)
     {
         Fields.Controls.Add(Shop67Ui.Label(label, 10, true));

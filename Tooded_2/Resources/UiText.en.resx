@@ -820,4 +820,16 @@ The receipt will be sent to {1}</value>
   <data name="OrderEmailHtml" xml:space="preserve">
     <value>&lt;!doctype html&gt;&lt;html lang="en"&gt;&lt;body style="font-family:Arial,sans-serif;color:#18222d"&gt;&lt;h1&gt;shoping67&lt;/h1&gt;&lt;h2&gt;Payment successful!&lt;/h2&gt;&lt;p&gt;Hello!&lt;/p&gt;&lt;p&gt;Your order &lt;strong&gt;{0}&lt;/strong&gt; has been received and is being processed.&lt;/p&gt;&lt;p&gt;Estimated delivery date: &lt;strong&gt;{1}&lt;/strong&gt; — in about two weeks.&lt;/p&gt;&lt;table cellpadding="8"&gt;&lt;tr&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Quantity&lt;/th&gt;&lt;th&gt;Amount&lt;/th&gt;&lt;/tr&gt;{2}&lt;/table&gt;&lt;p&gt;&lt;strong&gt;Total: {3}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Your PDF receipt and payment confirmation are attached.&lt;/p&gt;&lt;p&gt;Thank you for your order!&lt;/p&gt;&lt;hr&gt;&lt;p style="color:#5c6975;font-size:12px"&gt;Teaching shop demo order. Payment is simulated, no real money is charged and no goods are shipped.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</value>
   </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>your@email.com</value>
+  </data>
+  <data name="AddToBasketShort" xml:space="preserve">
+    <value>Add to basket</value>
+  </data>
+  <data name="Uncategorized" xml:space="preserve">
+    <value>Uncategorized</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
 </root>

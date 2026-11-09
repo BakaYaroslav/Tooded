@@ -157,6 +157,7 @@ internal static class ShopUiChecks
             Require(login.Text == "Sign in" && Descendants(login).OfType<Button>().Any(b => b.Text == "Register"), "Designer form captions did not use English RESX");
             Require(username.Text == "unchanged-user" && email.Text == "buyer@example.com", "Language switching overwrote typed text");
             Require(cart.Count == 1 && Descendants(basket).OfType<Button>().Any(b => b.Text == "Pay"), "Language switching changed basket data or missed Pay");
+            Require(percentage.Text == "17.50", "Numeric input did not use the English number format");
             Require(title.Text == "Unsaved promotion" && percentage.Value == 17.5m && targets.CheckedItems.Count == targetCount,
                 "Language switching reset unsaved promotion edits or selected targets");
             Require(Properties.Settings.Default.UserLanguage == "en-US", "Language selection was not saved in user settings");
@@ -173,6 +174,7 @@ internal static class ShopUiChecks
                 settings.Close();
             }
             language.SelectedIndex = 0; Application.DoEvents();
+            Require(percentage.Text == "17,50", "Numeric input did not return to the Estonian number format");
             Require(login.Text == "Logi sisse" && Descendants(form).OfType<Label>().Any(l => l.Text == "Videokaart"), "Switching back to neutral Estonian resources failed");
         }
         editor.Close(); login.Close(); basket.Close();
