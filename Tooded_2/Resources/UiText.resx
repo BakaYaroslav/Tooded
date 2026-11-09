@@ -820,4 +820,16 @@ Tšekk saadetakse aadressile {1}</value>
   <data name="OrderEmailHtml" xml:space="preserve">
     <value>&lt;!doctype html&gt;&lt;html lang="et"&gt;&lt;body style="font-family:Arial,sans-serif;color:#18222d"&gt;&lt;h1&gt;shoping67&lt;/h1&gt;&lt;h2&gt;Makse õnnestus!&lt;/h2&gt;&lt;p&gt;Tere!&lt;/p&gt;&lt;p&gt;Teie tellimus &lt;strong&gt;{0}&lt;/strong&gt; on vastu võetud ja töös.&lt;/p&gt;&lt;p&gt;Eeldatav tarnekuupäev: &lt;strong&gt;{1}&lt;/strong&gt; — umbes kahe nädala pärast.&lt;/p&gt;&lt;table cellpadding="8"&gt;&lt;tr&gt;&lt;th&gt;Toode&lt;/th&gt;&lt;th&gt;Kogus&lt;/th&gt;&lt;th&gt;Summa&lt;/th&gt;&lt;/tr&gt;{2}&lt;/table&gt;&lt;p&gt;&lt;strong&gt;Kokku: {3}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;PDF-vormis ostutšekk ja maksekinnitus on kirja manuses.&lt;/p&gt;&lt;p&gt;Aitäh tellimuse eest!&lt;/p&gt;&lt;hr&gt;&lt;p style="color:#5c6975;font-size:12px"&gt;Õppepoe näidistellimus. Makse on simuleeritud, päris raha ei võeta ja kaupa ei saadeta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</value>
   </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>sinu@epost.ee</value>
+  </data>
+  <data name="AddToBasketShort" xml:space="preserve">
+    <value>Lisa korvi</value>
+  </data>
+  <data name="Uncategorized" xml:space="preserve">
+    <value>Kategooriata</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Pilt</value>
+  </data>
 </root>

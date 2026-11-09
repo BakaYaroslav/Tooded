@@ -74,6 +74,9 @@ public static class LanguageManager
                 if (!string.IsNullOrEmpty(column.Name)) resources.ApplyResources(column, column.Name);
         if (bindings.TryGetValue(control, out var values))
             foreach (var pair in values.ToArray()) SetProperty(control, pair.Key, pair.Value());
+        if (control is NumericUpDown number)
+            number.Text = number.Value.ToString((number.ThousandsSeparator ? "N" : "F") + number.DecimalPlaces, CultureInfo.CurrentCulture);
+        control.Invalidate();
         if (refreshers.TryGetValue(control, out var actions)) foreach (var action in actions) action();
         foreach (Control child in control.Controls) ApplyResourcesToControl(child, resources);
     }

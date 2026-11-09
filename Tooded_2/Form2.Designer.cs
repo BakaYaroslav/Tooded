@@ -272,7 +272,7 @@ namespace Tooded_2
             Controls.Add(nimetus);
             Margin = new Padding(4, 3, 4, 3);
             Name = "Form2";
-            Text = "shoping67 · Admin";
+            resources.ApplyResources(this, "$this");
             ((System.ComponentModel.ISupportInitialize)toodePilt).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

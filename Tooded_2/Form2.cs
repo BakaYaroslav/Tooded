@@ -34,6 +34,7 @@ namespace Tooded_2
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.CellClick += dataGridViewTooted_CellClick;
+            dataGridView1.DataBindingComplete += (_, _) => RefreshGridHeaders();
             poodBtn.Click += PoodBtn_Click;
 
             toodePilt.SizeMode = PictureBoxSizeMode.Zoom;
@@ -48,6 +49,21 @@ namespace Tooded_2
             LaeTooted();
         }
 
+
+        protected override void RefreshLocalizedValues() => RefreshGridHeaders();
+
+        private void RefreshGridHeaders()
+        {
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+                column.HeaderText = column.Name switch
+                {
+                    "Toodenimetus" => UiText.Get("Name"),
+                    "Kogus" => UiText.Get("Quantity_E89F2B"),
+                    "Hind" => UiText.Get("Price"),
+                    "Pilt" => UiText.Get("Image"),
+                    _ => column.Name
+                };
+        }
 
         private void LaeKategooriad()
         {

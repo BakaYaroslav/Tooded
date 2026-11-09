@@ -71,7 +71,7 @@ namespace Tooded_2
                 Font = new Font("Segoe UI", 8.5F),
                 ForeColor = Color.Gray,
                 AutoEllipsis = true,
-                Text = string.IsNullOrWhiteSpace(toode.Kategooria) ? "Kategooriata" : toode.Kategooria
+                Text = string.IsNullOrWhiteSpace(toode.Kategooria) ? UiText.Get("Uncategorized") : toode.Kategooria
             };
 
             hindLabel = new Label
@@ -102,7 +102,7 @@ namespace Tooded_2
             {
                 Location = new Point(72, 222),
                 Size = new Size(98, 28),
-                Text = "Lisa korvi",
+                Text = UiText.Get("AddToBasketShort"),
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
                 FlatStyle = FlatStyle.Flat,
                 ForeColor = Color.White,
@@ -114,7 +114,10 @@ namespace Tooded_2
 
             Controls.AddRange(new Control[] { pilt, nimiLabel, kategooriaLabel, hindLabel, laosLabel, kogusNum, lisaBtn });
 
-            var vihje = new ToolTip();
+            LanguageManager.Bind(lisaBtn, "Text", () => UiText.Get("AddToBasketShort"));
+        LanguageManager.Bind(kategooriaLabel, "Text", () => string.IsNullOrWhiteSpace(toode.Kategooria) ? UiText.Get("Uncategorized") : toode.Kategooria);
+        LanguageManager.Bind(hindLabel, "Text", () => UiText.Money(toode.Hind));
+        var vihje = new ToolTip();
             vihje.SetToolTip(nimiLabel, toode.Nimetus);
 
             // Kui pilti ei leitud, näitab hiire all, mis väärtus andmebaasis on (aitab vigu leida)

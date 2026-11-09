@@ -6,7 +6,7 @@ internal sealed class CartForm : LocalizedForm
     private readonly FlowLayoutPanel rows = ShopStyle.Stack();
     private readonly Label total = ShopStyle.Label(()=>"", 16, true);
     private readonly Button checkout = ShopStyle.Button(()=>UiText.Get("Pay"), true);
-    private readonly TextBox email = new() { Width = 530, PlaceholderText = "sinu@epost.ee", AccessibleName = "order-email" };
+    private readonly TextBox email = new() { Width = 530, AccessibleName = "order-email" };
     private readonly Label progress = ShopStyle.Label(()=>"", 10);
     private FlowLayoutPanel buttons = null!;
     public CheckoutFlow PaymentFlow { get; }
@@ -17,6 +17,7 @@ internal sealed class CartForm : LocalizedForm
     public CartForm(ShoppingCart cart, IShopStore store, Func<DemoOrder, Task>? sendEmail = null)
     {
         this.cart = cart;
+        LanguageManager.Bind(email, "PlaceholderText", () => UiText.Get("EmailPlaceholder"));
         PaymentFlow = new CheckoutFlow(store, sendEmail ?? (order => EpostiSaatja.SaadaTellimuseKinnitusAsync(order)));
         LanguageManager.Bind(this, "Text", () => UiText.Get("Basket")); Size = new Size(920, 760); MinimumSize = new Size(850, 640);
         Font = new Font("Segoe UI", 10); BackColor = Color.White; AutoScaleMode = AutoScaleMode.Dpi;
