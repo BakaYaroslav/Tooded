@@ -1,6 +1,5 @@
 namespace Tooded_2;
 
-/// <summary>Выбирает наибольшую действующую скидку. Скидки не складываются.</summary>
 public static class PromotionEngine
 {
     public static ShopProduct Apply(ShopProduct product, IEnumerable<Promotion> promotions, DateTimeOffset now)

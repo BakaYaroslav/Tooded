@@ -15,4 +15,6 @@ public class Toode
     public int KategooriaId { get; set; }
     public Kategooria Kategooria { get; set; } = null!;
     public string? Pilt { get; set; }
+
+    public int GarantiiKuudes { get; set; } = 24;
 }

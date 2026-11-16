@@ -97,9 +97,15 @@ namespace Tooded_2.Migrations
 
             modelBuilder.Entity("Tooded_2.ShopSetting", b =>
                 {
-                    b.Property<string>("Id").HasColumnType("nvarchar(450)");
-                    b.Property<string>("Value").IsRequired().HasColumnType("nvarchar(max)");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
                     b.ToTable("ShopSettings");
                 });
 
@@ -110,6 +116,9 @@ namespace Tooded_2.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GarantiiKuudes")
+                        .HasColumnType("int");
 
                     b.Property<float>("Hind")
                         .HasColumnType("real");
